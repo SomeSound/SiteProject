@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @Getter
 @Setter
-//@Entity
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "MUSIC")
