@@ -15,4 +15,5 @@ public class MusicDTO extends BaseEntity {
     private Long id;
     private String name;
     private String duration;
+
 }
