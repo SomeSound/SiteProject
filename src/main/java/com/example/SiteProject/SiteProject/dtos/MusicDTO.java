@@ -1,7 +1,18 @@
 package com.example.SiteProject.SiteProject.dtos;
 
-public class MusicDTO {
+import com.example.SiteProject.SiteProject.entities.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class MusicDTO extends BaseEntity {
+
+    private Long id;
     private String name;
     private String duration;
 }
