@@ -2,6 +2,9 @@ package com.example.SiteProject.SiteProject.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.io.Serializable;
+
 @Data
 @Getter
 @Setter
@@ -10,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name = "ARTIST")
 @EqualsAndHashCode(callSuper = true)
-public class ArtistEntity extends BaseEntity {
+public class ArtistEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARTIST_SEQ")
