@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name = "MUSIC")
 @EqualsAndHashCode(callSuper = true)
-public class MusicEtity extends BaseEntity {
+public class MusicEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MUSIC_SEQ")
