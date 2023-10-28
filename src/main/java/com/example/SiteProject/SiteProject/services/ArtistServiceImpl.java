@@ -1,12 +1,12 @@
 package com.example.SiteProject.SiteProject.services;
 
+import com.example.SiteProject.SiteProject.dtos.ArtistDTO;
 import com.example.SiteProject.SiteProject.entities.ArtistEntity;
 
-public class ArtistServiceImpl {
-
-    public String save(String name){
-        ArtistEntity artist = new ArtistEntity();
-
-        return "OK";
+public class ArtistServiceImpl implements ArtistService {
+    @Override
+    public ArtistDTO save(ArtistDTO artist) {
+        return null;
     }
 }
+

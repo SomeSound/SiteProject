@@ -1,6 +1,8 @@
 package com.example.SiteProject.SiteProject.services;
 
+import com.example.SiteProject.SiteProject.dtos.ArtistDTO;
+
 public interface ArtistService {
 
-    String save(String name);
+    ArtistDTO save(ArtistDTO artist);
 }
