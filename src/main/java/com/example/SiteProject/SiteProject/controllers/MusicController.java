@@ -11,8 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @Slf4j
@@ -23,9 +24,11 @@ public class MusicController {
     private final MusicService musicService;
 
     @PostMapping(value = "/music")
-    public ResponseEntity<MusicResponseDTO> saveMusic(@RequestBody MusicDTO music) {
+    public ResponseEntity<MusicResponseDTO> save(
+            @RequestBody @Valid MusicDTO music) {
 
         System.out.println("CONTROLLER - OK");
+        System.out.println(music);
 
         MusicResponseDTO response = musicService.save(music);
 

@@ -1,13 +1,16 @@
 package com.example.SiteProject.SiteProject.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
 
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+@Data
 public class BaseEntity {
      @CreationTimestamp
      @Column(name = "CREATED_DATE")

@@ -3,6 +3,8 @@ package com.example.SiteProject.SiteProject.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Data
 @Getter
 @Setter
@@ -10,8 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "MUSIC")
-@EqualsAndHashCode(callSuper = true)
-public class MusicEntity extends BaseEntity {
+@EqualsAndHashCode(of = "id")
+public class MusicEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MUSIC_SEQ")
@@ -22,7 +24,7 @@ public class MusicEntity extends BaseEntity {
     private String name;
 
     @Column(name = "DURATION")
-    private long duration;
+    private String duration;
 
 //    @Column(name = "ARTIST") // CRIAR FOREIGN-KEY APONTANDO PARA ARTISTA
 //    private ArtistEntity Artist;

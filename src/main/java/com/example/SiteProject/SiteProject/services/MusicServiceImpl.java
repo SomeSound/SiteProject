@@ -7,6 +7,7 @@ import com.example.SiteProject.SiteProject.repositories.MusicRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -16,20 +17,22 @@ public class MusicServiceImpl implements MusicService {
 
     private final MusicRepository musicRepository;
 
+    @Autowired
     private final ModelMapper modelMapper;
 
     @Override
     public MusicResponseDTO save(MusicDTO music) {
 
         System.out.println("SERVICE - OK");
+        System.out.println();
         try{
-//            MusicEntity musicEntity = modelMapper.map(music, MusicEntity.class);
-//
-//            musicEntity = musicRepository.save(musicEntity);
+            MusicEntity musicEntity = modelMapper.map(music, MusicEntity.class);
 
-//            return modelMapper.map(musicEntity, MusicResponseDTO.class);
+            musicEntity = musicRepository.save(musicEntity);
+
+            return modelMapper.map(musicEntity, MusicResponseDTO.class);
         }catch (Exception e){
-            System.out.println(e);
+            //Throw new Exception
         }
         return null;
     }
