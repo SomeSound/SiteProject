@@ -6,7 +6,15 @@ import com.example.SiteProject.SiteProject.entities.ArtistEntity;
 public class ArtistServiceImpl implements ArtistService {
     @Override
     public ArtistDTO save(ArtistDTO artist) {
-        return null;
+
+        ArtistDTO response = new ArtistDTO();
+        try{
+            response = new ArtistDTO();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        return response;
     }
 }
 
