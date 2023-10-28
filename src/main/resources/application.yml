@@ -10,6 +10,9 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   flyway:
     enabled: true
+    baseline-on-migrate: false
+    out-of-order: true
+    ignore-missing-migrations: false
 
 server:
-  port: 3306
+  port: 8080
