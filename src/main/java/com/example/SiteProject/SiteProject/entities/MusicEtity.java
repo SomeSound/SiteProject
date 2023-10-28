@@ -1,7 +1,6 @@
 package com.example.SiteProject.SiteProject.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -14,11 +13,17 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class MusicEtity extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MUSIC_SEQ")
+    @SequenceGenerator(name = "MUSIC_SEQ", sequenceName = "MUSIC_SEQ", allocationSize = 1)
     private Long id;
 
+    @Column(name = "NAME")
     private String name;
 
+    @Column(name = "DURATION")
     private long duration;
 
-    private ArtistEntity Artist;
+//    @Column(name = "ARTIST") // CRIAR FOREIGN-KEY APONTANDO PARA ARTISTA
+//    private ArtistEntity Artist;
 }
