@@ -1,21 +1,84 @@
 package com.example.SiteProject.SiteProject.services;
 
+import com.example.SiteProject.SiteProject.constants.ErrorCodes;
 import com.example.SiteProject.SiteProject.dtos.MusicDTO;
+import com.example.SiteProject.SiteProject.dtos.responses.MusicPageResponseDTO;
+import com.example.SiteProject.SiteProject.dtos.responses.MusicResponseDTO;
+import com.example.SiteProject.SiteProject.entities.MusicEntity;
+import com.example.SiteProject.SiteProject.exceptions.MusicNotFoundException;
 import com.example.SiteProject.SiteProject.repositories.MusicRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
+=======
+@Slf4j
+@Service
+@RequiredArgsConstructor
+>>>>>>> master
 public class MusicServiceImpl implements MusicService {
 
-    private static MusicRepository musicRepository;
+    private final MusicRepository musicRepository;
 
-    public MusicDTO save(MusicDTO music) {
+    @Autowired
+    private final ModelMapper modelMapper;
 
-        MusicDTO response = new MusicDTO();
+    @Override
+    public MusicResponseDTO save(MusicDTO music) {
+
+        MusicEntity musicEntity;
         try{
+<<<<<<< HEAD
             response = new MusicDTO();//musicRepository.save(music);
+=======
+            musicEntity = modelMapper.map(music, MusicEntity.class);
+
+            musicEntity = musicRepository.save(musicEntity);
+
+            return modelMapper.map(musicEntity, MusicResponseDTO.class);
+>>>>>>> master
         }catch (Exception e){
-            System.out.println(e);
+            //Throw new Exception
+            return null;
         }
-        return response;
+    }
+
+    @Override
+    public MusicPageResponseDTO find(String name, Pageable pageable) {
+
+        MusicEntity musicEntities = musicRepository.findByName(name);
+
+        return modelMapper.map(musicEntities, MusicPageResponseDTO.class);
+    }
+
+    @Override
+    public MusicResponseDTO update(Long id, MusicDTO music) {
+        MusicEntity musicCurrent = findByIdOrThrowMusicDataNotFoundException(id);
+
+        musicCurrent.setName(music.getName());
+        musicCurrent.setDuration(music.getDuration());
+
+        musicRepository.save(musicCurrent);
+
+        return modelMapper.map(musicCurrent, MusicResponseDTO.class);
+    }
+
+    @Override
+    public void delete(Long id) {
+        MusicEntity musicCurrent = findByIdOrThrowMusicDataNotFoundException(id);
+
+        MusicResponseDTO response = modelMapper.map(musicCurrent, MusicResponseDTO.class);
+        musicRepository.delete(musicCurrent);
+    }
+
+    private MusicEntity findByIdOrThrowMusicDataNotFoundException(Long id) {
+        return musicRepository.findById(id).orElseThrow(
+                () -> new MusicNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
     @Override
