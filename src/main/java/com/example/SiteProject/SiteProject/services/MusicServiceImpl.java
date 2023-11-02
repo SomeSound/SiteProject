@@ -15,12 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-=======
 @Slf4j
 @Service
 @RequiredArgsConstructor
->>>>>>> master
 public class MusicServiceImpl implements MusicService {
 
     private final MusicRepository musicRepository;
@@ -33,15 +30,11 @@ public class MusicServiceImpl implements MusicService {
 
         MusicEntity musicEntity;
         try{
-<<<<<<< HEAD
-            response = new MusicDTO();//musicRepository.save(music);
-=======
             musicEntity = modelMapper.map(music, MusicEntity.class);
 
             musicEntity = musicRepository.save(musicEntity);
 
             return modelMapper.map(musicEntity, MusicResponseDTO.class);
->>>>>>> master
         }catch (Exception e){
             //Throw new Exception
             return null;
@@ -79,11 +72,6 @@ public class MusicServiceImpl implements MusicService {
     private MusicEntity findByIdOrThrowMusicDataNotFoundException(Long id) {
         return musicRepository.findById(id).orElseThrow(
                 () -> new MusicNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
-    }
-
-    @Override
-    public MusicDTO delete(Long id) {
-        return null;
     }
 
 }
