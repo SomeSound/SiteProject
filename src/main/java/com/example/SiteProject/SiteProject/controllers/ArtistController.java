@@ -27,9 +27,6 @@ public class ArtistController {
     public ResponseEntity<ArtistResponseDTO> save(
             @RequestBody @Valid ArtistDTO artist) {
 
-        System.out.println("CONTROLLER - OK");
-        System.out.println(artist);
-
         ArtistResponseDTO response = artistService.save(artist);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

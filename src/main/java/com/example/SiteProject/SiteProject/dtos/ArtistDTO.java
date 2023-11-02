@@ -2,9 +2,9 @@ package com.example.SiteProject.SiteProject.dtos;
 
 import com.example.SiteProject.SiteProject.entities.BaseEntity;
 import lombok.Data;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 @Data
 public class ArtistDTO extends BaseEntity {
 
