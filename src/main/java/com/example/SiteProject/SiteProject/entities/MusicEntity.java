@@ -24,7 +24,10 @@ public class MusicEntity extends BaseEntity implements Serializable {
     private String name;
 
     @Column(name = "DURATION")
-    private String duration;
+    private Double duration;
+
+    @Column(name = "GENRE")
+    private String genre;
 
 //    @Column(name = "ARTIST") // CRIAR FOREIGN-KEY APONTANDO PARA ARTISTA
 //    private ArtistEntity Artist;

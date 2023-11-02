@@ -13,6 +13,6 @@ public class MusicResponseDTO {
 
     private Long id;
     private String name;
-    private String duration;
-
+    private Double duration;
+    private String genre;
 }
