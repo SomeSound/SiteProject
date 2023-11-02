@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -42,9 +44,9 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public MusicPageResponseDTO find(String name, Pageable pageable) {
+    public MusicPageResponseDTO findByGenre(List<String> genres, String name, Pageable pageable) {
 
-        MusicEntity musicEntities = musicRepository.findByName(name);
+        Page<MusicEntity> musicEntities = musicRepository.findByGenre(genres, name, pageable);
 
         return modelMapper.map(musicEntities, MusicPageResponseDTO.class);
     }
