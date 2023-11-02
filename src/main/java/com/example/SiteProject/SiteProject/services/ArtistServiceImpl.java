@@ -10,34 +10,34 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-        @Slf4j
-        @Service
-        @RequiredArgsConstructor
-        public class ArtistServiceImpl implements ArtistService {
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ArtistServiceImpl implements ArtistService {
 
-            private final ArtistRepository artistRepository;
+    private final ArtistRepository artistRepository;
 
-            @Autowired
-            private final ModelMapper modelMapper;
+    @Autowired
+    private final ModelMapper modelMapper;
 
-            @Override
-            public ArtistResponseDTO save(ArtistDTO artist) {
-                try {
-                    ArtistEntity artistEntity = modelMapper.map(artist, ArtistEntity.class);
+    @Override
+    public ArtistResponseDTO save(ArtistDTO artist) {
+        try {
+            ArtistEntity artistEntity = modelMapper.map(artist, ArtistEntity.class);
 
-                    artistEntity = artistRepository.save(artistEntity);
+            artistEntity = artistRepository.save(artistEntity);
 
-                    return modelMapper.map(artistEntity, ArtistResponseDTO.class);
-                } catch (Exception e) {
-                    //Throw new Exception
-                }
-                return null;
-            }
-
-            @Override
-            public void delete(long id) {
-
-            }
+            return modelMapper.map(artistEntity, ArtistResponseDTO.class);
+        } catch (Exception e) {
+            //Throw new Exception
         }
+        return null;
+    }
+
+    @Override
+    public void delete(long id) {
+
+    }
+}
 
 
