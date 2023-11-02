@@ -17,9 +17,4 @@ public class ArtistController {
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-
-    }
-
-
-
+}
