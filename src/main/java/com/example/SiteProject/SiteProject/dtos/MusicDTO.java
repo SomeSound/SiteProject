@@ -19,6 +19,9 @@ public class MusicDTO extends BaseEntity {
     private String name;
 
     @NotNull
-    private String duration;
+    private Double duration;
+
+    @NotNull
+    private String genre;
 
 }
