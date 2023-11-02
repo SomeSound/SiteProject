@@ -2,10 +2,13 @@ package com.example.SiteProject.SiteProject.dtos.responses;
 
 import com.example.SiteProject.SiteProject.dtos.MusicDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class MusicPageResponseDTO {
+
     private boolean last;
 
     private boolean first;

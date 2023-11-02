@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -34,6 +35,7 @@ public class MusicController {
 
     @GetMapping(value = "/music")
     public ResponseEntity<MusicPageResponseDTO> find(
+            @RequestParam(value = "genres", required = false) List<String> genres,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
@@ -41,7 +43,7 @@ public class MusicController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        MusicPageResponseDTO response = musicService.find(name, pageable);
+        MusicPageResponseDTO response = musicService.findByGenre(genres, name, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -54,11 +56,11 @@ public class MusicController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-//    @DeleteMapping(value = "/music/{id}")
-//    public ResponseEntity<Void> delete(@PathVariable Long id){
-//
-//        musicService.delete(id);
-//
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//    }
+    @DeleteMapping(value = "/music/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+
+        musicService.delete(id);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
