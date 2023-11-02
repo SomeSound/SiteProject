@@ -20,14 +20,12 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ArtistController {
 
-<<<<<<< HEAD
     @PostMapping("/artist")
     public ResponseEntity<ArtistDTO> crateArtist(@RequestBody ArtistDTO artist) {
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-}
-=======
+
     @Autowired
     private final ArtistService artistService;
 
@@ -43,9 +41,3 @@ public class ArtistController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
-
-
-
-
-
->>>>>>> master
