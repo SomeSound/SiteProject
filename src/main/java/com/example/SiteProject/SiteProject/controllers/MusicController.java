@@ -36,14 +36,13 @@ public class MusicController {
     @GetMapping(value = "/music")
     public ResponseEntity<MusicPageResponseDTO> find(
             @RequestParam(value = "genres", required = false) List<String> genres,
-            @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        MusicPageResponseDTO response = musicService.findByGenre(genres, name, pageable);
+        MusicPageResponseDTO response = musicService.find(genres, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

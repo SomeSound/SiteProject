@@ -11,7 +11,7 @@ public interface MusicService {
 
     public MusicResponseDTO save(MusicDTO music);
 
-    public MusicPageResponseDTO findByGenre(List<String> genres, String name, Pageable pageable);
+    public MusicPageResponseDTO find(List<String> genres, Pageable pageable);
 
     public MusicResponseDTO update(Long id, MusicDTO music);
 
