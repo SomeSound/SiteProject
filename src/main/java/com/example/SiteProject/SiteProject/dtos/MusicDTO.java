@@ -1,10 +1,7 @@
 package com.example.SiteProject.SiteProject.dtos;
 
 import com.example.SiteProject.SiteProject.entities.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -18,10 +15,10 @@ public class MusicDTO extends BaseEntity {
     @NotEmpty(message = "Invalid name, can not be empty")
     private String name;
 
-    @NotNull
+    @NotEmpty(message = "Invalid duration, can not be empty")
     private Double duration;
 
-    @NotNull
+    @NotEmpty(message = "Invalid genre, can not be empty")
     private String genre;
 
 }
