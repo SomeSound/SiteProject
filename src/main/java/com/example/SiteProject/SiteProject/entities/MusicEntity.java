@@ -3,6 +3,7 @@ package com.example.SiteProject.SiteProject.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -20,13 +21,13 @@ public class MusicEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "MUSIC_SEQ", sequenceName = "MUSIC_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "DURATION")
+    @Column(name = "DURATION", nullable = false)
     private Double duration;
 
-    @Column(name = "GENRE")
+    @Column(name = "GENRE", nullable = false)
     private String genre;
 
 //    @Column(name = "ARTIST") // CRIAR FOREIGN-KEY APONTANDO PARA ARTISTA

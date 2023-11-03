@@ -1,8 +1,10 @@
 spring:
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: update
+    properties:
+      show-sql: true
+      format_sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/SomeSound?useSSL=true
     username: root
@@ -10,6 +12,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   flyway:
     enabled: true
+    locations: ./db/migrations
     baseline-on-migrate: false
     out-of-order: true
     ignore-missing-migrations: false

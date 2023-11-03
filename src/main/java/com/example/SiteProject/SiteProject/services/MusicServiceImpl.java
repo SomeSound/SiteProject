@@ -5,12 +5,14 @@ import com.example.SiteProject.SiteProject.dtos.MusicDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.MusicPageResponseDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.MusicResponseDTO;
 import com.example.SiteProject.SiteProject.entities.MusicEntity;
+import com.example.SiteProject.SiteProject.exceptions.InvalidMusicDataException;
 import com.example.SiteProject.SiteProject.exceptions.MusicNotFoundException;
 import com.example.SiteProject.SiteProject.repositories.MusicRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,16 +39,22 @@ public class MusicServiceImpl implements MusicService {
             musicEntity = musicRepository.save(musicEntity);
 
             return modelMapper.map(musicEntity, MusicResponseDTO.class);
-        }catch (Exception e){
-            //Throw new Exception
-            return null;
+        }catch (DataIntegrityViolationException e){
+            throw new InvalidMusicDataException(ErrorCodes.INVALID_MUSIC_ERROR,
+                    ErrorCodes.INVALID_MUSIC_ERROR.getMessage()); //TO REMOVE
         }
     }
 
     @Override
-    public MusicPageResponseDTO findByGenre(List<String> genres, String name, Pageable pageable) {
+    public MusicPageResponseDTO find(List<String> genres, Pageable pageable) {
 
-        Page<MusicEntity> musicEntities = musicRepository.findByGenre(genres, name, pageable);
+        Page<MusicEntity> musicEntities;
+
+        if(genres != null){
+            musicEntities = musicRepository.findByGenre(genres, pageable);
+        } else {
+            musicEntities = musicRepository.findAll(pageable);
+        }
 
         return modelMapper.map(musicEntities, MusicPageResponseDTO.class);
     }

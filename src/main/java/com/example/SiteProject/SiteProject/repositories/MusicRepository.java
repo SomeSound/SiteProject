@@ -12,9 +12,7 @@ import java.util.List;
 @Repository
 public interface MusicRepository extends BaseRepository<MusicEntity> {
 
-    @Query("SELECT o FROM MusicEntity o WHERE genre in :genres " +
-            "AND (:name is NULL or o.name = :name) ")
+    @Query("SELECT o FROM MusicEntity o WHERE genre in :genres")
     Page<MusicEntity> findByGenre(@Param("genres") List<String> genres,
-                                  @Param("name") String name,
                                   Pageable pageable);
 }
