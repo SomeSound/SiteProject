@@ -11,9 +11,8 @@ spring:
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver
   flyway:
-    enabled: true
-    locations: ./db/migrations
-    baseline-on-migrate: false
+    enabled: false
+    baseline-on-migrate: true
     out-of-order: true
     ignore-missing-migrations: false
 

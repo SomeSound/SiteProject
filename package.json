@@ -1,0 +1,19 @@
+{
+  "name": "siteproject",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SomeSound/SiteProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SomeSound/SiteProject/issues"
+  },
+  "homepage": "https://github.com/SomeSound/SiteProject#readme",
+  "description": ""
+}
