@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 public class ArtistDTO extends BaseEntity {
 
     private Long id;
+
     @NotEmpty(message = "Invalid name, can not be empty" )
     private String name;
 

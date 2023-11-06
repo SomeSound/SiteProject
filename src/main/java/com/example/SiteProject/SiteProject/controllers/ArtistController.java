@@ -11,12 +11,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
@@ -44,9 +44,11 @@ public class ArtistController {
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
-        Pageable pageable = (Pageable) PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size);
 
-        return null;
+        ArtistPageResponseDTO response = artistService.find(name, pageable);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }
