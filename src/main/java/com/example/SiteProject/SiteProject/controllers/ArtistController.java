@@ -38,15 +38,14 @@ public class ArtistController {
 
     @GetMapping(value = "/artist")
     public ResponseEntity<ArtistPageResponseDTO> find(
-            @RequestParam(value = "genres", required = false) List<String> genres,
-            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "names", required = false) List<String> names,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        ArtistPageResponseDTO response = artistService.find(name, pageable);
+        ArtistPageResponseDTO response = artistService.find(names, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
