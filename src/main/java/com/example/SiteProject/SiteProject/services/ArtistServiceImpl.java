@@ -2,15 +2,10 @@ package com.example.SiteProject.SiteProject.services;
 
 import com.example.SiteProject.SiteProject.constants.ErrorCodes;
 import com.example.SiteProject.SiteProject.dtos.ArtistDTO;
-import com.example.SiteProject.SiteProject.dtos.MusicDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.ArtistPageResponseDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.ArtistResponseDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.MusicPageResponseDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.MusicResponseDTO;
 import com.example.SiteProject.SiteProject.entities.ArtistEntity;
-import com.example.SiteProject.SiteProject.entities.MusicEntity;
 import com.example.SiteProject.SiteProject.exceptions.ArtistNotFoundException;
-import com.example.SiteProject.SiteProject.exceptions.MusicNotFoundException;
 import com.example.SiteProject.SiteProject.repositories.ArtistRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

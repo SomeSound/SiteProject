@@ -1,7 +1,6 @@
 package com.example.SiteProject.SiteProject.repositories;
 
 import com.example.SiteProject.SiteProject.entities.ArtistEntity;
-import com.example.SiteProject.SiteProject.entities.MusicEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

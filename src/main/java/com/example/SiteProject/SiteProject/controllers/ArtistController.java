@@ -1,12 +1,9 @@
 package com.example.SiteProject.SiteProject.controllers;
 
 import com.example.SiteProject.SiteProject.dtos.ArtistDTO;
-import com.example.SiteProject.SiteProject.dtos.MusicDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.ArtistPageResponseDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.ArtistResponseDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.MusicResponseDTO;
 import com.example.SiteProject.SiteProject.services.ArtistService;
-import com.example.SiteProject.SiteProject.services.MusicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

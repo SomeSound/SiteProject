@@ -1,10 +1,8 @@
 package com.example.SiteProject.SiteProject.services;
 
 import com.example.SiteProject.SiteProject.dtos.ArtistDTO;
-import com.example.SiteProject.SiteProject.dtos.MusicDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.ArtistPageResponseDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.ArtistResponseDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.MusicResponseDTO;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
