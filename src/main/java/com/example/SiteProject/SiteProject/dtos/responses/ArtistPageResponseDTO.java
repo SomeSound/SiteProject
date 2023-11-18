@@ -1,14 +1,13 @@
 package com.example.SiteProject.SiteProject.dtos.responses;
 
-import com.example.SiteProject.SiteProject.dtos.MusicDTO;
+import com.example.SiteProject.SiteProject.dtos.ArtistDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
 
-public class ArtistPageResponseDTO {
     @Data
-    public class MusicPageResponseDTO {
+    public class ArtistPageResponseDTO {
 
         private boolean last;
 
@@ -25,7 +24,7 @@ public class ArtistPageResponseDTO {
         @JsonProperty("page")
         private Integer number;
 
-        @JsonProperty("musicDataList")
-        private List<MusicDTO> content;
+        @JsonProperty("artistDataList")
+        private List<ArtistDTO> content;
     }
-}
+
