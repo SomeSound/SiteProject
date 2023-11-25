@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MusicService {
 
-    public MusicResponseDTO save(MusicDTO music);
+    public MusicResponseDTO save(MusicDTO music) throws Exception;
 
     public MusicPageResponseDTO find(List<String> genres, Pageable pageable);
 
