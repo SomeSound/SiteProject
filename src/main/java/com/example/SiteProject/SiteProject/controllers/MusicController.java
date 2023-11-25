@@ -26,7 +26,7 @@ public class MusicController {
 
     @PostMapping(value = "/music")
     public ResponseEntity<MusicResponseDTO> save(
-            @RequestBody @Valid MusicDTO music) {
+            @RequestBody @Valid MusicDTO music) throws Exception {
 
         MusicResponseDTO response = musicService.save(music);
 

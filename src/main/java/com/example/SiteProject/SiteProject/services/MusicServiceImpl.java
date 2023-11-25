@@ -30,7 +30,7 @@ public class MusicServiceImpl implements MusicService {
     private final ModelMapper modelMapper;
 
     @Override
-    public MusicResponseDTO save(MusicDTO music) {
+    public MusicResponseDTO save(MusicDTO music) throws Exception {
 
         MusicEntity musicEntity;
         try{
@@ -39,9 +39,9 @@ public class MusicServiceImpl implements MusicService {
             musicEntity = musicRepository.save(musicEntity);
 
             return modelMapper.map(musicEntity, MusicResponseDTO.class);
+
         }catch (DataIntegrityViolationException e){
-            throw new InvalidMusicDataException(ErrorCodes.INVALID_MUSIC_ERROR,
-                    ErrorCodes.INVALID_MUSIC_ERROR.getMessage()); //TO REMOVE
+            throw new Exception(e);
         }
     }
 
@@ -75,7 +75,6 @@ public class MusicServiceImpl implements MusicService {
     public void delete(Long id) {
         MusicEntity musicCurrent = findByIdOrThrowMusicDataNotFoundException(id);
 
-        MusicResponseDTO response = modelMapper.map(musicCurrent, MusicResponseDTO.class);
         musicRepository.delete(musicCurrent);
     }
 
