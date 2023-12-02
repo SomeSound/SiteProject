@@ -1,6 +1,6 @@
 package com.example.hyper.dtos;
 
-import com.example.SiteProject.SiteProject.entities.BaseEntity;
+import com.example.hyper.entities.BaseEntity;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
