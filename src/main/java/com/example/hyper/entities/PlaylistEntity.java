@@ -5,14 +5,12 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Data
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "PLAYLIST")
-@EqualsAndHashCode(of = "id")
 public class PlaylistEntity extends BaseEntity implements Serializable {
 
     @Id
@@ -24,5 +22,5 @@ public class PlaylistEntity extends BaseEntity implements Serializable {
     private String name;
 
 //    @Column(name = "musics", nullable = false)
-//    private List<MusicEntity> musics;
+//    private List<TrackEntity> tracks;
 }

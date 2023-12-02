@@ -1,15 +1,12 @@
-package com.example.hyper.dtos;
+package com.example.hyper.dtos.requests;
 
 import com.example.hyper.entities.BaseEntity;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class MusicDTO extends BaseEntity {
-
-    private Long id;
+public class TrackRequestDTO extends BaseEntity {
 
     @NotEmpty(message = "Invalid name, can not be empty")
     private String name;

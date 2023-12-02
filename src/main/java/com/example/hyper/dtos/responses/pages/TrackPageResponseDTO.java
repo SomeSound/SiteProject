@@ -1,13 +1,14 @@
-package com.example.hyper.dtos.responses;
+package com.example.hyper.dtos.responses.pages;
 
-import com.example.hyper.dtos.MusicDTO;
+import com.example.hyper.dtos.requests.TrackRequestDTO;
+import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class MusicPageResponseDTO {
+public class TrackPageResponseDTO {
 
     private boolean last;
 
@@ -25,5 +26,5 @@ public class MusicPageResponseDTO {
     private Integer number;
 
     @JsonProperty("musicDataList")
-    private List<MusicDTO> content;
+    private List<TrackResponseDTO> content;
 }
