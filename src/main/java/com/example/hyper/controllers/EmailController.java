@@ -16,13 +16,13 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class EmailController {
 
+    @Autowired
     private final EmailService emailService;
 
-    @Autowired
-    @PostMapping(value = "/send-mail")
+    @PostMapping(value = "/send-email")
     public ResponseEntity<EmailDTO> saveEmail(@RequestBody @Valid EmailDTO email ){
 
-        EmailDTO response = emailService.save(email);
+        EmailDTO response = emailService.sendEmail(email);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
