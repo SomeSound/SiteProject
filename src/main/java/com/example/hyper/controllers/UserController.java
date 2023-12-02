@@ -1,6 +1,6 @@
 package com.example.hyper.controllers;
 
-import com.example.hyper.dtos.UserDTO;
+import com.example.hyper.dtos.requests.UserRequestDTO;
 import com.example.hyper.dtos.responses.UserPageResponseDTO;
 import com.example.hyper.dtos.responses.UserResponseDTO;
 import com.example.hyper.services.UserService;
@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping(value = "/user")
     public ResponseEntity<UserResponseDTO> save(
-            @RequestBody @Valid UserDTO user){
+            @RequestBody @Valid UserRequestDTO user){
 
         UserResponseDTO response = userService.save(user);
 
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/user/{id}")
-    public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody UserDTO user) {
+    public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody UserRequestDTO user) {
 
         UserResponseDTO response = userService.update(id, user);
 

@@ -7,7 +7,7 @@ import com.example.hyper.entities.UserEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.InvalidUserDataException;
 import com.example.hyper.repositories.UserRepository;
-import com.example.hyper.dtos.UserDTO;
+import com.example.hyper.dtos.requests.UserRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
 
     @Override
-    public UserResponseDTO save(UserDTO user) {
+    public UserResponseDTO save(UserRequestDTO user) {
         UserEntity userEntity;
         try {
             userEntity = modelMapper.map(user, UserEntity.class);
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO update(Long id, UserDTO user) {
+    public UserResponseDTO update(Long id, UserRequestDTO user) {
         UserEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
 
         userCurrent.setName(user.getName());

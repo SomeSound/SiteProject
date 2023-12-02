@@ -1,6 +1,6 @@
 package com.example.hyper.controllers;
 
-import com.example.hyper.dtos.ArtistDTO;
+import com.example.hyper.dtos.requests.ArtistRequestDTO;
 import com.example.hyper.dtos.responses.ArtistPageResponseDTO;
 import com.example.hyper.dtos.responses.ArtistResponseDTO;
 import com.example.hyper.services.ArtistService;
@@ -26,7 +26,7 @@ public class ArtistController {
 
     @PostMapping(value = "/artist")
     public ResponseEntity<ArtistResponseDTO> save(
-            @RequestBody @Valid ArtistDTO artist) {
+            @RequestBody @Valid ArtistRequestDTO artist) {
 
         ArtistResponseDTO response = artistService.save(artist);
 
@@ -48,7 +48,7 @@ public class ArtistController {
     }
 
     @PutMapping(value = "/artist/{id}")
-    public ResponseEntity<ArtistResponseDTO> update(@PathVariable Long id, @RequestBody ArtistDTO artist) {
+    public ResponseEntity<ArtistResponseDTO> update(@PathVariable Long id, @RequestBody ArtistRequestDTO artist) {
 
         ArtistResponseDTO response = artistService.update(id, artist);
 
