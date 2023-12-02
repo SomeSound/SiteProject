@@ -6,11 +6,13 @@ import com.example.SiteProject.SiteProject.dtos.responses.ArtistPageResponseDTO;
 import com.example.SiteProject.SiteProject.dtos.responses.ArtistResponseDTO;
 import com.example.SiteProject.SiteProject.entities.ArtistEntity;
 import com.example.SiteProject.SiteProject.exceptions.ArtistNotFoundException;
+import com.example.SiteProject.SiteProject.exceptions.InvalidUserDataException;
 import com.example.SiteProject.SiteProject.repositories.ArtistRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -35,10 +37,10 @@ public class ArtistServiceImpl implements ArtistService {
             artistEntity = artistRepository.save(artistEntity);
 
             return modelMapper.map(artistEntity, ArtistResponseDTO.class);
-        } catch (Exception e) {
-            //Throw new Exception
+        } catch (DataIntegrityViolationException e){
+            throw new InvalidUserDataException(ErrorCodes.INVALID_ARTIST_ERROR,
+                    ErrorCodes.INVALID_ARTIST_ERROR.getMessage());
         }
-        return null;
     }
 
     @Override

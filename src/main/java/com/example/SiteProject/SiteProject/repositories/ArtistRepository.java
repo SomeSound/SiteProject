@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ArtistRepository extends BaseRepository<ArtistEntity> {
 
-    @Query("SELECT o FROM ArtistEntity o WHERE name in :names")
+    @Query("SELECT o FROM ArtistEntity o WHERE name in: names")
     Page<ArtistEntity> findByName(@Param("names") List<String> names,
                                   Pageable pageable);
 
