@@ -1,8 +1,8 @@
-package com.example.SiteProject.SiteProject.services;
+package com.example.hyper.services;
 
-import com.example.SiteProject.SiteProject.dtos.UserDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.UserPageResponseDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.UserResponseDTO;
+import com.example.hyper.dtos.UserDTO;
+import com.example.hyper.dtos.responses.UserPageResponseDTO;
+import com.example.hyper.dtos.responses.UserResponseDTO;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.SiteProject.SiteProject.dtos.responses;
+package com.example.hyper.dtos.responses;
 
 import lombok.Data;
 

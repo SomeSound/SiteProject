@@ -1,6 +1,6 @@
-package com.example.SiteProject.SiteProject.repositories;
+package com.example.hyper.repositories;
 
-import com.example.SiteProject.SiteProject.entities.UserEntity;
+import com.example.hyper.entities.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

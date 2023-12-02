@@ -1,6 +1,6 @@
-package com.example.SiteProject.SiteProject.exceptions;
+package com.example.hyper.exceptions;
 
-import com.example.SiteProject.SiteProject.constants.ErrorCodes;
+import com.example.hyper.constants.ErrorCodes;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

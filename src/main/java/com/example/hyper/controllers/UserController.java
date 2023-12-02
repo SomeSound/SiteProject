@@ -1,9 +1,9 @@
-package com.example.SiteProject.SiteProject.controllers;
+package com.example.hyper.controllers;
 
-import com.example.SiteProject.SiteProject.dtos.UserDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.UserPageResponseDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.UserResponseDTO;
-import com.example.SiteProject.SiteProject.services.UserService;
+import com.example.hyper.dtos.UserDTO;
+import com.example.hyper.dtos.responses.UserPageResponseDTO;
+import com.example.hyper.dtos.responses.UserResponseDTO;
+import com.example.hyper.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

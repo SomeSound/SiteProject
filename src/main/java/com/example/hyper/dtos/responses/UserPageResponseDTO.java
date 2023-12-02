@@ -1,6 +1,6 @@
-package com.example.SiteProject.SiteProject.dtos.responses;
+package com.example.hyper.dtos.responses;
 
-import com.example.SiteProject.SiteProject.dtos.UserDTO;
+import com.example.hyper.dtos.UserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 

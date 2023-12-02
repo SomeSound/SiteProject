@@ -1,13 +1,13 @@
-package com.example.SiteProject.SiteProject.services;
+package com.example.hyper.services;
 
-import com.example.SiteProject.SiteProject.constants.ErrorCodes;
-import com.example.SiteProject.SiteProject.dtos.UserDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.UserPageResponseDTO;
-import com.example.SiteProject.SiteProject.dtos.responses.UserResponseDTO;
-import com.example.SiteProject.SiteProject.entities.UserEntity;
-import com.example.SiteProject.SiteProject.exceptions.ArtistNotFoundException;
-import com.example.SiteProject.SiteProject.exceptions.InvalidUserDataException;
-import com.example.SiteProject.SiteProject.repositories.UserRepository;
+import com.example.hyper.constants.ErrorCodes;
+import com.example.hyper.dtos.responses.UserPageResponseDTO;
+import com.example.hyper.dtos.responses.UserResponseDTO;
+import com.example.hyper.entities.UserEntity;
+import com.example.hyper.exceptions.ArtistNotFoundException;
+import com.example.hyper.exceptions.InvalidUserDataException;
+import com.example.hyper.repositories.UserRepository;
+import com.example.hyper.dtos.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

@@ -1,4 +1,4 @@
-package com.example.SiteProject.SiteProject.entities;
+package com.example.hyper.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
