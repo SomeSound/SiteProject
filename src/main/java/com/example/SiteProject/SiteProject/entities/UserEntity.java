@@ -35,6 +35,4 @@ public class UserEntity extends BaseEntity implements Serializable {
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "CREDITS")
-    private double credits;
 }
