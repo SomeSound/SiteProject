@@ -35,4 +35,9 @@ public class UserEntity extends BaseEntity implements Serializable {
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "COUNTRY", nullable = false)
+    private String country;
+
+    @Column(name = "SUBSCRIPTION")
+    private boolean subscription;
 }

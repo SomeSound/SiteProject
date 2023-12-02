@@ -14,4 +14,13 @@ public class ArtistDTO extends BaseEntity {
 
     @NotEmpty(message = "Invalid country, can not be empty")
     private String country;
+
+    @NotEmpty(message = "Invalid username, can not be empty")
+    private String username;
+
+    @NotEmpty(message = "Invalid password, can not be empty")
+    private String password;
+
+    @NotEmpty(message = "Invalid email, can not be empty")
+    private String email;
 }
