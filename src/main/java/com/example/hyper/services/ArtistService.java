@@ -1,6 +1,6 @@
 package com.example.hyper.services;
 
-import com.example.hyper.dtos.requests.ArtistRequestDTO;
+import com.example.hyper.dtos.ArtistDTO;
 import com.example.hyper.dtos.responses.ArtistPageResponseDTO;
 import com.example.hyper.dtos.responses.ArtistResponseDTO;
 import org.springframework.data.domain.Pageable;

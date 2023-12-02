@@ -1,7 +1,6 @@
 package com.example.hyper.dtos.responses;
 
-import com.example.hyper.dtos.requests.ArtistRequestDTO;
-import com.example.hyper.dtos.MusicDTO;
+import com.example.hyper.dtos.ArtistDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
