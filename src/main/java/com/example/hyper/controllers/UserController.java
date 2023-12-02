@@ -1,9 +1,9 @@
 package com.example.hyper.controllers;
 
-import com.example.hyper.dtos.ArtistDTO;
-import com.example.hyper.dtos.responses.ArtistPageResponseDTO;
-import com.example.hyper.dtos.responses.ArtistResponseDTO;
-import com.example.hyper.services.ArtistService;
+import com.example.hyper.dtos.UserDTO;
+import com.example.hyper.dtos.responses.UserPageResponseDTO;
+import com.example.hyper.dtos.responses.UserResponseDTO;
+import com.example.hyper.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +19,21 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class ArtistController {
+public class UserController {
 
     @Autowired
-    private final ArtistService artistService;
+    private final UserService userService;
 
-    @PostMapping(value = "/artist")
-    public ResponseEntity<ArtistResponseDTO> save(
-            @RequestBody @Valid ArtistDTO artist) {
+    @PostMapping(value = "/user")
+    public ResponseEntity<UserResponseDTO> save(
+            @RequestBody @Valid UserDTO user){
 
-        ArtistResponseDTO response = artistService.save(artist);
+        UserResponseDTO response = userService.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
-    @GetMapping(value = "/artist")
-    public ResponseEntity<ArtistPageResponseDTO> find(
+    @GetMapping(value = "/user")
+    public ResponseEntity<UserPageResponseDTO> find(
             @RequestParam(value = "names", required = false) List<String> names,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
@@ -42,30 +41,25 @@ public class ArtistController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        ArtistPageResponseDTO response = artistService.find(names, pageable);
+        UserPageResponseDTO response = userService.find(names, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping(value = "/artist/{id}")
-    public ResponseEntity<ArtistResponseDTO> update(@PathVariable Long id, @RequestBody ArtistDTO artist) {
+    @PutMapping(value = "/user/{id}")
+    public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody UserDTO user) {
 
-        ArtistResponseDTO response = artistService.update(id, artist);
+        UserResponseDTO response = userService.update(id, user);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping(value = "/artist/{id}")
+    @DeleteMapping(value = "/user/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
 
-        artistService.delete(id);
+        userService.delete(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
-
-
-
-
-
