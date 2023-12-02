@@ -1,10 +1,13 @@
 package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
-import com.example.hyper.dtos.responses.PlaylistPageReponseDTO;
-import com.example.hyper.dtos.responses.PlaylistReponseDTO;
-import com.example.hyper.exceptions.MusicNotFoundException;
-import com.example.hyper.dtos.PlaylistDTO;
+import com.example.hyper.dtos.responses.TrackResponseDTO;
+import com.example.hyper.dtos.responses.pages.PlaylistPageReponseDTO;
+import com.example.hyper.dtos.responses.PlaylistResponseDTO;
+import com.example.hyper.entities.TrackEntity;
+import com.example.hyper.exceptions.PlaylistNotFoundException;
+import com.example.hyper.exceptions.TrackNotFoundException;
+import com.example.hyper.dtos.requests.PlaylistRequestDTO;
 import com.example.hyper.entities.PlaylistEntity;
 import com.example.hyper.repositories.PlaylistRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +24,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PlaylistServiceImpl implements PlaylistService {
 
-    private final PlaylistRepository playlistRepository;
+    @Autowired
+    private PlaylistRepository playlistRepository;
 
     @Autowired
-    private final ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Override
-    public PlaylistReponseDTO save(PlaylistDTO playlist) {
+    public PlaylistResponseDTO save(PlaylistRequestDTO playlist) {
 
         PlaylistEntity playlistEntity;
         try{
@@ -35,7 +39,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
             playlistEntity = playlistRepository.save(playlistEntity);
 
-            return modelMapper.map(playlistEntity, PlaylistReponseDTO.class);
+            return modelMapper.map(playlistEntity, PlaylistResponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
             return null; // Implementar erro
@@ -57,14 +61,25 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
+    public PlaylistResponseDTO update(Long id, PlaylistRequestDTO playlist) {
+        PlaylistEntity playlistCurrent = findByIdOrThrowPlaylistDataNotFoundException(id);
+
+        playlistCurrent.setName(playlist.getName());
+
+        playlistRepository.save(playlistCurrent);
+
+        return modelMapper.map(playlistCurrent, PlaylistResponseDTO.class);
+    }
+
+    @Override
     public void delete(Long id) {
-        PlaylistEntity playlistCurrent = findByIdOrThrowMusicDataNotFoundException(id);
+        PlaylistEntity playlistCurrent = findByIdOrThrowPlaylistDataNotFoundException(id);
 
         playlistRepository.delete(playlistCurrent);
     }
 
-    private PlaylistEntity findByIdOrThrowMusicDataNotFoundException(Long id) {
+    private PlaylistEntity findByIdOrThrowPlaylistDataNotFoundException(Long id) {
         return playlistRepository.findById(id).orElseThrow(
-                () -> new MusicNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new PlaylistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

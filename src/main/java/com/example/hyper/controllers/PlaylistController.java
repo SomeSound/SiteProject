@@ -1,8 +1,10 @@
 package com.example.hyper.controllers;
 
-import com.example.hyper.dtos.PlaylistDTO;
-import com.example.hyper.dtos.responses.PlaylistPageReponseDTO;
-import com.example.hyper.dtos.responses.PlaylistReponseDTO;
+import com.example.hyper.dtos.requests.PlaylistRequestDTO;
+import com.example.hyper.dtos.requests.TrackRequestDTO;
+import com.example.hyper.dtos.responses.TrackResponseDTO;
+import com.example.hyper.dtos.responses.pages.PlaylistPageReponseDTO;
+import com.example.hyper.dtos.responses.PlaylistResponseDTO;
 import com.example.hyper.services.PlaylistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +26,10 @@ public class PlaylistController {
     private final PlaylistService playlistService;
 
     @PostMapping(value = "/playlist")
-    public ResponseEntity<PlaylistReponseDTO> save(
-            @RequestBody @Valid PlaylistDTO playlist) {
+    public ResponseEntity<PlaylistResponseDTO> save(
+            @RequestBody @Valid PlaylistRequestDTO playlist) {
 
-        PlaylistReponseDTO response = playlistService.save(playlist);
+        PlaylistResponseDTO response = playlistService.save(playlist);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -42,6 +44,14 @@ public class PlaylistController {
         Pageable pageable = PageRequest.of(page, size);
 
         PlaylistPageReponseDTO response = playlistService.find(name, pageable);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping(value = "/playlist/{id}")
+    public ResponseEntity<PlaylistResponseDTO> update(@PathVariable Long id, @RequestBody PlaylistRequestDTO playlist) {
+
+        PlaylistResponseDTO response = playlistService.update(id, playlist);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

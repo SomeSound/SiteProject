@@ -1,6 +1,6 @@
 package com.example.hyper.repositories;
 
-import com.example.hyper.entities.MusicEntity;
+import com.example.hyper.entities.TrackEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MusicRepository extends BaseRepository<MusicEntity> {
+public interface TrackRepository extends BaseRepository<TrackEntity> {
 
-    @Query("SELECT o FROM MusicEntity o WHERE genre in :genres")
-    Page<MusicEntity> findByGenre(@Param("genres") List<String> genres,
+    @Query("SELECT o FROM TrackEntity o WHERE genre in :genres")
+    Page<TrackEntity> findByGenre(@Param("genres") List<String> genres,
                                   Pageable pageable);
 }

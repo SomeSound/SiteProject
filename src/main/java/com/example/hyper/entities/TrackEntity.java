@@ -1,5 +1,6 @@
 package com.example.hyper.entities;
 
+import com.example.hyper.enums.Genre;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,8 +13,8 @@ import java.io.Serializable;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "MUSIC")
-public class MusicEntity extends BaseEntity implements Serializable {
+@Table(name = "TRACK")
+public class TrackEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MUSIC_SEQ")
@@ -24,10 +25,13 @@ public class MusicEntity extends BaseEntity implements Serializable {
     private String name;
 
     @Column(name = "DURATION", nullable = false)
-    private Double time;
+    private Double duration;
 
     @Column(name = "GENRE", nullable = false)
-    private String genre;
+    private Genre genre;
+
+//    @Column(name = "REVIEW")
+//    private ReviewEntity reviewEntity;
 
 //    @Column(name = "ARTIST") // CRIAR FOREIGN-KEY APONTANDO PARA ARTISTA
 //    private ArtistEntity Artist;

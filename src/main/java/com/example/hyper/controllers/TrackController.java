@@ -1,9 +1,9 @@
 package com.example.hyper.controllers;
 
-import com.example.hyper.dtos.responses.MusicPageResponseDTO;
-import com.example.hyper.dtos.responses.MusicResponseDTO;
-import com.example.hyper.dtos.MusicDTO;
-import com.example.hyper.services.MusicService;
+import com.example.hyper.dtos.responses.pages.TrackPageResponseDTO;
+import com.example.hyper.dtos.responses.TrackResponseDTO;
+import com.example.hyper.dtos.requests.TrackRequestDTO;
+import com.example.hyper.services.TrackService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +19,22 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class MusicController {
+public class TrackController {
 
     @Autowired
-    private final MusicService musicService;
+    private final TrackService trackService;
 
-    @PostMapping(value = "/music")
-    public ResponseEntity<MusicResponseDTO> save(
-            @RequestBody @Valid MusicDTO music) {
+    @PostMapping(value = "/track")
+    public ResponseEntity<TrackResponseDTO> save(
+            @RequestBody @Valid TrackRequestDTO track) {
 
-        MusicResponseDTO response = musicService.save(music);
+        TrackResponseDTO response = trackService.save(track);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping(value = "/music")
-    public ResponseEntity<MusicPageResponseDTO> find(
+    @GetMapping(value = "/track")
+    public ResponseEntity<TrackPageResponseDTO> find(
             @RequestParam(value = "genres", required = false) List<String> genres,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
@@ -42,23 +42,23 @@ public class MusicController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        MusicPageResponseDTO response = musicService.find(genres, pageable);
+        TrackPageResponseDTO response = trackService.find(genres, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping(value = "/music/{id}")
-    public ResponseEntity<MusicResponseDTO> update(@PathVariable Long id, @RequestBody MusicDTO music) {
+    @PutMapping(value = "/track/{id}")
+    public ResponseEntity<TrackResponseDTO> update(@PathVariable Long id, @RequestBody TrackRequestDTO music) {
 
-        MusicResponseDTO response = musicService.update(id, music);
+        TrackResponseDTO response = trackService.update(id, music);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping(value = "/music/{id}")
+    @DeleteMapping(value = "/track/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
 
-        musicService.delete(id);
+        trackService.delete(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -1,6 +1,9 @@
 package com.example.hyper.dtos.responses;
 
-public class PlaylistReponseDTO {
+import lombok.Data;
+
+@Data
+public class PlaylistResponseDTO {
     private Long id;
     private String name;
 
