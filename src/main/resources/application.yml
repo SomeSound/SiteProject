@@ -15,6 +15,17 @@ spring:
     baseline-on-migrate: true
     out-of-order: true
     ignore-missing-migrations: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: undefined@gmail.com
+    password: undefined
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
   port: 8080

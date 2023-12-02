@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class SiteProjectApplication {
+public class HyperApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SiteProjectApplication.class, args);
+		SpringApplication.run(HyperApplication.class, args);
 	}
 
 	@Bean

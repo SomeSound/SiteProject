@@ -27,7 +27,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     private final ModelMapper modelMapper;
 
     @Override
-    public PlaylistReponseDTO save(PlaylistDTO playlist) throws Exception {
+    public PlaylistReponseDTO save(PlaylistDTO playlist) {
 
         PlaylistEntity playlistEntity;
         try{
@@ -38,7 +38,7 @@ public class PlaylistServiceImpl implements PlaylistService {
             return modelMapper.map(playlistEntity, PlaylistReponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
-            throw new Exception(e);
+            return null; // Implementar erro
         }
     }
 

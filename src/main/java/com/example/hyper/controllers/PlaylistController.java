@@ -25,7 +25,7 @@ public class PlaylistController {
 
     @PostMapping(value = "/playlist")
     public ResponseEntity<PlaylistReponseDTO> save(
-            @RequestBody @Valid PlaylistDTO playlist) throws Exception {
+            @RequestBody @Valid PlaylistDTO playlist) {
 
         PlaylistReponseDTO response = playlistService.save(playlist);
 

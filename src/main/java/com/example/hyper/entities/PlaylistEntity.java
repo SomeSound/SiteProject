@@ -3,6 +3,8 @@ package com.example.hyper.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Data
 @Getter
 @Setter
@@ -11,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name = "PLAYLIST")
 @EqualsAndHashCode(of = "id")
-public class PlaylistEntity {
+public class PlaylistEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAYLIST_SEQ")

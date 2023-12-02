@@ -4,5 +4,5 @@ import com.example.hyper.dtos.EmailDTO;
 
 public interface EmailService {
 
-    public EmailDTO save(EmailDTO email);
+    public EmailDTO sendEmail(EmailDTO email);
 }
