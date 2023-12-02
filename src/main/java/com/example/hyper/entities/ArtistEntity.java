@@ -1,13 +1,9 @@
 package com.example.hyper.entities;
 
-import com.example.hyper.repositories.MusicRepository;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Indexed;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Getter

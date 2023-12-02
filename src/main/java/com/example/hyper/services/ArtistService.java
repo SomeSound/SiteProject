@@ -1,11 +1,8 @@
 package com.example.hyper.services;
 
 import com.example.hyper.dtos.ArtistDTO;
-import com.example.hyper.dtos.MusicDTO;
 import com.example.hyper.dtos.responses.ArtistPageResponseDTO;
 import com.example.hyper.dtos.responses.ArtistResponseDTO;
-import com.example.hyper.dtos.responses.MusicPageResponseDTO;
-import com.example.hyper.dtos.responses.MusicResponseDTO;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
