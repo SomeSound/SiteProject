@@ -12,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ARTIST")
+@EqualsAndHashCode(callSuper = false)
 public class ArtistEntity extends UserEntity implements Serializable {
 
     @Id
@@ -21,5 +22,8 @@ public class ArtistEntity extends UserEntity implements Serializable {
 
     @Column(name = "CREDITS")
     private double credits;
+
+    @Column(name = "FOLLOWERS")
+    private Followers followers;
 
 }

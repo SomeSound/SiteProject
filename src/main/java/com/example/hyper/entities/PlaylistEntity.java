@@ -5,12 +5,14 @@ import lombok.*;
 
 import java.io.Serializable;
 
+@Data
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "PLAYLIST")
+@EqualsAndHashCode(callSuper = false)
 public class PlaylistEntity extends BaseEntity implements Serializable {
 
     @Id

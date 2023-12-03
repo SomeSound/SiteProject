@@ -13,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "TRACK")
+@EqualsAndHashCode(callSuper = false)
 public class TrackEntity extends BaseEntity implements Serializable {
 
     @Id

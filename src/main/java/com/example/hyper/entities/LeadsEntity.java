@@ -12,11 +12,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "LEADS")
-public class LeadEntity extends BaseEntity implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class LeadsEntity extends BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REVIEW_SEQ")
-    @SequenceGenerator(name = "REVIEW_SEQ", sequenceName = "REVIEW_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LEADS_SEQ")
+    @SequenceGenerator(name = "LEADS_SEQ", sequenceName = "LEADS_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "NAME")

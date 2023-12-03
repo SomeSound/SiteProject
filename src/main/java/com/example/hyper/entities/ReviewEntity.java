@@ -12,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "REVIEW")
+@EqualsAndHashCode(callSuper = false)
 public class ReviewEntity extends BaseEntity implements Serializable {
 
     @Id
