@@ -21,7 +21,10 @@ public class OrderEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "ORDER_SEQ", sequenceName = "ORDER_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "CART")
-    private CartEntity cart;
+    @OneToMany
+    private List<CartEntity> carts;
+
+    @ManyToOne
+    private UserEntity user;
 
 }

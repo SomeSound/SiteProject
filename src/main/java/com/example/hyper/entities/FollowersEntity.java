@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Getter
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Table(name = "CART")
 @EqualsAndHashCode(callSuper = false)
-public class Followers extends BaseEntity implements Serializable {
+public class FollowersEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FOLLOW_SEQ")
@@ -23,6 +24,6 @@ public class Followers extends BaseEntity implements Serializable {
     @Column(name = "USER")
     private UserEntity user;
 
-    @Column(name = "ARTIST")
-    private ArtistEntity artist;
+    @OneToMany
+    private List<UserEntity> users;
 }

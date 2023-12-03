@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "MAIL")
+@Table(name = "EMAIL")
 @EqualsAndHashCode(callSuper = false)
 public class EmailEntity extends BaseEntity implements Serializable {
 

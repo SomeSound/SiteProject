@@ -25,11 +25,11 @@ public class AlbumEntity extends BaseEntity implements Serializable {
     @Column(name = "NAME")
     private double name;
 
-    @Column(name = "TRACKS")
-    private List<TrackEntity> tracks;
+    @OneToMany
+    private List<TrackEntity> track;
 
-    @Column(name = "RECORD")
-    private Record record;
+    @ManyToMany
+    private List<RecordEntity> records;
 
     @Column(name = "IMAGE_URL")
     private String imageUrl;

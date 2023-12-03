@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Getter
@@ -23,7 +24,7 @@ public class ArtistEntity extends UserEntity implements Serializable {
     @Column(name = "CREDITS")
     private double credits;
 
-    @Column(name = "FOLLOWERS")
-    private Followers followers;
+    @ManyToMany
+    private List<RecordEntity> records;
 
 }

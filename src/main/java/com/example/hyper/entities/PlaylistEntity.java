@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Getter
@@ -20,9 +21,9 @@ public class PlaylistEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "PLAYLIST_SEQ", sequenceName = "PLAYLIST_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-//    @Column(name = "musics", nullable = false)
-//    private List<TrackEntity> tracks;
+    @ManyToMany
+    private List<TrackEntity> tracks;
 }

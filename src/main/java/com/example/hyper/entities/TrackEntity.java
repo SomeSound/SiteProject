@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Getter
@@ -30,9 +31,12 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "GENRE", nullable = false)
     private Genre genre;
 
-    @Column(name = "REVIEW")
-    private ReviewEntity reviewEntity;
+    @OneToMany
+    private List<ReviewEntity> reviews;
 
-//    @Column(name = "ARTIST") // CRIAR FOREIGN-KEY APONTANDO PARA ARTISTA
-//    private ArtistEntity Artist;
+    @ManyToMany
+    private List<PlaylistEntity> playlist;
+
+    @ManyToOne
+    private AlbumEntity album;
 }

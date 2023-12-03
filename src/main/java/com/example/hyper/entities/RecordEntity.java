@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "RECORD")
 @EqualsAndHashCode(callSuper = false)
-public class Record extends BaseEntity implements Serializable {
+public class RecordEntity extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECORD_SEQ")
     @SequenceGenerator(name = "RECORD_SEQ", sequenceName = "RECORD_SEQ", allocationSize = 1)
@@ -23,6 +23,6 @@ public class Record extends BaseEntity implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "PRICE")
+    @ManyToMany
     private List<AlbumEntity> albums;
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Getter
@@ -26,6 +27,9 @@ public class SubscriptionEntity extends BaseEntity implements Serializable {
 //    @Enumerated(EnumType.STRING)
 //    private SubscriptionOption option;
 
+    @OneToMany
+    private List<UserEntity> users;
+
     @Column(name = "PRICE")
-    private double price;
+    private float price;
 }
