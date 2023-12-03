@@ -1,7 +1,7 @@
 package com.example.hyper.controllers;
 
 import com.example.hyper.dtos.requests.ArtistRequestDTO;
-import com.example.hyper.dtos.responses.ArtistPageResponseDTO;
+import com.example.hyper.dtos.responses.pages.ArtistPageResponseDTO;
 import com.example.hyper.dtos.responses.ArtistResponseDTO;
 import com.example.hyper.services.ArtistService;
 import lombok.RequiredArgsConstructor;

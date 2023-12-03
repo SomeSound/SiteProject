@@ -21,4 +21,6 @@ public class ArtistEntity extends UserEntity implements Serializable {
     @Column(name = "CREDITS")
     private double credits;
 
+    //private List<tracks> tracks
+
 }

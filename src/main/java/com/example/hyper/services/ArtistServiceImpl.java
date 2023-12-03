@@ -4,7 +4,7 @@ import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.InvalidArtistDataException;
 import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.requests.ArtistRequestDTO;
-import com.example.hyper.dtos.responses.ArtistPageResponseDTO;
+import com.example.hyper.dtos.responses.pages.ArtistPageResponseDTO;
 import com.example.hyper.dtos.responses.ArtistResponseDTO;
 import com.example.hyper.repositories.ArtistRepository;
 import lombok.RequiredArgsConstructor;

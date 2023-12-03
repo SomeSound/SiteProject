@@ -1,7 +1,7 @@
 package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
-import com.example.hyper.dtos.responses.UserPageResponseDTO;
+import com.example.hyper.dtos.responses.pages.UserPageResponseDTO;
 import com.example.hyper.dtos.responses.UserResponseDTO;
 import com.example.hyper.entities.UserEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;

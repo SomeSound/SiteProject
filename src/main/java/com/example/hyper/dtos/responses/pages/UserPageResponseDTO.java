@@ -1,4 +1,4 @@
-package com.example.hyper.dtos.responses;
+package com.example.hyper.dtos.responses.pages;
 
 import com.example.hyper.dtos.requests.UserRequestDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;

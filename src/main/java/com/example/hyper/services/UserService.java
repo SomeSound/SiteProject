@@ -1,7 +1,7 @@
 package com.example.hyper.services;
 
 import com.example.hyper.dtos.requests.UserRequestDTO;
-import com.example.hyper.dtos.responses.UserPageResponseDTO;
+import com.example.hyper.dtos.responses.pages.UserPageResponseDTO;
 import com.example.hyper.dtos.responses.UserResponseDTO;
 import org.springframework.data.domain.Pageable;
 
