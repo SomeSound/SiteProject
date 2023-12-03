@@ -12,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "REVIEW")
+@EqualsAndHashCode(callSuper = false)
 public class ReviewEntity extends BaseEntity implements Serializable {
 
     @Id
@@ -19,13 +20,7 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "REVIEW_SEQ", sequenceName = "REVIEW_SEQ", allocationSize = 1)
     private Long id;
 
-//    @Column(name = "USER_ID")
-//    private UserEntity user;
-
-    @Column(name = "TRACK_ID")
+    @ManyToOne
     private TrackEntity track;
-
-    @Column(name = "VALUE")
-    private double value;
 
 }

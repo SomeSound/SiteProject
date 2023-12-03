@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Getter
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "USER")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class UserEntity extends BaseEntity implements Serializable {
 
     @Id
@@ -38,6 +39,9 @@ public class UserEntity extends BaseEntity implements Serializable {
     @Column(name = "COUNTRY", nullable = false)
     private String country;
 
-    @Column(name = "SUBSCRIPTION")
-    private boolean subscription;
+    @OneToOne
+    private SubscriptionEntity subscription;
+
+    @OneToMany
+    private List<FollowersEntity> followers;
 }

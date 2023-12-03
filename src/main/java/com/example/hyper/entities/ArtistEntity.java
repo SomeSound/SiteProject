@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Getter
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ARTIST")
+@EqualsAndHashCode(callSuper = false)
 public class ArtistEntity extends UserEntity implements Serializable {
 
     @Id
@@ -21,5 +23,8 @@ public class ArtistEntity extends UserEntity implements Serializable {
 
     @Column(name = "CREDITS")
     private double credits;
+
+    @ManyToMany
+    private List<RecordEntity> records;
 
 }
