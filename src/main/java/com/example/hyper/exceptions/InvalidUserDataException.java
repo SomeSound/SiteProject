@@ -9,9 +9,11 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 public class InvalidUserDataException extends RuntimeException {
+
     private static final long serialVersionUID = 1L;
 
     private final ErrorCodes errorCode;
+
     private final String details;
 
     public InvalidUserDataException(ErrorCodes errorCode, Exception e) {

@@ -1,10 +1,16 @@
 package com.example.hyper.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Data
+@Getter
+@Setter
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "COLLECTION")
+@EqualsAndHashCode(callSuper = false)
 public class CollectionEntity {
 
     @Id
@@ -12,5 +18,9 @@ public class CollectionEntity {
     @SequenceGenerator(name = "ARTIST_SEQ", sequenceName = "COLLECTION_SEQ", allocationSize = 1)
     private Long id;
 
+    @Column(name = "Name", nullable = false)
+    private String name;
+
+    //@NotEmpty
     //private List<playlist> playlists
 }

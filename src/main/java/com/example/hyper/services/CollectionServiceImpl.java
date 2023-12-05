@@ -4,10 +4,9 @@ import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.requests.CollectionRequestDTO;
 import com.example.hyper.dtos.responses.CollectionResponseDTO;
 import com.example.hyper.dtos.responses.pages.CollectionPageResponseDTO;
-import com.example.hyper.dtos.responses.pages.PlaylistPageReponseDTO;
 import com.example.hyper.entities.CollectionEntity;
-import com.example.hyper.entities.PlaylistEntity;
 import com.example.hyper.exceptions.CollectionNotFoundException;
+import com.example.hyper.exceptions.InvalidCollectionDataException;
 import com.example.hyper.repositories.CollectionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +29,7 @@ public class CollectionServiceImpl implements CollectionService {
 
 
     @Override
-    public CollectionService save(CollectionRequestDTO collection) {
+    public CollectionResponseDTO save(CollectionRequestDTO collection) {
 
         CollectionEntity collectionEntity;
         try {
@@ -38,29 +37,35 @@ public class CollectionServiceImpl implements CollectionService {
 
             collectionEntity = collectionRepository.save(collectionEntity);
 
-            return modelMapper.map(collectionEntity, CollectionService.class);
+            return modelMapper.map(collectionEntity, CollectionResponseDTO.class);
 
         } catch (DataIntegrityViolationException e) {
-            return null; // implementar erro
+            throw new InvalidCollectionDataException(ErrorCodes.INVALID_COLLECTION_ERROR,
+                    ErrorCodes.INVALID_COLLECTION_ERROR.getMessage());
         }
     }
     @Override
-    public CollectionPageResponseDTO find(String collection, Pageable pageable) {
+    public CollectionPageResponseDTO find(String name, Pageable pageable) {
 
-        Page<PlaylistEntity> playlistEntities;
+        Page<CollectionEntity> collectionEntities;
 
-        if(collection != null){
-            playlistEntities = collectionRepository.findByName(collection, pageable);
+        if(name != null){
+            collectionEntities = collectionRepository.findByName(name, pageable);
         } else {
-            playlistEntities = collectionRepository.findAll(pageable);
+            collectionEntities = collectionRepository.findAll(pageable);
         }
-
-        return modelMapper.map(playlistEntities, PlaylistPageReponseDTO.class);
+        return modelMapper.map(collectionEntities, CollectionPageResponseDTO.class);
     }
 
     @Override
     public CollectionResponseDTO update(Long id, CollectionRequestDTO collection) {
-        return null;
+        CollectionEntity collectionCurrent = findByIdOrThrowCollectionDataNotFoundException(id);
+
+        collectionCurrent.setName(collection.getName());
+
+        collectionRepository.save(collectionCurrent);
+
+        return modelMapper.map(collectionCurrent, CollectionResponseDTO.class);
     }
 
     @Override

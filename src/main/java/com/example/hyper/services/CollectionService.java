@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface CollectionService {
 
-    public CollectionService save(CollectionRequestDTO collection);
+    public CollectionResponseDTO save(CollectionRequestDTO collection);
 
     public CollectionPageResponseDTO find(String collection, Pageable pageable);
 

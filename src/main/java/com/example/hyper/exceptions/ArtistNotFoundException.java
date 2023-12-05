@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 public class ArtistNotFoundException extends RuntimeException {
+
     private static final long serialVersionUID = 1L;
 
     private final ErrorCodes errorCode;
