@@ -20,7 +20,7 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "REVIEW_SEQ", sequenceName = "REVIEW_SEQ", allocationSize = 1)
     private Long id;
 
-    @ManyToOne
-    private TrackEntity track;
+    @Column(name = "VALUE")
+    private double value;
 
 }

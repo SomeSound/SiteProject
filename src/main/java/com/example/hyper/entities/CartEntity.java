@@ -25,8 +25,8 @@ public class CartEntity extends BaseEntity implements Serializable {
     private double totalPrice;
 
     @ManyToMany
-    private List<UserEntity> users;
+    private List<CustomerEntity> customer;
 
-    @OneToMany
+    @ManyToMany
     private List<TrackEntity> tracks;
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "ARTIST")
 @EqualsAndHashCode(callSuper = false)
-public class ArtistEntity extends UserEntity implements Serializable {
+public class ArtistEntity extends CustomerEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARTIST_SEQ")
@@ -25,6 +25,6 @@ public class ArtistEntity extends UserEntity implements Serializable {
     private double credits;
 
     @ManyToMany
-    private List<RecordEntity> records;
+    private List<AlbumEntity> albums;
 
 }

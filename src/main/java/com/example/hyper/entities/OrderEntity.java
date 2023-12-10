@@ -25,6 +25,6 @@ public class OrderEntity extends BaseEntity implements Serializable {
     private List<CartEntity> carts;
 
     @ManyToOne
-    private UserEntity user;
+    private CustomerEntity user;
 
 }

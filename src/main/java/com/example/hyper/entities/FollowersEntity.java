@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "CART")
+@Table(name = "FOLLOWERS")
 @EqualsAndHashCode(callSuper = false)
 public class FollowersEntity extends BaseEntity implements Serializable {
 
@@ -21,9 +21,6 @@ public class FollowersEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "FOLLOW_SEQ", sequenceName = "FOLLOW_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "USER")
-    private UserEntity user;
-
-    @OneToMany
-    private List<UserEntity> users;
+    @ManyToMany
+    private List<CustomerEntity> users;
 }

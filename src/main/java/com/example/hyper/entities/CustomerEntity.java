@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "USER")
 @EqualsAndHashCode(callSuper = false)
-public class UserEntity extends BaseEntity implements Serializable {
+public class CustomerEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
@@ -44,4 +44,7 @@ public class UserEntity extends BaseEntity implements Serializable {
 
     @OneToMany
     private List<FollowersEntity> followers;
+
+    @ManyToOne
+    private CartEntity cart;
 }

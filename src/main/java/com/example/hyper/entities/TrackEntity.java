@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Getter
@@ -39,4 +40,7 @@ public class TrackEntity extends BaseEntity implements Serializable {
 
     @ManyToOne
     private AlbumEntity album;
+
+    @ManyToMany
+    private List<TrackEntity> cart;
 }

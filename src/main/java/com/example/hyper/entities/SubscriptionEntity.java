@@ -21,14 +21,11 @@ public class SubscriptionEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "SUBSCRIPTION_SEQ", sequenceName = "SUBSCRIPTION_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
-
 //    @Enumerated(EnumType.STRING)
 //    private SubscriptionOption option;
 
     @OneToMany
-    private List<UserEntity> users;
+    private List<CustomerEntity> users;
 
     @Column(name = "PRICE")
     private float price;
