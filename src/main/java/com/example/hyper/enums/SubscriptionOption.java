@@ -3,6 +3,8 @@ package com.example.hyper.enums;
 public enum SubscriptionOption {
 
     STANDARD,
-    MEDIUM,
-    ADVANCED
+    SOLO,
+    COUPLE,
+    STUDENT,
+    FAMILY
 }

@@ -20,9 +20,12 @@ public class RecordEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "RECORD_SEQ", sequenceName = "RECORD_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToMany
-    private List<AlbumEntity> albums;
+    @Column(name = "COUNTRY")
+    private String country;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
 }

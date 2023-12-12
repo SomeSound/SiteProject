@@ -3,7 +3,7 @@
 ## Instalando Maven 
 - seguir conteúdo de vídeo aqui: 
 
-### Download MYSQL Workbench
+## Download MYSQL Workbench
 - Criar nova conexão na porta 3306
 - Nome SomeSound
 - Senha root

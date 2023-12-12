@@ -24,6 +24,9 @@ public class PlaylistEntity extends BaseEntity implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToMany
-    private List<TrackEntity> tracks;
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Column(name = "CUSTOMER_ID")
+    private CustomerEntity customerId;
 }

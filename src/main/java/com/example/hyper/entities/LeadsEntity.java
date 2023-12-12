@@ -21,9 +21,15 @@ public class LeadsEntity extends BaseEntity implements Serializable {
     private Long id;
 
     @Column(name = "NAME")
-    private double name;
+    private String name;
 
     @Column(name = "EMAIL")
     private String email;
+
+    @Column(name = "TEXT")
+    private String text;
+
+    @Column(name = "CUSTOMER_ID")
+    private CustomerEntity customerId;
 
 }

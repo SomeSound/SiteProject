@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -12,7 +13,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "CART")
+@Table(name = "ORDER")
 @EqualsAndHashCode(callSuper = false)
 public class OrderEntity extends BaseEntity implements Serializable {
 
@@ -21,10 +22,13 @@ public class OrderEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "ORDER_SEQ", sequenceName = "ORDER_SEQ", allocationSize = 1)
     private Long id;
 
-    @OneToMany
-    private List<CartEntity> carts;
+    @Column(name = "TOTAL_ITEMS")
+    private int totalItems;
 
-    @ManyToOne
-    private UserEntity user;
+    @Column(name = "TOTAL_PRICE")
+    private BigDecimal totalPrice;
+
+    @Column(name = "CUSTOMER_ID")
+    private CustomerEntity customerId;
 
 }
