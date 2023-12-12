@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Data
@@ -14,13 +15,19 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "FOLLOWERS")
 @EqualsAndHashCode(callSuper = false)
-public class FollowersEntity extends BaseEntity implements Serializable {
+public class FollowEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FOLLOW_SEQ")
     @SequenceGenerator(name = "FOLLOW_SEQ", sequenceName = "FOLLOW_SEQ", allocationSize = 1)
     private Long id;
 
-    @ManyToMany
-    private List<CustomerEntity> users;
+    @Column(name = "CUSTOMER_ID")
+    private CustomerEntity customerId;
+
+    @Column(name = "FOLLOWING_ID")
+    private CustomerEntity followingId;
+
+    @Column(name = "FOLLOW_DATE")
+    private ZonedDateTime followDate;
 }

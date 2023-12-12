@@ -22,18 +22,18 @@ public class AlbumEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "ALBUM_SEQ", sequenceName = "ALBUM_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "NAME")
-    private double name;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-    @OneToMany
-    private List<TrackEntity> track;
+    @Column(name = "IMAGE", nullable = false)
+    private String image;
 
-    @ManyToMany
-    private List<RecordEntity> records;
-
-    @Column(name = "IMAGE_URL")
-    private String imageUrl;
-
-    @Column(name = "RELEASE_DATE")
+    @Column(name = "RELEASE_DATE", nullable = false)
     private ZonedDateTime releaseDate;
+
+    @Column(name = "RECORD_ID")
+    private RecordEntity recordId;
+
+    @Column(name = "CUSTOMER_ID")
+    private CustomerEntity customerId;
 }

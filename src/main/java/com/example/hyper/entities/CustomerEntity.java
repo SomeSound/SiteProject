@@ -12,14 +12,17 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "USER")
+@Table(name = "CUSTOMER")
 @EqualsAndHashCode(callSuper = false)
 public class CustomerEntity extends BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
-    @SequenceGenerator(name = "USER_SEQ",sequenceName = "USER_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_SEQ")
+    @SequenceGenerator(name = "CUSTOMER_SEQ",sequenceName = "CUSTOMER_SEQ", allocationSize = 1)
     private Long id;
+
+    @Column(name = "CUSTOMER_ID")
+    private String customerId;
 
     @Column(name = "AVATAR")
     private String avatar;
@@ -39,12 +42,13 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @Column(name = "COUNTRY", nullable = false)
     private String country;
 
-    @OneToOne
+    @Column(name = "BIRTH_DATE", nullable = false)
+    private String birthDate;
+
+    @Column(name = "SUBSCRIPTION_ID", nullable = false)
     private SubscriptionEntity subscription;
 
-    @OneToMany
-    private List<FollowersEntity> followers;
+    @Column(name = "DESCRIPTION")
+    private String description;
 
-    @ManyToOne
-    private CartEntity cart;
 }

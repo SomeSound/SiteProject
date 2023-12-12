@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -22,9 +23,9 @@ public class ArtistEntity extends CustomerEntity implements Serializable {
     private Long id;
 
     @Column(name = "CREDITS")
-    private double credits;
+    private BigDecimal credits;
 
-    @ManyToMany
-    private List<AlbumEntity> albums;
+    @Column(name = "CUSTOMER_ID")
+    private CustomerEntity customerId;
 
 }
