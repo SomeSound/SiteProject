@@ -31,9 +31,7 @@ public class AlbumEntity extends BaseEntity implements Serializable {
     @Column(name = "RELEASE_DATE", nullable = false)
     private ZonedDateTime releaseDate;
 
-    @Column(name = "RECORD_ID")
     private RecordEntity recordId;
 
-    @Column(name = "CUSTOMER_ID")
     private CustomerEntity customerId;
 }

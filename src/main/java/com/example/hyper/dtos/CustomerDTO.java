@@ -1,12 +1,11 @@
 package com.example.hyper.dtos;
 
-import com.example.hyper.entities.BaseEntity;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class UserDTO extends BaseEntity {
+public class CustomerDTO {
 
     private Long id;
 

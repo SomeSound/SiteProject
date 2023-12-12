@@ -29,7 +29,6 @@ public class LeadsEntity extends BaseEntity implements Serializable {
     @Column(name = "TEXT")
     private String text;
 
-    @Column(name = "CUSTOMER_ID")
     private CustomerEntity customerId;
 
 }

@@ -36,7 +36,6 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "ALGUM_ID", nullable = false)
     private AlbumEntity albumId;
 
 }

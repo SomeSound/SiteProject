@@ -51,4 +51,6 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Column(name = "IS_ARTIST")
+    private boolean isArtist;
 }
