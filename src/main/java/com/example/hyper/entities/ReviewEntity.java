@@ -20,8 +20,14 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "REVIEW_SEQ", sequenceName = "REVIEW_SEQ", allocationSize = 1)
     private Long id;
 
-    @ManyToOne
-    private TrackEntity track;
+    @Column(name = "SCORE")
+    private float score;
+
+    @Column(name = "CUSTOMER_ID")
+    private CustomerEntity customerId;
+
+    @Column(name = "TRACK_ID")
+    private TrackEntity trackId;
 
     //adicionar ID do "Reviewer"
 

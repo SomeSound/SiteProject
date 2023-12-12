@@ -1,31 +1,31 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       show-sql: true
       format_sql: true
   datasource:
-    url: jdbc:mysql://localhost:3306/SomeSound?useSSL=true
+    url: jdbc:mysql://localhost:3306/Hyper?useSSL=true
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver
   flyway:
-    enabled: false
+    enabled: true
     baseline-on-migrate: true
     out-of-order: true
     ignore-missing-migrations: false
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: undefined@gmail.com
-    password: undefined
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: undefined@gmail.com
+#    password: undefined
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
 
 server:
   port: 8080

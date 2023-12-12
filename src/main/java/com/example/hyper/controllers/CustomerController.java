@@ -3,7 +3,7 @@ package com.example.hyper.controllers;
 import com.example.hyper.dtos.requests.UserRequestDTO;
 import com.example.hyper.dtos.responses.pages.UserPageResponseDTO;
 import com.example.hyper.dtos.responses.UserResponseDTO;
-import com.example.hyper.services.UserService;
+import com.example.hyper.services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +19,16 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class UserController {
+public class CustomerController {
 
     @Autowired
-    private final UserService userService;
+    private final CustomerService customerService;
 
     @PostMapping(value = "/user")
     public ResponseEntity<UserResponseDTO> save(
             @RequestBody @Valid UserRequestDTO user){
 
-        UserResponseDTO response = userService.save(user);
+        UserResponseDTO response = customerService.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -41,7 +41,7 @@ public class UserController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        UserPageResponseDTO response = userService.find(names, pageable);
+        UserPageResponseDTO response = customerService.find(names, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -49,7 +49,7 @@ public class UserController {
     @PutMapping(value = "/user/{id}")
     public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody UserRequestDTO user) {
 
-        UserResponseDTO response = userService.update(id, user);
+        UserResponseDTO response = customerService.update(id, user);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -57,7 +57,7 @@ public class UserController {
     @DeleteMapping(value = "/user/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
 
-        userService.delete(id);
+        customerService.delete(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

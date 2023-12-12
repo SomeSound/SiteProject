@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Getter
@@ -26,17 +28,15 @@ public class TrackEntity extends BaseEntity implements Serializable {
     private String name;
 
     @Column(name = "DURATION", nullable = false)
-    private Double duration;
+    private float duration;
 
     @Column(name = "GENRE", nullable = false)
     private Genre genre;
 
-    @OneToMany
-    private List<ReviewEntity> reviews;
+    @Column(name = "PRICE", nullable = false)
+    private BigDecimal price;
 
-    @ManyToMany
-    private List<PlaylistEntity> playlist;
+    @Column(name = "ALGUM_ID", nullable = false)
+    private AlbumEntity albumId;
 
-    @ManyToOne
-    private AlbumEntity album;
 }

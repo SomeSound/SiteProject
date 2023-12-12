@@ -1,9 +1,11 @@
 package com.example.hyper.entities;
 
+import com.example.hyper.enums.SubscriptionOption;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -21,15 +23,10 @@ public class SubscriptionEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "SUBSCRIPTION_SEQ", sequenceName = "SUBSCRIPTION_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
-
-//    @Enumerated(EnumType.STRING)
-//    private SubscriptionOption option;
-
-    @OneToMany
-    private List<UserEntity> users;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "_OPTION")
+    private SubscriptionOption option;
 
     @Column(name = "PRICE")
-    private float price;
+    private BigDecimal price;
 }
