@@ -23,4 +23,6 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private TrackEntity track;
 
+    //adicionar ID do "Reviewer"
+
 }

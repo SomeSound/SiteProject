@@ -1,8 +1,6 @@
 package com.example.hyper.controllers;
 
 import com.example.hyper.dtos.requests.PlaylistRequestDTO;
-import com.example.hyper.dtos.requests.TrackRequestDTO;
-import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.example.hyper.dtos.responses.pages.PlaylistPageReponseDTO;
 import com.example.hyper.dtos.responses.PlaylistResponseDTO;
 import com.example.hyper.services.PlaylistService;

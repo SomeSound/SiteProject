@@ -8,8 +8,6 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class UserRequestDTO extends BaseEntity {
 
-    private Long id;
-
     private String avatar;
 
     @NotEmpty(message = "Invalid name, can not be empty")
