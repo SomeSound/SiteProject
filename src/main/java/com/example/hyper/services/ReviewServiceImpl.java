@@ -3,7 +3,9 @@ package com.example.hyper.services;
 import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.requests.ReviewRequestDTO;
 import com.example.hyper.dtos.responses.ReviewResponseDTO;
+import com.example.hyper.dtos.responses.pages.CollectionPageResponseDTO;
 import com.example.hyper.dtos.responses.pages.ReviewPageResponseDTO;
+import com.example.hyper.entities.CollectionEntity;
 import com.example.hyper.entities.ReviewEntity;
 import com.example.hyper.repositories.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +44,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewPageResponseDTO find(String review, Pageable pageable){
+    public ReviewPageResponseDTO find(String review, Pageable pageable) {
 
+        Page<ReviewEntity> reviewEntities;
+
+        if(review != null){
+            reviewEntities = reviewRepository.findByReview(review, pageable);
+        } else {
+            reviewEntities = reviewRepository.findAll(pageable);
+        }
+        return modelMapper.map(reviewEntities, ReviewPageResponseDTO.class);
     }
 
     @Override
