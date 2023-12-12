@@ -23,10 +23,8 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     @Column(name = "SCORE")
     private float score;
 
-    @Column(name = "CUSTOMER_ID")
     private CustomerEntity customerId;
 
-    @Column(name = "TRACK_ID")
     private TrackEntity trackId;
 
 }
