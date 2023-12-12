@@ -6,7 +6,6 @@ import com.example.hyper.dtos.responses.UserResponseDTO;
 import com.example.hyper.entities.CustomerEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.InvalidUserDataException;
-import com.example.hyper.repositories.UserRepository;
 import com.example.hyper.dtos.requests.UserRequestDTO;
 import com.example.hyper.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
