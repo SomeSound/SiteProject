@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class ArtistRequestDTO extends BaseEntity {
+public class ArtistRequestDTO {
 
     private Long id;
 

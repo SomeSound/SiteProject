@@ -24,7 +24,5 @@ public class ArtistEntity extends CustomerEntity implements Serializable {
     @Column(name = "CREDITS")
     private BigDecimal credits;
 
-    @Column(name = "CUSTOMER_ID")
-    private CustomerEntity customerId;
 
 }

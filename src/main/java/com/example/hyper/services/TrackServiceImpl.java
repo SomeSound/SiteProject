@@ -62,14 +62,14 @@ public class TrackServiceImpl implements TrackService {
 
     @Override
     public TrackResponseDTO update(Long id, TrackRequestDTO track) {
-        TrackEntity musicCurrent = findByIdOrThrowTrackDataNotFoundException(id);
+        TrackEntity trackCurrent = findByIdOrThrowTrackDataNotFoundException(id);
 
-        musicCurrent.setName(track.getName());
-        musicCurrent.setDuration(track.getDuration());
+        trackCurrent.setName(track.getName());
+        trackCurrent.setDuration(track.getDuration());
 
-        trackRepository.save(musicCurrent);
+        trackRepository.save(trackCurrent);
 
-        return modelMapper.map(musicCurrent, TrackResponseDTO.class);
+        return modelMapper.map(trackCurrent, TrackResponseDTO.class);
     }
 
     @Override

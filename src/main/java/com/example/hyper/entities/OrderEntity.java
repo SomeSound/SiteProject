@@ -28,7 +28,6 @@ public class OrderEntity extends BaseEntity implements Serializable {
     @Column(name = "TOTAL_PRICE")
     private BigDecimal totalPrice;
 
-    @Column(name = "CUSTOMER_ID")
     private CustomerEntity customerId;
 
 }

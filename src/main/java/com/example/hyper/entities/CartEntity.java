@@ -28,7 +28,6 @@ public class CartEntity extends BaseEntity implements Serializable {
     @Column(name = "TOTAL_PRICE", nullable = false)
     private BigDecimal totalPrice;
 
-    @Column(name = "CUSTOMER_ID", nullable = false)
     private CustomerEntity customerId;
 
 }
