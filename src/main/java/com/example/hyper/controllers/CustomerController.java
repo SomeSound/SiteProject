@@ -1,8 +1,8 @@
 package com.example.hyper.controllers;
 
-import com.example.hyper.dtos.requests.UserRequestDTO;
-import com.example.hyper.dtos.responses.pages.UserPageResponseDTO;
-import com.example.hyper.dtos.responses.UserResponseDTO;
+import com.example.hyper.dtos.requests.CustomerRequestDTO;
+import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
+import com.example.hyper.dtos.responses.CustomerResponseDTO;
 import com.example.hyper.services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,15 +25,15 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping(value = "/user")
-    public ResponseEntity<UserResponseDTO> save(
-            @RequestBody @Valid UserRequestDTO user){
+    public ResponseEntity<CustomerResponseDTO> save(
+            @RequestBody @Valid CustomerRequestDTO user){
 
-        UserResponseDTO response = customerService.save(user);
+        CustomerResponseDTO response = customerService.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @GetMapping(value = "/user")
-    public ResponseEntity<UserPageResponseDTO> find(
+    public ResponseEntity<CustomerPageResponseDTO> find(
             @RequestParam(value = "names", required = false) List<String> names,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
@@ -41,15 +41,15 @@ public class CustomerController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        UserPageResponseDTO response = customerService.find(names, pageable);
+        CustomerPageResponseDTO response = customerService.find(names, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping(value = "/user/{id}")
-    public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody UserRequestDTO user) {
+    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerRequestDTO user) {
 
-        UserResponseDTO response = customerService.update(id, user);
+        CustomerResponseDTO response = customerService.update(id, user);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

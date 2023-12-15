@@ -1,12 +1,12 @@
 package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
-import com.example.hyper.dtos.responses.pages.UserPageResponseDTO;
-import com.example.hyper.dtos.responses.UserResponseDTO;
+import com.example.hyper.dtos.requests.CustomerRequestDTO;
+import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
+import com.example.hyper.dtos.responses.CustomerResponseDTO;
 import com.example.hyper.entities.CustomerEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;
-import com.example.hyper.exceptions.InvalidUserDataException;
-import com.example.hyper.dtos.requests.UserRequestDTO;
+import com.example.hyper.exceptions.InvalidCustomerDataException;
 import com.example.hyper.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,22 +30,22 @@ public class CustomerServiceImpl implements CustomerService {
     private final ModelMapper modelMapper;
 
     @Override
-    public UserResponseDTO save(UserRequestDTO user) {
+    public CustomerResponseDTO save(CustomerRequestDTO user) {
         CustomerEntity customerEntity;
         try {
             customerEntity = modelMapper.map(user, CustomerEntity.class);
 
             customerEntity = customerRepository.save(customerEntity);
 
-            return modelMapper.map(customerEntity, UserResponseDTO.class);
+            return modelMapper.map(customerEntity, CustomerResponseDTO.class);
         }catch (DataIntegrityViolationException e){
-            throw new InvalidUserDataException(ErrorCodes.INVALID_USER_ERROR,
+            throw new InvalidCustomerDataException(ErrorCodes.INVALID_USER_ERROR,
                     ErrorCodes.INVALID_USER_ERROR.getMessage());
         }
     }
 
     @Override
-    public UserPageResponseDTO find(List<String> names, Pageable pageable) {
+    public CustomerPageResponseDTO find(List<String> names, Pageable pageable) {
 
         Page<CustomerEntity> userEntities;
 
@@ -54,11 +54,11 @@ public class CustomerServiceImpl implements CustomerService {
         } else {
             userEntities = customerRepository.findAll(pageable);
         }
-        return modelMapper.map(userEntities, UserPageResponseDTO.class);
+        return modelMapper.map(userEntities, CustomerPageResponseDTO.class);
     }
 
     @Override
-    public UserResponseDTO update(Long id, UserRequestDTO user) {
+    public CustomerResponseDTO update(Long id, CustomerRequestDTO user) {
         CustomerEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
 
         userCurrent.setName(user.getName());
@@ -66,14 +66,14 @@ public class CustomerServiceImpl implements CustomerService {
 
         customerRepository.save(userCurrent);
 
-        return modelMapper.map(userCurrent, UserResponseDTO.class);
+        return modelMapper.map(userCurrent, CustomerResponseDTO.class);
     }
 
     @Override
     public void delete(Long id) {
         CustomerEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
 
-        UserResponseDTO response = modelMapper.map(userCurrent, UserResponseDTO.class);
+        CustomerResponseDTO response = modelMapper.map(userCurrent, CustomerResponseDTO.class);
         customerRepository.delete(userCurrent);
     }
 

@@ -1,19 +1,19 @@
 package com.example.hyper.services;
 
-import com.example.hyper.dtos.requests.UserRequestDTO;
-import com.example.hyper.dtos.responses.pages.UserPageResponseDTO;
-import com.example.hyper.dtos.responses.UserResponseDTO;
+import com.example.hyper.dtos.requests.CustomerRequestDTO;
+import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
+import com.example.hyper.dtos.responses.CustomerResponseDTO;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface CustomerService {
 
-    public UserResponseDTO save(UserRequestDTO user);
+    public CustomerResponseDTO save(CustomerRequestDTO user);
 
-    public UserPageResponseDTO find(List<String> names, Pageable pageable);
+    public CustomerPageResponseDTO find(List<String> names, Pageable pageable);
 
-    public UserResponseDTO update(Long id, UserRequestDTO user);
+    public CustomerResponseDTO update(Long id, CustomerRequestDTO user);
 
     public void delete(Long id);
 }

@@ -3,7 +3,7 @@ package com.example.hyper.dtos.responses;
 import lombok.Data;
 
 @Data
-public class UserResponseDTO {
+public class CustomerResponseDTO {
 
     private Long id;
     private String avatar;

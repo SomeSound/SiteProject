@@ -5,13 +5,9 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-<<<<<<<< HEAD:src/main/java/com/example/hyper/dtos/requests/UserRequestDTO.java
-public class UserRequestDTO extends BaseEntity {
-========
-public class CustomerDTO {
+public class CustomerRequestDTO {
 
     private Long id;
->>>>>>>> master:src/main/java/com/example/hyper/dtos/CustomerDTO.java
 
     private String avatar;
 

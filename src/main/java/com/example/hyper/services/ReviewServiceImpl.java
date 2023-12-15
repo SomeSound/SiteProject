@@ -1,3 +1,4 @@
+/*
 package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
@@ -79,3 +80,4 @@ public class ReviewServiceImpl implements ReviewService{
                 () -> new CollectionNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }
+*/
