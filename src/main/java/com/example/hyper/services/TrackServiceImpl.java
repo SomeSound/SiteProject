@@ -2,10 +2,13 @@ package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.responses.TrackResponseDTO;
+import com.example.hyper.entities.AlbumEntity;
 import com.example.hyper.exceptions.TrackNotFoundException;
 import com.example.hyper.dtos.requests.TrackRequestDTO;
 import com.example.hyper.dtos.responses.pages.TrackPageResponseDTO;
 import com.example.hyper.entities.TrackEntity;
+import com.example.hyper.repositories.AlbumRepository;
+import com.example.hyper.repositories.CustomerRepository;
 import com.example.hyper.repositories.TrackRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +19,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
+
+import static com.example.hyper.constants.Constants.SP_ZONE_ID;
 
 @Slf4j
 @Service
@@ -25,6 +33,12 @@ public class TrackServiceImpl implements TrackService {
 
     @Autowired
     private TrackRepository trackRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private AlbumRepository albumRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -36,11 +50,22 @@ public class TrackServiceImpl implements TrackService {
         try{
             trackEntity = modelMapper.map(track, TrackEntity.class);
 
+            AlbumEntity album = AlbumEntity.builder()
+                    .name(trackEntity.getName())
+                    .image(trackEntity.getImage())
+                    .customerId(customerRepository.getByCustomerId(track.getCustomerId()))
+                    .releaseDate(ZonedDateTime.now(ZoneId.of(SP_ZONE_ID)))
+                    .build();
+
+            AlbumEntity albumEntity = albumRepository.save(album);
+
+            trackEntity.setAlbumId(albumEntity);
             trackEntity = trackRepository.save(trackEntity);
 
             return modelMapper.map(trackEntity, TrackResponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
+            System.out.println(e.getMessage());
             return null; // Implementar exception
         }
 

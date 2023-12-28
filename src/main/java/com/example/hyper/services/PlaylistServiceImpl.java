@@ -10,6 +10,7 @@ import com.example.hyper.exceptions.TrackNotFoundException;
 import com.example.hyper.dtos.requests.PlaylistRequestDTO;
 import com.example.hyper.entities.PlaylistEntity;
 import com.example.hyper.repositories.PlaylistRepository;
+import com.example.hyper.repositories.TrackRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,9 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Autowired
     private PlaylistRepository playlistRepository;
+
+    @Autowired
+    TrackRepository trackRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -61,14 +65,24 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public PlaylistResponseDTO update(Long id, PlaylistRequestDTO playlist) {
-        PlaylistEntity playlistCurrent = findByIdOrThrowPlaylistDataNotFoundException(id);
+    public PlaylistResponseDTO updateName(Long id, String name) {
+        PlaylistEntity playlist = findByIdOrThrowPlaylistDataNotFoundException(id);
 
-        playlistCurrent.setName(playlist.getName());
+        playlist.setName(name);
 
-        playlistRepository.save(playlistCurrent);
+        playlistRepository.save(playlist);
 
-        return modelMapper.map(playlistCurrent, PlaylistResponseDTO.class);
+        return modelMapper.map(playlist, PlaylistResponseDTO.class);
+    }
+
+    @Override
+    public PlaylistResponseDTO addTrack(Long id, Long trackId) {
+        PlaylistEntity playlist = findByIdOrThrowPlaylistDataNotFoundException(id);
+        TrackEntity track = findByIdOrThrowTrackDataNotFoundException(id);
+
+        playlist.getTrackList().add(track);
+
+        return modelMapper.map(playlist, PlaylistResponseDTO.class);
     }
 
     @Override
@@ -81,5 +95,10 @@ public class PlaylistServiceImpl implements PlaylistService {
     private PlaylistEntity findByIdOrThrowPlaylistDataNotFoundException(Long id) {
         return playlistRepository.findById(id).orElseThrow(
                 () -> new PlaylistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private TrackEntity findByIdOrThrowTrackDataNotFoundException(Long id) {
+        return trackRepository.findById(id).orElseThrow(
+                () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

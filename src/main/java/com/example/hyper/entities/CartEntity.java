@@ -28,6 +28,7 @@ public class CartEntity extends BaseEntity implements Serializable {
     @Column(name = "TOTAL_PRICE", nullable = false)
     private BigDecimal totalPrice;
 
+    @ManyToOne(fetch = FetchType.EAGER)
     private CustomerEntity customerId;
 
 }

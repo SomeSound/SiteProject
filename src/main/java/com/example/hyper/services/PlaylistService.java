@@ -7,12 +7,14 @@ import org.springframework.data.domain.Pageable;
 
 public interface PlaylistService {
 
-    public PlaylistResponseDTO save(PlaylistRequestDTO playlist);
+    PlaylistResponseDTO save(PlaylistRequestDTO playlist);
 
-    public PlaylistPageReponseDTO find(String name, Pageable pageable);
+    PlaylistPageReponseDTO find(String name, Pageable pageable);
 
-    public PlaylistResponseDTO update(Long id, PlaylistRequestDTO playlist);
+    PlaylistResponseDTO updateName(Long id, String name);
 
-    public void delete(Long id);
+    PlaylistResponseDTO addTrack(Long id, Long trackId);
+
+    void delete(Long id);
 
 }

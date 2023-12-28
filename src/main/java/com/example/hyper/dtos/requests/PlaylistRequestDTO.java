@@ -9,8 +9,10 @@ import java.util.List;
 @Data
 public class PlaylistRequestDTO {
 
+    private Long id;
+
     @NotEmpty(message = "Invalid name, can not be empty")
     private String name;
 
-//    private List<TrackRequestDTO> tracks;
+    private Long trackId;
 }

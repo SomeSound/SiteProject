@@ -16,4 +16,5 @@ public interface CustomerRepository extends BaseRepository<CustomerEntity> {
     Page<CustomerEntity> findByName(@Param("names")List<String> names,
                                     Pageable pageable);
 
+    CustomerEntity getByCustomerId(String customerId);
 }

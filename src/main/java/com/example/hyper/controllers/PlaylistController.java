@@ -49,9 +49,21 @@ public class PlaylistController {
     }
 
     @PutMapping(value = "/playlist/{id}")
-    public ResponseEntity<PlaylistResponseDTO> update(@PathVariable Long id, @RequestBody PlaylistRequestDTO playlist) {
+    public ResponseEntity<PlaylistResponseDTO> updateName(
+                                                            @PathVariable Long id,
+                                                            @RequestBody @Valid PlaylistRequestDTO playlist) {
 
-        PlaylistResponseDTO response = playlistService.update(id, playlist);
+        PlaylistResponseDTO response = playlistService.updateName(id, playlist.getName());
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping(value = "/playlist/{id}/add-track")
+    public ResponseEntity<PlaylistResponseDTO> addTrack(
+                                                        @PathVariable Long id,
+                                                        @RequestBody Long trackId) {
+
+        PlaylistResponseDTO response = playlistService.addTrack(id, trackId);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

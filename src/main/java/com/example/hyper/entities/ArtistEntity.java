@@ -3,9 +3,11 @@ package com.example.hyper.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Getter

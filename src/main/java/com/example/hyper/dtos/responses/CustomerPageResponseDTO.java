@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class UserPageResponseDTO {
+public class CustomerPageResponseDTO {
 
     private boolean last;
 
