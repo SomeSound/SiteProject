@@ -57,12 +57,8 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @PrimaryKeyJoinColumn(name = "SUBSCRIPTION_ID")
     private SubscriptionEntity subscription;
 
-//    @OneToMany
-//    @JoinColumn(name = "CUSTOMER_ORDERS")
-//    private List<CartEntity> cartList;
+    @OneToMany
+    @JoinColumn(name = "CARTS")
+    private List<CartEntity> cartList;
 
-//    @OneToMany
-//    @JoinColumn(name = "CUSTOMER_ORDERS")
-//    @PrimaryKeyJoinColumn(name = "ORDER_ID")
-//    private List<OrderEntity> orderList;
 }

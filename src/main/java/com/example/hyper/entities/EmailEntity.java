@@ -41,6 +41,7 @@ public class EmailEntity extends BaseEntity implements Serializable {
     private ZonedDateTime sendDate;
 
     @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
     private StatusEmail status;
 
 

@@ -1,7 +1,7 @@
 package com.example.hyper.controllers;
 
-import com.example.hyper.dtos.CustomerDTO;
-import com.example.hyper.dtos.responses.CustomerPageResponseDTO;
+import com.example.hyper.dtos.requests.CustomerRequestDTO;
+import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import com.example.hyper.dtos.responses.CustomerResponseDTO;
 import com.example.hyper.services.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class CustomerController {
 
     @PostMapping(value = "/customer")
     public ResponseEntity<CustomerResponseDTO> save(
-            @RequestBody @Valid CustomerDTO customer){
+            @RequestBody @Valid CustomerRequestDTO customer){
 
         CustomerResponseDTO response = customerService.save(customer);
 
@@ -47,7 +47,7 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/customer/{id}")
-    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerDTO user) {
+    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerRequestDTO user) {
 
         CustomerResponseDTO response = customerService.update(id, user);
 

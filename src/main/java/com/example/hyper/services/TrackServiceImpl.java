@@ -50,6 +50,8 @@ public class TrackServiceImpl implements TrackService {
         try{
             trackEntity = modelMapper.map(track, TrackEntity.class);
 
+            trackEntity.setPrice(3);
+
             AlbumEntity album = AlbumEntity.builder()
                     .name(trackEntity.getName())
                     .image(trackEntity.getImage())

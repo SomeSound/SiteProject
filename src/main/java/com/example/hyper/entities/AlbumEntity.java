@@ -37,4 +37,8 @@ public class AlbumEntity extends BaseEntity implements Serializable {
 
     @ManyToOne
     private CustomerEntity customerId;
+
+    @OneToMany
+    @JoinColumn(name = "TRACK_LIST")
+    private List<TrackEntity> trackList;
 }

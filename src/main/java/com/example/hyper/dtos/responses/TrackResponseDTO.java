@@ -9,4 +9,6 @@ public class TrackResponseDTO {
     private String name;
     private Double duration;
     private String genre;
+    private int price;
+    private AlbumResponseDTO album;
 }

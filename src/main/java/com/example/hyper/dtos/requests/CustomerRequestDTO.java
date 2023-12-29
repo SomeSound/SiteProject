@@ -1,15 +1,13 @@
-package com.example.hyper.dtos;
+package com.example.hyper.dtos.requests;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class CustomerDTO {
+public class CustomerRequestDTO {
 
     private Long id;
-
-    private String avatar;
 
     @NotEmpty(message = "Invalid name, can not be empty")
     private String name;
@@ -27,8 +25,10 @@ public class CustomerDTO {
     private String birthDate;
 
     @NotEmpty(message = "Invalid subscription, can not be empty")
-    private Long subscription;
+    private int subscription;
 
     @NotEmpty(message = "Invalid country, can not be empty")
     private String country;
+
+    private String avatar;
 }

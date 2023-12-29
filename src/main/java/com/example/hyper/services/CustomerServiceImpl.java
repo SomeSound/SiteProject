@@ -1,13 +1,13 @@
 package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
-import com.example.hyper.dtos.responses.CustomerPageResponseDTO;
+import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import com.example.hyper.dtos.responses.CustomerResponseDTO;
 import com.example.hyper.entities.CustomerEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.InvalidUserDataException;
 import com.example.hyper.repositories.CustomerRepository;
-import com.example.hyper.dtos.CustomerDTO;
+import com.example.hyper.dtos.requests.CustomerRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -31,11 +31,10 @@ public class CustomerServiceImpl implements CustomerService {
     private final ModelMapper modelMapper;
 
     @Override
-    public CustomerResponseDTO save(CustomerDTO customer) {
+    public CustomerResponseDTO save(CustomerRequestDTO customer) {
         CustomerEntity customerEntity;
         try {
             customerEntity = modelMapper.map(customer, CustomerEntity.class);
-
             customerEntity = customerRepository.save(customerEntity);
 
             return modelMapper.map(customerEntity, CustomerResponseDTO.class);
@@ -59,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponseDTO update(Long id, CustomerDTO user) {
+    public CustomerResponseDTO update(Long id, CustomerRequestDTO user) {
         CustomerEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
 
         userCurrent.setName(user.getName());

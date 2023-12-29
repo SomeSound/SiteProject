@@ -33,7 +33,7 @@ public class TrackEntity extends BaseEntity implements Serializable {
     private Genre genre;
 
     @Column(name = "PRICE", nullable = false)
-    private BigDecimal price;
+    private int price;
 
     @Column(name = "IMAGE", nullable = false)
     private String image;
@@ -44,7 +44,7 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "ITUNES_ID")
     private Long itunesId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private AlbumEntity albumId;
 
 }

@@ -3,8 +3,8 @@ package com.example.hyper.services;
 import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.InvalidArtistDataException;
 import com.example.hyper.constants.ErrorCodes;
-import com.example.hyper.dtos.ArtistDTO;
-import com.example.hyper.dtos.responses.ArtistPageResponseDTO;
+import com.example.hyper.dtos.requests.ArtistRequestDTO;
+import com.example.hyper.dtos.responses.pages.ArtistPageResponseDTO;
 import com.example.hyper.dtos.responses.ArtistResponseDTO;
 import com.example.hyper.repositories.ArtistRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class ArtistServiceImpl implements ArtistService {
     private final ModelMapper modelMapper;
 
     @Override
-    public ArtistResponseDTO save(ArtistDTO artist) {
+    public ArtistResponseDTO save(ArtistRequestDTO artist) {
 
         ArtistEntity artistEntity;
         try{
@@ -60,7 +60,7 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public ArtistResponseDTO update(Long id, ArtistDTO artist) {
+    public ArtistResponseDTO update(Long id, ArtistRequestDTO artist) {
         ArtistEntity artistCurrent = findByIdOrThrowArtistDataNotFoundException(id);
 
         artistCurrent.setName(artist.getName());

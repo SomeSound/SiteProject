@@ -1,11 +1,10 @@
-package com.example.hyper.dtos;
+package com.example.hyper.dtos.requests;
 
-import com.example.hyper.entities.BaseEntity;
 import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class ArtistDTO {
+public class ArtistRequestDTO {
 
     private Long id;
 
