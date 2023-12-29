@@ -32,16 +32,23 @@ public class CustomerController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    @GetMapping(value = "/customer")
-    public ResponseEntity<CustomerPageResponseDTO> find(
-            @RequestParam(value = "names", required = false) List<String> names,
+    @GetMapping(value = "/customer/{customerId}")
+    public ResponseEntity<CustomerResponseDTO> findByCustomerId(@PathVariable String customerId) {
+
+        CustomerResponseDTO response = customerService.findByCustomerId(customerId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "/customers")
+    public ResponseEntity<CustomerPageResponseDTO> findAll(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        CustomerPageResponseDTO response = customerService.find(names, pageable);
+        CustomerPageResponseDTO response = customerService.findAll(pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

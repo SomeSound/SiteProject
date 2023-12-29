@@ -23,11 +23,8 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "CUSTOMER_SEQ",sequenceName = "CUSTOMER_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "CUSTOMER_ID")
+    @Column(name = "CUSTOMER_ID", nullable = false, unique = true)
     private String customerId;
-
-    @Column(name = "AVATAR")
-    private String avatar;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -50,15 +47,17 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Column(name = "AVATAR")
+    private String avatar;
+
     @Column(name = "IS_ARTIST")
     private boolean isArtist;
 
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "SUBSCRIPTION_ID")
+    @JoinColumn(name = "_OPTION")
     private SubscriptionEntity subscription;
 
-    @OneToMany
-    @JoinColumn(name = "CARTS")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customerId")
     private List<CartEntity> cartList;
 
 }

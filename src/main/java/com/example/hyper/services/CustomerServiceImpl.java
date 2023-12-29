@@ -5,6 +5,7 @@ import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import com.example.hyper.dtos.responses.CustomerResponseDTO;
 import com.example.hyper.entities.CustomerEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;
+import com.example.hyper.exceptions.CustomerNotFoundException;
 import com.example.hyper.exceptions.InvalidUserDataException;
 import com.example.hyper.repositories.CustomerRepository;
 import com.example.hyper.dtos.requests.CustomerRequestDTO;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -45,15 +47,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerPageResponseDTO find(List<String> names, Pageable pageable) {
+    public CustomerResponseDTO findByCustomerId(String customerId) {
+
+        CustomerEntity customerEntity = findByCustomerIdOrThrowUserDataNotFoundException(customerId);
+
+        return modelMapper.map(customerEntity, CustomerResponseDTO.class);
+
+    }
+
+    @Override
+    public CustomerPageResponseDTO findAll(Pageable pageable) {
 
         Page<CustomerEntity> customerEntities;
 
-        if(names != null){
-            customerEntities = customerRepository.findByName(names, pageable);
-        } else {
-            customerEntities = customerRepository.findAll(pageable);
-        }
+        customerEntities = customerRepository.findAll(pageable);
+
         return modelMapper.map(customerEntities, CustomerPageResponseDTO.class);
     }
 
@@ -79,7 +87,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerEntity findByIdOrThrowUserDataNotFoundException(Long id) {
         return customerRepository.findById(id).orElseThrow(
-                () -> new ArtistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private CustomerEntity findByCustomerIdOrThrowUserDataNotFoundException(String customerId) {
+        return customerRepository.findByCustomerId(customerId).orElseThrow(
+                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }

@@ -28,8 +28,4 @@ public class LeadsEntity extends BaseEntity implements Serializable {
 
     @Column(name = "TEXT")
     private String text;
-
-    @OneToOne(fetch = FetchType.LAZY )
-    private CustomerEntity customerId;
-
 }

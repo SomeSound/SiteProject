@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface TrackService {
 
-    public TrackResponseDTO save(TrackRequestDTO track);
+    TrackResponseDTO save(TrackRequestDTO track);
 
-    public TrackPageResponseDTO find(List<String> genres, Pageable pageable);
+    TrackPageResponseDTO find(List<String> genres, Pageable pageable);
 
-    public TrackResponseDTO update(Long id, TrackRequestDTO music);
+    TrackResponseDTO update(Long id, TrackRequestDTO music);
 
-    public void delete(Long id);
+    void delete(Long id);
 
 
 }

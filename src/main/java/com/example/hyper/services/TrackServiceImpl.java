@@ -3,10 +3,12 @@ package com.example.hyper.services;
 import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.example.hyper.entities.AlbumEntity;
+import com.example.hyper.entities.CustomerEntity;
 import com.example.hyper.exceptions.TrackNotFoundException;
 import com.example.hyper.dtos.requests.TrackRequestDTO;
 import com.example.hyper.dtos.responses.pages.TrackPageResponseDTO;
 import com.example.hyper.entities.TrackEntity;
+import com.example.hyper.exceptions.CustomerNotFoundException;
 import com.example.hyper.repositories.AlbumRepository;
 import com.example.hyper.repositories.CustomerRepository;
 import com.example.hyper.repositories.TrackRepository;
@@ -22,7 +24,6 @@ import org.springframework.stereotype.Service;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static com.example.hyper.constants.Constants.SP_ZONE_ID;
 
@@ -52,10 +53,12 @@ public class TrackServiceImpl implements TrackService {
 
             trackEntity.setPrice(3);
 
+            CustomerEntity customer = findByCustomerIdOrThrowUserDataNotFoundException(track.getCustomerId());
+
             AlbumEntity album = AlbumEntity.builder()
                     .name(trackEntity.getName())
                     .image(trackEntity.getImage())
-                    .customerId(customerRepository.getByCustomerId(track.getCustomerId()))
+                    .customerId(customer)
                     .releaseDate(ZonedDateTime.now(ZoneId.of(SP_ZONE_ID)))
                     .build();
 
@@ -109,6 +112,11 @@ public class TrackServiceImpl implements TrackService {
     private TrackEntity findByIdOrThrowTrackDataNotFoundException(Long id) {
         return trackRepository.findById(id).orElseThrow(
                 () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private CustomerEntity findByCustomerIdOrThrowUserDataNotFoundException(String customerId) {
+        return customerRepository.findByCustomerId(customerId).orElseThrow(
+                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }

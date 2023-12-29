@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Getter
@@ -44,7 +45,8 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "ITUNES_ID")
     private Long itunesId;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TRACK_LIST")
     private AlbumEntity albumId;
 
 }

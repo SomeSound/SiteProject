@@ -11,7 +11,9 @@ public interface CustomerService {
 
     CustomerResponseDTO save(CustomerRequestDTO customer);
 
-    CustomerPageResponseDTO find(List<String> names, Pageable pageable);
+    CustomerResponseDTO findByCustomerId(String customerId);
+
+    CustomerPageResponseDTO findAll(Pageable pageable);
 
     CustomerResponseDTO update(Long id, CustomerRequestDTO user);
 

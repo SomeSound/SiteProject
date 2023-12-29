@@ -38,7 +38,6 @@ public class AlbumEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private CustomerEntity customerId;
 
-    @OneToMany
-    @JoinColumn(name = "TRACK_LIST")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "albumId")
     private List<TrackEntity> trackList;
 }
