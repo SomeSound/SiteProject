@@ -2,12 +2,16 @@ package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.requests.CustomerRequestDTO;
-import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import com.example.hyper.dtos.responses.CustomerResponseDTO;
+import com.example.hyper.dtos.responses.UserPageResponseDTO;
+import com.example.hyper.dtos.responses.UserResponseDTO;
+import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import com.example.hyper.entities.CustomerEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.InvalidCustomerDataException;
+import com.example.hyper.exceptions.InvalidUserDataException;
 import com.example.hyper.repositories.CustomerRepository;
+import com.example.hyper.dtos.CustomerDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -58,26 +62,26 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponseDTO update(Long id, CustomerRequestDTO user) {
-        CustomerEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
+    public CustomerResponseDTO update(Long id, CustomerRequestDTO customer) {
+        CustomerEntity customerCurrent = findByIdOrThrowCustomerDataNotFoundException(id);
 
-        userCurrent.setName(user.getName());
-        userCurrent.setUsername(user.getUsername());
+        customerCurrent.setName(customer.getName());
+        customerCurrent.setUsername(customer.getUsername());
 
-        customerRepository.save(userCurrent);
+        customerRepository.save(customerCurrent);
 
-        return modelMapper.map(userCurrent, CustomerResponseDTO.class);
+        return modelMapper.map(customerCurrent, CustomerResponseDTO.class);
     }
 
     @Override
     public void delete(Long id) {
-        CustomerEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
+        CustomerEntity customerCurrent = findByIdOrThrowCustomerDataNotFoundException(id);
 
-        CustomerResponseDTO response = modelMapper.map(userCurrent, CustomerResponseDTO.class);
-        customerRepository.delete(userCurrent);
+        CustomerResponseDTO response = modelMapper.map(customerCurrent, CustomerResponseDTO.class);
+        customerRepository.delete(customerCurrent);
     }
 
-    private CustomerEntity findByIdOrThrowUserDataNotFoundException(Long id) {
+    private CustomerEntity findByIdOrThrowCustomerDataNotFoundException(Long id) {
         return customerRepository.findById(id).orElseThrow(
                 () -> new ArtistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
