@@ -3,10 +3,9 @@ package com.example.hyper.services;
 import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.requests.CartRequestDTO;
 import com.example.hyper.dtos.responses.CartResponseDTO;
-import com.example.hyper.dtos.responses.CollectionResponseDTO;
 import com.example.hyper.dtos.responses.pages.CartPageResponseDTO;
 import com.example.hyper.entities.CartEntity;
-import com.example.hyper.entities.CollectionEntity;
+import com.example.hyper.exceptions.CartNotFoundException;
 import com.example.hyper.exceptions.InvalidCartDataException;
 import com.example.hyper.repositories.CartRepository;
 import lombok.RequiredArgsConstructor;
@@ -82,6 +81,6 @@ public class CartServiceImpl implements CartService {
     }
     private CartEntity findByIdOrThrowCartDataNotFoundException(Long id) {
         return cartRepository.findById(id).orElseThrow(
-                () -> new InvalidCartDataException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CartNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

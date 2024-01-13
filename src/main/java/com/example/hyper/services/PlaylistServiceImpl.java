@@ -1,12 +1,9 @@
 package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
-import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.example.hyper.dtos.responses.pages.PlaylistPageReponseDTO;
 import com.example.hyper.dtos.responses.PlaylistResponseDTO;
-import com.example.hyper.entities.TrackEntity;
 import com.example.hyper.exceptions.PlaylistNotFoundException;
-import com.example.hyper.exceptions.TrackNotFoundException;
 import com.example.hyper.dtos.requests.PlaylistRequestDTO;
 import com.example.hyper.entities.PlaylistEntity;
 import com.example.hyper.repositories.PlaylistRepository;

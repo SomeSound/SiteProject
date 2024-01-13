@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface RecordService {
 
-
     public RecordResponseDTO save(RecordRequestDTO record);
 
     public RecordPageReponseDTO find(String name, Pageable pageable);

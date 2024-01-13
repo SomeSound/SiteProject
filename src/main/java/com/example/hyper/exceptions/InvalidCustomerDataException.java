@@ -1,11 +1,11 @@
 package com.example.hyper.exceptions;
 
 import com.example.hyper.constants.ErrorCodes;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
 @Getter
 @EqualsAndHashCode(callSuper = true)
 public class InvalidCustomerDataException extends RuntimeException {

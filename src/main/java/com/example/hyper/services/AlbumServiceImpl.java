@@ -6,6 +6,8 @@ import com.example.hyper.dtos.responses.AlbumResponseDTO;
 import com.example.hyper.dtos.responses.pages.AlbumPageReponseDTO;
 import com.example.hyper.entities.AlbumEntity;
 import com.example.hyper.exceptions.AlbumNotFoundException;
+import com.example.hyper.exceptions.InvalidAlbumDataException;
+import com.example.hyper.exceptions.InvalidRecordDataException;
 import com.example.hyper.repositories.AlbumRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +43,8 @@ public class AlbumServiceImpl implements AlbumService {
             return modelMapper.map(albumEntity, AlbumResponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
-            return null; // Implementar erro
+            throw new InvalidAlbumDataException(ErrorCodes.INVALID_USER_ERROR,
+                    ErrorCodes.INVALID_USER_ERROR.getMessage());
         }
     }
 

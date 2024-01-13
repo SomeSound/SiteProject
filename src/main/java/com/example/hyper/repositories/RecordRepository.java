@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface RecordRepository extends BaseRepository<RecordEntity> {
-
     @Query("SELECT o FROM PlaylistEntity o WHERE o.name = :name")
     Page<RecordEntity> findByName(@Param("name") String name,
                                   Pageable pageable);

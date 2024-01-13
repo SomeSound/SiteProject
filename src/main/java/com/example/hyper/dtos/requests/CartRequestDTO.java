@@ -9,6 +9,6 @@ public class CartRequestDTO {
 
     private Long Id;
 
-    @NotEmpty(message = "Invalid name, can not be empty" )
+    @NotEmpty
     private Long customerId;
 }
