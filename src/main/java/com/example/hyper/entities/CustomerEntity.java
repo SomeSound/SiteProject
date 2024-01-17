@@ -29,9 +29,6 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "USERNAME", nullable = false, unique = true)
-    private String username;
-
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
@@ -44,20 +41,11 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @Column(name = "BIRTH_DATE", nullable = false)
     private String birthDate;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
-
     @Column(name = "AVATAR")
     private String avatar;
-
-    @Column(name = "IS_ARTIST")
-    private boolean isArtist;
 
     @ManyToOne
     @JoinColumn(name = "_OPTION")
     private SubscriptionEntity subscription;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customerId")
-    private List<CartEntity> cartList;
 
 }

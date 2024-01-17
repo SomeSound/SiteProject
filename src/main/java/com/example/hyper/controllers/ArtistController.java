@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,11 +23,10 @@ public class ArtistController {
     @Autowired
     private final ArtistService artistService;
 
-    @PostMapping(value = "/artist")
-    public ResponseEntity<ArtistResponseDTO> save(
-            @RequestBody @Valid ArtistRequestDTO artist) {
+    @PostMapping(value = "/artist/{customerId}")
+    public ResponseEntity<ArtistResponseDTO> save(@PathVariable String customerId) {
 
-        ArtistResponseDTO response = artistService.save(artist);
+        ArtistResponseDTO response = artistService.save(customerId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -50,9 +48,9 @@ public class ArtistController {
     @PutMapping(value = "/artist/{id}")
     public ResponseEntity<ArtistResponseDTO> update(@PathVariable Long id, @RequestBody ArtistRequestDTO artist) {
 
-        ArtistResponseDTO response = artistService.update(id, artist);
+//        ArtistResponseDTO response = artistService.update(id, artist);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(new ArtistResponseDTO());
     }
 
     @DeleteMapping(value = "/artist/{id}")
@@ -64,8 +62,3 @@ public class ArtistController {
     }
 
 }
-
-
-
-
-

@@ -13,7 +13,7 @@ public interface TrackService {
 
     TrackPageResponseDTO find(List<String> genres, Pageable pageable);
 
-    TrackResponseDTO update(Long id, TrackRequestDTO music);
+    TrackResponseDTO update(Long id, TrackRequestDTO track);
 
     void delete(Long id);
 
