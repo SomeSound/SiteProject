@@ -1,5 +1,6 @@
 package com.example.hyper.services;
 
+import com.example.hyper.dtos.requests.ArtistRequestDTO;
 import com.example.hyper.entities.CustomerEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.CustomerNotFoundException;
@@ -27,22 +28,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArtistServiceImpl implements ArtistService {
 
+    @Autowired
     private final ArtistRepository artistRepository;
 
     @Autowired
     private final ModelMapper modelMapper;
 
-    private CustomerRepository customerRepository;
+    @Autowired
+    private final CustomerRepository customerRepository;
 
     @Override
-    public ArtistResponseDTO save(String customerId) {
+    public ArtistResponseDTO save(String customerId, ArtistRequestDTO artist) {
 
         ArtistEntity artistEntity;
         try{
             CustomerEntity customer = findByCustomerIdOrThrowUserDataNotFoundException(customerId);
 
-            artistEntity = new ArtistEntity();
-            artistEntity.setCredits(0);
+            artistEntity = modelMapper.map(artist, ArtistEntity.class);
             artistEntity.setCustomer(customer);
 
             artistEntity = artistRepository.save(artistEntity);
@@ -50,7 +52,7 @@ public class ArtistServiceImpl implements ArtistService {
             return modelMapper.map(artistEntity, ArtistResponseDTO.class);
         }catch (DataIntegrityViolationException e){
             throw new InvalidArtistDataException(ErrorCodes.INVALID_ARTIST_ERROR,
-                    ErrorCodes.INVALID_ARTIST_ERROR.getMessage()); //TO REMOVE
+                    ErrorCodes.INVALID_ARTIST_ERROR.getMessage());
         }
     }
 

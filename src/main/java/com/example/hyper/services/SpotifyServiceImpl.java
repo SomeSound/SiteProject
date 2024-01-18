@@ -27,11 +27,7 @@ import se.michaelthelin.spotify.model_objects.specification.Track;
 public class SpotifyServiceImpl implements SpotifyService {
 
     @Autowired
-    private SpotifyProxy spotifyProxy;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
+    private final SpotifyProxy spotifyProxy;
 
     @Override
     public Paging<Track> findTracksByName(String name) {

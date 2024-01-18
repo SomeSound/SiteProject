@@ -25,8 +25,7 @@ public class TrackController {
     private final TrackService trackService;
 
     @PostMapping(value = "/track")
-    public ResponseEntity<TrackResponseDTO> create(
-            @RequestBody @Valid TrackRequestDTO track) {
+    public ResponseEntity<TrackResponseDTO> create(@RequestBody @Valid TrackRequestDTO track) {
 
         TrackResponseDTO response = trackService.save(track);
 

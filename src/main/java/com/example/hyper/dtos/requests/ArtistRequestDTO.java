@@ -8,13 +8,10 @@ public class ArtistRequestDTO {
 
     private Long id;
 
-    @NotEmpty(message = "Invalid name, can not be empty" )
-    private String name;
-
-    @NotEmpty(message = "Invalid country, can not be empty")
-    private String country;
-
     @NotEmpty(message = "Invalid username, can not be empty")
     private String username;
+
+    @NotEmpty(message = "Invalid customerId, can not be empty")
+    private String customerId;
 
 }

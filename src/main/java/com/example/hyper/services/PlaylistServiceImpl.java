@@ -26,13 +26,13 @@ import org.springframework.stereotype.Service;
 public class PlaylistServiceImpl implements PlaylistService {
 
     @Autowired
-    private PlaylistRepository playlistRepository;
+    private final PlaylistRepository playlistRepository;
 
     @Autowired
-    TrackRepository trackRepository;
+    private final TrackRepository trackRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public PlaylistResponseDTO save(PlaylistRequestDTO playlist) {

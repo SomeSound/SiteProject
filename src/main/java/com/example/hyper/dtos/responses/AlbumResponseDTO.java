@@ -10,7 +10,7 @@ public class AlbumResponseDTO {
     private String name;
     private String image;
     private Long recordId;
-    private Long customerId;
+    private Long artistId;
     private ZonedDateTime releaseDate;
     private ZonedDateTime createdDate;
     private ZonedDateTime lastModifiedDate;

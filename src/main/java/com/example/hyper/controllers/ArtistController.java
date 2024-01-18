@@ -24,9 +24,9 @@ public class ArtistController {
     private final ArtistService artistService;
 
     @PostMapping(value = "/artist/{customerId}")
-    public ResponseEntity<ArtistResponseDTO> save(@PathVariable String customerId) {
+    public ResponseEntity<ArtistResponseDTO> save(@PathVariable String customerId, @RequestBody ArtistRequestDTO artist) {
 
-        ArtistResponseDTO response = artistService.save(customerId);
+        ArtistResponseDTO response = artistService.save(customerId, artist);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

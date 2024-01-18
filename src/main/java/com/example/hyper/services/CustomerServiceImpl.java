@@ -4,7 +4,6 @@ import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import com.example.hyper.dtos.responses.CustomerResponseDTO;
 import com.example.hyper.entities.CustomerEntity;
-import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.CustomerNotFoundException;
 import com.example.hyper.exceptions.InvalidUserDataException;
 import com.example.hyper.repositories.CustomerRepository;
@@ -17,9 +16,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -80,7 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void delete(Long id) {
         CustomerEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
 
-        CustomerResponseDTO response = modelMapper.map(userCurrent, CustomerResponseDTO.class);
+        modelMapper.map(userCurrent, CustomerResponseDTO.class);
         customerRepository.delete(userCurrent);
     }
 

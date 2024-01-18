@@ -21,7 +21,7 @@ import java.time.ZonedDateTime;
 public class EmailServiceImpl implements EmailService {
 
     @Autowired
-    private EmailRepository emailRepository;
+    private final EmailRepository emailRepository;
 
 //    @Autowired
 //    private JavaMailSender javaMailSender;

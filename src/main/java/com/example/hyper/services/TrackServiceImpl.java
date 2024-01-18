@@ -3,13 +3,16 @@ package com.example.hyper.services;
 import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.example.hyper.entities.AlbumEntity;
+import com.example.hyper.entities.ArtistEntity;
 import com.example.hyper.entities.CustomerEntity;
+import com.example.hyper.exceptions.ArtistNotFoundException;
 import com.example.hyper.exceptions.TrackNotFoundException;
 import com.example.hyper.dtos.requests.TrackRequestDTO;
 import com.example.hyper.dtos.responses.pages.TrackPageResponseDTO;
 import com.example.hyper.entities.TrackEntity;
 import com.example.hyper.exceptions.CustomerNotFoundException;
 import com.example.hyper.repositories.AlbumRepository;
+import com.example.hyper.repositories.ArtistRepository;
 import com.example.hyper.repositories.CustomerRepository;
 import com.example.hyper.repositories.TrackRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,16 +36,16 @@ import static com.example.hyper.constants.Constants.SP_ZONE_ID;
 public class TrackServiceImpl implements TrackService {
 
     @Autowired
-    private TrackRepository trackRepository;
+    private final TrackRepository trackRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private final ArtistRepository artistRepository;
 
     @Autowired
-    private AlbumRepository albumRepository;
+    private final AlbumRepository albumRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public TrackResponseDTO save(TrackRequestDTO track) {
@@ -53,12 +56,12 @@ public class TrackServiceImpl implements TrackService {
 
             trackEntity.setPrice(3);
 
-            CustomerEntity customer = findByCustomerIdOrThrowUserDataNotFoundException(track.getCustomerId());
+            ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(track.getArtistId());
 
             AlbumEntity album = AlbumEntity.builder()
                     .name(trackEntity.getName())
                     .image(trackEntity.getImage())
-                    .customerId(customer)
+                    .artist(artist)
                     .releaseDate(ZonedDateTime.now(ZoneId.of(SP_ZONE_ID)))
                     .build();
 
@@ -70,7 +73,6 @@ public class TrackServiceImpl implements TrackService {
             return modelMapper.map(trackEntity, TrackResponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
-            System.out.println(e.getMessage());
             return null; // Implementar exception
         }
 
@@ -114,9 +116,9 @@ public class TrackServiceImpl implements TrackService {
                 () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
-    private CustomerEntity findByCustomerIdOrThrowUserDataNotFoundException(String customerId) {
-        return customerRepository.findByCustomerId(customerId).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    private ArtistEntity findByIdOrThrowArtistDataNotFoundException(Long id) {
+        return artistRepository.findById(id).orElseThrow(
+                () -> new ArtistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }
