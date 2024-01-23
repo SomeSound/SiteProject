@@ -1,6 +1,7 @@
 package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
+import com.example.hyper.dtos.responses.AlbumResponseDTO;
 import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.example.hyper.entities.AlbumEntity;
 import com.example.hyper.entities.ArtistEntity;
@@ -48,7 +49,7 @@ public class TrackServiceImpl implements TrackService {
     private final ModelMapper modelMapper;
 
     @Override
-    public TrackResponseDTO save(TrackRequestDTO track) {
+    public AlbumResponseDTO save(TrackRequestDTO track) {
 
         TrackEntity trackEntity;
         try{
@@ -65,12 +66,12 @@ public class TrackServiceImpl implements TrackService {
                     .releaseDate(ZonedDateTime.now(ZoneId.of(SP_ZONE_ID)))
                     .build();
 
+            trackRepository.save(trackEntity);
+
+            album.setTrackList(List.of(trackEntity));
             AlbumEntity albumEntity = albumRepository.save(album);
 
-            trackEntity.setAlbumId(albumEntity);
-            trackEntity = trackRepository.save(trackEntity);
-
-            return modelMapper.map(trackEntity, TrackResponseDTO.class);
+            return modelMapper.map(albumEntity, AlbumResponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
             return null; // Implementar exception

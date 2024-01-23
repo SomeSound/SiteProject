@@ -45,8 +45,8 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "ITUNES_ID")
     private Long itunesId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TRACK_LIST")
-    private AlbumEntity albumId;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "TRACK_LIST")
+//    private AlbumEntity albumId;
 
 }
