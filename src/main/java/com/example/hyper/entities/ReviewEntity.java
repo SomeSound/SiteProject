@@ -23,8 +23,10 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     @Column(name = "SCORE")
     private float score;
 
+    @ManyToOne(fetch = FetchType.EAGER)
     private CustomerEntity customerId;
 
+    @ManyToOne(fetch = FetchType.EAGER)
     private TrackEntity trackId;
 
 }

@@ -5,9 +5,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.io.Serial;
+
 @Data
 @Getter
 public class PlaylistNotFoundException extends RuntimeException {
+
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final ErrorCodes errorCode;

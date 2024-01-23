@@ -1,8 +1,8 @@
 package com.example.hyper.controllers;
 
-import com.example.hyper.dtos.CustomerDTO;
-import com.example.hyper.dtos.responses.UserPageResponseDTO;
-import com.example.hyper.dtos.responses.UserResponseDTO;
+import com.example.hyper.dtos.requests.CustomerRequestDTO;
+import com.example.hyper.dtos.responses.pages.CustomerPageResponseDTO;
+import com.example.hyper.dtos.responses.CustomerResponseDTO;
 import com.example.hyper.services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,37 +24,44 @@ public class CustomerController {
     @Autowired
     private final CustomerService customerService;
 
-    @PostMapping(value = "/user")
-    public ResponseEntity<UserResponseDTO> save(
-            @RequestBody @Valid CustomerDTO user){
+    @PostMapping(value = "/customer")
+    public ResponseEntity<CustomerResponseDTO> save(
+            @RequestBody @Valid CustomerRequestDTO customer){
 
-        UserResponseDTO response = customerService.save(user);
+        CustomerResponseDTO response = customerService.save(customer);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    @GetMapping(value = "/user")
-    public ResponseEntity<UserPageResponseDTO> find(
-            @RequestParam(value = "names", required = false) List<String> names,
+    @GetMapping(value = "/customer/{customerId}")
+    public ResponseEntity<CustomerResponseDTO> findByCustomerId(@PathVariable String customerId) {
+
+        CustomerResponseDTO response = customerService.findByCustomerId(customerId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "/customers")
+    public ResponseEntity<CustomerPageResponseDTO> findAll(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        UserPageResponseDTO response = customerService.find(names, pageable);
+        CustomerPageResponseDTO response = customerService.findAll(pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping(value = "/user/{id}")
-    public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody CustomerDTO user) {
+    @PutMapping(value = "/customer/{id}")
+    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerRequestDTO user) {
 
-        UserResponseDTO response = customerService.update(id, user);
+        CustomerResponseDTO response = customerService.update(id, user);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping(value = "/user/{id}")
+    @DeleteMapping(value = "/customer/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
 
         customerService.delete(id);

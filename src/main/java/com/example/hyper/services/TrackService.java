@@ -1,5 +1,6 @@
 package com.example.hyper.services;
 
+import com.example.hyper.dtos.responses.AlbumResponseDTO;
 import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.example.hyper.dtos.requests.TrackRequestDTO;
 import com.example.hyper.dtos.responses.pages.TrackPageResponseDTO;
@@ -9,13 +10,13 @@ import java.util.List;
 
 public interface TrackService {
 
-    public TrackResponseDTO save(TrackRequestDTO track);
+    AlbumResponseDTO save(TrackRequestDTO track);
 
-    public TrackPageResponseDTO find(List<String> genres, Pageable pageable);
+    TrackPageResponseDTO find(List<String> genres, Pageable pageable);
 
-    public TrackResponseDTO update(Long id, TrackRequestDTO music);
+    TrackResponseDTO update(Long id, TrackRequestDTO track);
 
-    public void delete(Long id);
+    void delete(Long id);
 
 
 }

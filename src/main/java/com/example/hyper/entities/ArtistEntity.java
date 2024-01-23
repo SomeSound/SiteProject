@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -15,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "ARTIST")
 @EqualsAndHashCode(callSuper = false)
-public class ArtistEntity extends CustomerEntity implements Serializable {
+public class ArtistEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARTIST_SEQ")
@@ -23,7 +22,21 @@ public class ArtistEntity extends CustomerEntity implements Serializable {
     private Long id;
 
     @Column(name = "CREDITS")
-    private BigDecimal credits;
+    private int credits;
 
+    @Column(name = "USERNAME", nullable = false, unique = true)
+    private String username;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private CustomerEntity customer;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<AlbumEntity> albums;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<CartEntity> carts;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
 
 }

@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class ArtistResponseDTO {
     private Long id;
-    private String name;
-    private String username;
-    private String country;
+    private CustomerResponseDTO customer;
+    private int credits;
 }

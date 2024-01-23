@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ORDER")
+@Table(name = "_ORDER")
 @EqualsAndHashCode(callSuper = false)
 public class OrderEntity extends BaseEntity implements Serializable {
 
@@ -28,6 +28,7 @@ public class OrderEntity extends BaseEntity implements Serializable {
     @Column(name = "TOTAL_PRICE")
     private BigDecimal totalPrice;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private CustomerEntity customerId;
 
 }

@@ -28,4 +28,7 @@ public class RecordEntity extends BaseEntity implements Serializable {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recordId")
+    private List<AlbumEntity> albumList;
 }
