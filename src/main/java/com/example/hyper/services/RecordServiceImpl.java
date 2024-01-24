@@ -5,6 +5,7 @@ import com.example.hyper.dtos.requests.RecordRequestDTO;
 import com.example.hyper.dtos.responses.RecordResponseDTO;
 import com.example.hyper.dtos.responses.pages.RecordPageReponseDTO;
 import com.example.hyper.entities.RecordEntity;
+import com.example.hyper.exceptions.InvalidCustomerDataException;
 import com.example.hyper.exceptions.InvalidRecordDataException;
 import com.example.hyper.exceptions.RecordNotFoundException;
 import com.example.hyper.repositories.RecordRepository;
@@ -40,7 +41,8 @@ public class RecordServiceImpl implements RecordService{
             return modelMapper.map(recordEntity, RecordResponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
-              
+            throw new InvalidCustomerDataException(ErrorCodes.INVALID_USER_ERROR,
+                    ErrorCodes.INVALID_USER_ERROR.getMessage());
         }
     }
 

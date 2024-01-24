@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class CustomerRequestDTO {
 
-    private Long id;
+    private Long Id;
 
     private String avatar;
 
