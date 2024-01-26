@@ -12,12 +12,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
     - name: Setup Java JDK
       uses: actions/setup-java@v4.0.0
       with:
-        distribution: 'openjdk'
+        distribution: 'temurin'
         java-version: '21'
     - name: Build Project
       run: mvn clean install -DskipTests
