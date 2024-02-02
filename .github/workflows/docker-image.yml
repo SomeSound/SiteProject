@@ -18,21 +18,21 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Setup Java ${{matrix.java_version}} JDK
       uses: actions/setup-java@v4.0.0
       with:
         distribution: 'temurin'
         java-version: ${{matrix.java_version}}
 
-    - name: Install and Build
-      run: mvn clean install package -DskipTests
-
-    - name: Buid project
-      run: mvn package -DskipTests
-
     - name: Build database
       run: docker-compose up -d
+
+    - name: Install && Build
+      run: mvn clean install package -DskipTests
+
+    - name: Building project
+      run: mvn package -DskipTests
 
   Tests:
     needs: Build
