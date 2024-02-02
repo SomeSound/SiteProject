@@ -5,7 +5,7 @@ on:
 
 jobs:
 
-  Docker:
+  build:
     runs-on: ubuntu-latest
 
     steps:

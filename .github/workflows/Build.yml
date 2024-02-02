@@ -7,7 +7,7 @@ on:
     branches: [ '*' ]
 
 jobs:
-  Build:
+  build:
     runs-on: ${{matrix.os}}
 
     strategy:
@@ -34,7 +34,7 @@ jobs:
     - name: Building project
       run: mvn package -DskipTests
 
-  Tests:
+  tests:
     needs: Build
     runs-on: ${{matrix.os}}
 
@@ -56,7 +56,7 @@ jobs:
       - name: Running tests
         run: mvn test
 
-  Docker:
+  docker:
     needs: Tests
     uses: ./.github/workflows/Docker.yml
     secrets: inherit
