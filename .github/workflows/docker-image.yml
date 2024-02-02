@@ -20,14 +20,30 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
-    - name: Build Project
-      run: mvn clean install -DskipTests
+    - name: Install and Build
+      run: mvn clean install package -DskipTests
 
-    - name: Login Docker Hub
-      run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+    - name: Buid project
+      run: mvn package -DskipTests
 
-    - name: Build Docker Image
-      run: docker build -t ${{secrets.DOCKER_USERNAME}}/app .
+    - name: Build database
+      run: docker-compose up -d
 
-    - name: Push image Docker
-      run: docker push ${{secrets.DOCKER_USERNAME}}/app
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Running tests
+      run: mvn test
+
+
+
+#    - name: Login Docker Hub
+#      run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+#
+#    - name: Build Docker Image
+#      run: docker build -t ${{secrets.DOCKER_USERNAME}}/app .
+#
+#    - name: Push image Docker
+#      run: docker push ${{secrets.DOCKER_USERNAME}}/app
