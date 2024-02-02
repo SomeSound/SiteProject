@@ -1,2 +1,7 @@
-package com.example.hyper.dtos.responses;public class LeadsResposeDTO {
+package com.example.hyper.dtos.responses;
+
+import lombok.Data;
+
+@Data
+public class LeadsResponseDTO {
 }

@@ -1,13 +1,12 @@
-/*
 package com.example.hyper.services;
 
 import com.example.hyper.constants.ErrorCodes;
 import com.example.hyper.dtos.requests.ReviewRequestDTO;
-import com.example.hyper.dtos.responses.CollectionResponseDTO;
 import com.example.hyper.dtos.responses.ReviewResponseDTO;
 import com.example.hyper.dtos.responses.pages.ReviewPageResponseDTO;
 import com.example.hyper.entities.ReviewEntity;
-import com.example.hyper.exceptions.CollectionNotFoundException;
+import com.example.hyper.exceptions.InvalidReviewDataException;
+import com.example.hyper.exceptions.ReviewNotFoundException;
 import com.example.hyper.repositories.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,12 +44,12 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public ReviewPageResponseDTO find(String review, Pageable pageable) {
+    public ReviewPageResponseDTO find(String name, Pageable pageable) {
 
         Page<ReviewEntity> reviewEntities;
 
-        if(review != null){
-            reviewEntities = reviewRepository.findByReview(review, pageable);
+        if(name != null){
+            reviewEntities = reviewRepository.findByName(name, pageable);
         } else {
             reviewEntities = reviewRepository.findAll(pageable);
         }
@@ -61,11 +60,11 @@ public class ReviewServiceImpl implements ReviewService{
     public ReviewResponseDTO update(Long id, ReviewRequestDTO review) {
         ReviewEntity reviewCurrent = findByIdOrThrowReviewDataNotFoundException(id);
 
-        reviewCurrent.setName(review.getName());
+        reviewCurrent.setScore(review.getScore());
 
         reviewRepository.save(reviewCurrent);
 
-        return modelMapper.map(reviewCurrent, CollectionResponseDTO.class);
+        return modelMapper.map(reviewCurrent, ReviewResponseDTO.class);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
     private ReviewEntity findByIdOrThrowReviewDataNotFoundException(Long id) {
         return reviewRepository.findById(id).orElseThrow(
-                () -> new CollectionNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new ReviewNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }
-*/
+
