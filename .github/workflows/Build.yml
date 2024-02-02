@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         java_version: ['21']
-        os: ['ubuntu-latest', 'ubuntu-22.10']
+        os: ['ubuntu-latest', 'ubuntu-22']
 
     steps:
     - name: Checkout code
@@ -57,5 +57,5 @@ jobs:
         run: mvn test
 
   Docker:
-    needs: Build
+    needs: Tests
     uses: ./.github/workflows/Docker.yml
