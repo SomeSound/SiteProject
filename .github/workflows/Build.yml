@@ -40,8 +40,8 @@ jobs:
 
     strategy:
       matrix:
-        os: ['ubuntu-latest']
         java_version: ['21']
+        os: ['ubuntu-latest']
 
     steps:
       - name: Checkout code
@@ -59,3 +59,4 @@ jobs:
   Docker:
     needs: Tests
     uses: ./.github/workflows/Docker.yml
+    secrets: inherit
