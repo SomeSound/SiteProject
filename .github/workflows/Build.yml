@@ -8,22 +8,17 @@ on:
 
 jobs:
   build:
-    runs-on: ${{matrix.os}}
-
-    strategy:
-      matrix:
-        java_version: ['21']
-        os: ['ubuntu-latest']
+    runs-on: 'ubuntu-latest'
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup Java ${{matrix.java_version}} JDK
+    - name: Setup Java 21 JDK
       uses: actions/setup-java@v4.0.0
       with:
         distribution: 'temurin'
-        java-version: ${{matrix.java_version}}
+        java-version: '21'
 
     - name: Build database
       run: docker-compose up -d
@@ -36,25 +31,26 @@ jobs:
 
   tests:
     needs: Build
-    runs-on: ${{matrix.os}}
-
-    strategy:
-      matrix:
-        java_version: ['21']
-        os: ['ubuntu-latest']
+    runs-on: 'ubuntu-latest'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Java ${{matrix.java_version}} JDK
+      - name: Setup Java 21 JDK
         uses: actions/setup-java@v4.0.0
         with:
           distribution: 'temurin'
-          java-version: ${{matrix.java_version}}
+          java-version: '21'
 
       - name: Running tests
         run: mvn test
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.3.0
+        with:
+          name: hyper_artifact
+          path: target
 
   docker:
     needs: Tests

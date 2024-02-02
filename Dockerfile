@@ -1,6 +1,6 @@
 FROM ubuntu:22.10
 WORKDIR /app
-COPY ./target app
+COPY /*.jar app
 ENTRYPOINT ["./app"]
 EXPOSE 15671
 
