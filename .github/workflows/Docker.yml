@@ -27,4 +27,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: tonin206996/hyper_application:${{github.ref_name}}
+#          tags: tonin206996/hyper_application:${{github.ref_name}}
