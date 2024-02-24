@@ -1,12 +1,16 @@
 package com.example.hyper.services;
 
+import com.example.hyper.dtos.requests.ArtistRequestDTO;
+import com.example.hyper.entities.CustomerEntity;
 import com.example.hyper.exceptions.ArtistNotFoundException;
+import com.example.hyper.exceptions.CustomerNotFoundException;
 import com.example.hyper.exceptions.InvalidArtistDataException;
 import com.example.hyper.constants.ErrorCodes;
-import com.example.hyper.dtos.requests.ArtistRequestDTO;
 import com.example.hyper.dtos.responses.pages.ArtistPageResponseDTO;
 import com.example.hyper.dtos.responses.ArtistResponseDTO;
+//import com.example.hyper.repositories.ArtistRepository;
 import com.example.hyper.repositories.ArtistRepository;
+import com.example.hyper.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -24,23 +28,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArtistServiceImpl implements ArtistService {
 
+    @Autowired
     private final ArtistRepository artistRepository;
 
     @Autowired
     private final ModelMapper modelMapper;
 
+    @Autowired
+    private final CustomerRepository customerRepository;
+
     @Override
-    public ArtistResponseDTO save(ArtistRequestDTO artist) {
+    public ArtistResponseDTO save(String customerId, ArtistRequestDTO artist) {
 
         ArtistEntity artistEntity;
         try{
+            CustomerEntity customer = findByCustomerIdOrThrowUserDataNotFoundException(customerId);
+
             artistEntity = modelMapper.map(artist, ArtistEntity.class);
+            artistEntity.setCustomer(customer);
 
             artistEntity = artistRepository.save(artistEntity);
 
             return modelMapper.map(artistEntity, ArtistResponseDTO.class);
         }catch (DataIntegrityViolationException e){
-            throw new   InvalidArtistDataException(ErrorCodes.INVALID_ARTIST_ERROR,
+            throw new InvalidArtistDataException(ErrorCodes.INVALID_ARTIST_ERROR,
                     ErrorCodes.INVALID_ARTIST_ERROR.getMessage());
         }
     }
@@ -51,7 +62,7 @@ public class ArtistServiceImpl implements ArtistService {
         Page<ArtistEntity> artistEntities;
 
         if(names != null){
-            artistEntities = artistRepository.findByName(names, pageable);
+            artistEntities = artistRepository.findByUsername(names, pageable);
         } else {
             artistEntities = artistRepository.findAll(pageable);
         }
@@ -60,27 +71,20 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public ArtistResponseDTO update(Long id, ArtistRequestDTO artist) {
-        ArtistEntity artistCurrent = findByIdOrThrowArtistDataNotFoundException(id);
-
-        artistCurrent.setName(artist.getName());
-        artistCurrent.setCountry(artist.getCountry());
-
-        artistRepository.save(artistCurrent);
-
-        return modelMapper.map(artistCurrent, ArtistResponseDTO.class);
-    }
-    @Override
     public void delete(Long id) {
         ArtistEntity artistCurrent = findByIdOrThrowArtistDataNotFoundException(id);
 
-        ArtistResponseDTO response = modelMapper.map(artistCurrent, ArtistResponseDTO.class);
         artistRepository.delete(artistCurrent);
     }
 
     private ArtistEntity findByIdOrThrowArtistDataNotFoundException(Long id) {
         return artistRepository.findById(id).orElseThrow(
                 () -> new ArtistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private CustomerEntity findByCustomerIdOrThrowUserDataNotFoundException(String customerId) {
+        return customerRepository.findByCustomerId(customerId).orElseThrow(
+                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }

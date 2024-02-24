@@ -1,6 +1,6 @@
 package com.example.hyper.dtos.responses.pages;
 
-import com.example.hyper.dtos.responses.ArtistResponseDTO;
+import com.example.hyper.dtos.requests.ArtistRequestDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -25,5 +25,5 @@ public class ArtistPageResponseDTO {
     private Integer number;
 
     @JsonProperty("artistDataList")
-    private List<ArtistResponseDTO> content;
+    private List<ArtistRequestDTO> content;
 }

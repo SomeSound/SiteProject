@@ -9,10 +9,9 @@ import java.util.List;
 
 public interface ArtistService {
 
-    public ArtistResponseDTO save(ArtistRequestDTO artist);
+    ArtistResponseDTO save(String customerId, ArtistRequestDTO artist);
 
-    public ArtistPageResponseDTO find(List<String> names, Pageable pageable);
+    ArtistPageResponseDTO find(List<String> names, Pageable pageable);
 
-    public ArtistResponseDTO update(Long id, ArtistRequestDTO artist);
-    public void delete(Long id);
+    void delete(Long id);
 }

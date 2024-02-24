@@ -24,29 +24,36 @@ public class CustomerController {
     @Autowired
     private final CustomerService customerService;
 
-    @PostMapping(value = "/user")
+    @PostMapping(value = "/customer")
     public ResponseEntity<CustomerResponseDTO> save(
-            @RequestBody @Valid CustomerRequestDTO user){
+            @RequestBody @Valid CustomerRequestDTO customer){
 
-        CustomerResponseDTO response = customerService.save(user);
+        CustomerResponseDTO response = customerService.save(customer);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    @GetMapping(value = "/user")
-    public ResponseEntity<CustomerPageResponseDTO> find(
-            @RequestParam(value = "names", required = false) List<String> names,
+    @GetMapping(value = "/customer/{customerId}")
+    public ResponseEntity<CustomerResponseDTO> findByCustomerId(@PathVariable String customerId) {
+
+        CustomerResponseDTO response = customerService.findByCustomerId(customerId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "/customers")
+    public ResponseEntity<CustomerPageResponseDTO> findAll(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        CustomerPageResponseDTO response = customerService.find(names, pageable);
+        CustomerPageResponseDTO response = customerService.findAll(pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping(value = "/user/{id}")
+    @PutMapping(value = "/customer/{id}")
     public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerRequestDTO user) {
 
         CustomerResponseDTO response = customerService.update(id, user);
@@ -54,7 +61,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping(value = "/user/{id}")
+    @DeleteMapping(value = "/customer/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
 
         customerService.delete(id);

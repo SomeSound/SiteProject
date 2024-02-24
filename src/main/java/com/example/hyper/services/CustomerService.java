@@ -9,11 +9,13 @@ import java.util.List;
 
 public interface CustomerService {
 
-    public CustomerResponseDTO save(CustomerRequestDTO user);
+    CustomerResponseDTO save(CustomerRequestDTO customer);
 
-    public CustomerPageResponseDTO find(List<String> names, Pageable pageable);
+    CustomerResponseDTO findByCustomerId(String customerId);
 
-    public CustomerResponseDTO update(Long id, CustomerRequestDTO user);
+    CustomerPageResponseDTO findAll(Pageable pageable);
 
-    public void delete(Long id);
+    CustomerResponseDTO update(Long id, CustomerRequestDTO user);
+
+    void delete(Long id);
 }

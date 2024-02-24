@@ -1,11 +1,18 @@
 package com.example.hyper.dtos.responses;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.time.ZonedDateTime;
+import java.util.List;
+
+@Data
 public class AlbumResponseDTO {
-    private Long Id;
+    private Long id;
     private String name;
-    private String albumImage;
-    private Date releaseDate;
-    private String recordId;
+    private String image;
+    private Long recordId;
+    private ZonedDateTime releaseDate;
+    private ZonedDateTime createdDate;
+    private ZonedDateTime lastModifiedDate;
+    private List<TrackResponseDTO> trackList;
 }
