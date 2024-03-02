@@ -42,8 +42,8 @@ public class LeadsServiceImpl implements LeadsService {
             return modelMapper.map(leadEntity, LeadsResponseDTO.class);
 
         } catch (DataIntegrityViolationException e) {
-            throw new InvalidLeadsDataException(ErrorCodes.INVALID_COLLECTION_ERROR,
-                    ErrorCodes.INVALID_COLLECTION_ERROR.getMessage());
+            throw new InvalidLeadsDataException(ErrorCodes.INVALID_CART_ERROR,
+                    ErrorCodes.INVALID_CART_ERROR.getMessage());
         }
     }
 

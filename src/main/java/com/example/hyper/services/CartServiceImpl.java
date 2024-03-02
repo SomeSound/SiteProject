@@ -42,8 +42,8 @@ public class CartServiceImpl implements CartService {
             return modelMapper.map(cartEntity, CartResponseDTO.class);
 
         } catch (DataIntegrityViolationException e) {
-            throw new InvalidCartDataException(ErrorCodes.INVALID_COLLECTION_ERROR,
-                    ErrorCodes.INVALID_COLLECTION_ERROR.getMessage());
+            throw new InvalidCartDataException(ErrorCodes.INVALID_CART_ERROR,
+                    ErrorCodes.INVALID_CART_ERROR.getMessage());
         }
     }
 

@@ -40,8 +40,8 @@ public class CollectionServiceImpl implements CollectionService {
             return modelMapper.map(collectionEntity, CollectionResponseDTO.class);
 
         } catch (DataIntegrityViolationException e) {
-            throw new InvalidCollectionDataException(ErrorCodes.INVALID_COLLECTION_ERROR,
-                    ErrorCodes.INVALID_COLLECTION_ERROR.getMessage());
+            throw new InvalidCollectionDataException(ErrorCodes.INVALID_CART_ERROR,
+                    ErrorCodes.INVALID_CART_ERROR.getMessage());
         }
     }
     @Override
