@@ -38,8 +38,8 @@ public class ReviewServiceImpl implements ReviewService{
             return modelMapper.map(reviewEntity, ReviewResponseDTO.class);
 
         } catch (DataIntegrityViolationException e) {
-            throw new InvalidReviewDataException(ErrorCodes.INVALID_REVIEW_ERROR,
-                    ErrorCodes.INVALID_REVIEW_ERROR.getMessage());
+            throw new InvalidReviewDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 

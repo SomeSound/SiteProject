@@ -43,8 +43,8 @@ public class OrderServiceImpl implements OrderService{
             return modelMapper.map(orderEntity, OrderResponseDTO.class);
 
         } catch (DataIntegrityViolationException e) {
-            throw new InvalidOrderDataException(ErrorCodes.INVALID_ORDER_ERROR,
-                    ErrorCodes.INVALID_ORDER_ERROR.getMessage());
+            throw new InvalidOrderDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 

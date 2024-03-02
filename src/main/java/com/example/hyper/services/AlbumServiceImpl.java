@@ -43,8 +43,8 @@ public class AlbumServiceImpl implements AlbumService {
             return modelMapper.map(albumEntity, AlbumResponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
-            throw new InvalidAlbumDataException(ErrorCodes.INVALID_USER_ERROR,
-                    ErrorCodes.INVALID_USER_ERROR.getMessage());
+            throw new InvalidAlbumDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 

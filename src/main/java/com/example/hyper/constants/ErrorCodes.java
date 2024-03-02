@@ -6,12 +6,7 @@ import lombok.Getter;
 public enum ErrorCodes {
 
 	DATA_NOT_FOUND("DATA_NOT_FOUND", "Data not found"),
-	INVALID_MUSIC_ERROR("INVALID_MUSIC_ERROR", "Trying to save data that already exists"),
-	INVALID_ARTIST_ERROR("INVALID_ARTIST_ERROR", "Trying to create artist that already exists"),
-	INVALID_USER_ERROR("INVALID_USER_ERROR", "Trying to save data that already exists"),
-	INVALID_ORDER_ERROR("INVALID_ORDER_ERROR", "Trying to save data that already exists"),
-	INVALID_CART_ERROR("INVALID_CART_ERROR", "Trying to save data that already exists"),
-	INVALID_REVIEW_ERROR("INVALID_REVIEW_ERROR", "Trying to save data that already exists");
+	DUPLICATED_DATA("DUPLICATED_DATA", "Trying to save data that already exists");
 
 	private final String code;
 	private final String message;

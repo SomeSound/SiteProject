@@ -51,8 +51,8 @@ public class ArtistServiceImpl implements ArtistService {
 
             return modelMapper.map(artistEntity, ArtistResponseDTO.class);
         }catch (DataIntegrityViolationException e){
-            throw new InvalidArtistDataException(ErrorCodes.INVALID_ARTIST_ERROR,
-                    ErrorCodes.INVALID_ARTIST_ERROR.getMessage());
+            throw new InvalidArtistDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 

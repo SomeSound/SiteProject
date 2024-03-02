@@ -41,8 +41,8 @@ public class RecordServiceImpl implements RecordService{
             return modelMapper.map(recordEntity, RecordResponseDTO.class);
 
         }catch (DataIntegrityViolationException e){
-            throw new InvalidCustomerDataException(ErrorCodes.INVALID_USER_ERROR,
-                    ErrorCodes.INVALID_USER_ERROR.getMessage());
+            throw new InvalidCustomerDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 

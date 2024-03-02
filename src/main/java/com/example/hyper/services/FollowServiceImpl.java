@@ -42,8 +42,8 @@ public class FollowServiceImpl implements FollowService {
             return modelMapper.map(followEntity, FollowResponseDTO.class);
 
         } catch (DataIntegrityViolationException e) {
-            throw new InvalidFollowDataException(ErrorCodes.INVALID_CART_ERROR,
-                    ErrorCodes.INVALID_CART_ERROR.getMessage());
+            throw new InvalidFollowDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 
