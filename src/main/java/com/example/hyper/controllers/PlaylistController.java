@@ -1,6 +1,8 @@
 package com.example.hyper.controllers;
 
 import com.example.hyper.dtos.requests.PlaylistRequestDTO;
+import com.example.hyper.dtos.requests.TrackRequestDTO;
+import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.example.hyper.dtos.responses.pages.PlaylistPageReponseDTO;
 import com.example.hyper.dtos.responses.PlaylistResponseDTO;
 import com.example.hyper.services.PlaylistService;
@@ -47,9 +49,21 @@ public class PlaylistController {
     }
 
     @PutMapping(value = "/playlist/{id}")
-    public ResponseEntity<PlaylistResponseDTO> update(@PathVariable Long id, @RequestBody PlaylistRequestDTO playlist) {
+    public ResponseEntity<PlaylistResponseDTO> updateName(
+                                                            @PathVariable Long id,
+                                                            @RequestBody @Valid PlaylistRequestDTO playlist) {
 
-        PlaylistResponseDTO response = playlistService.update(id, playlist);
+        PlaylistResponseDTO response = playlistService.updateName(id, playlist.getName());
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping(value = "/playlist/{id}/add-track")
+    public ResponseEntity<PlaylistResponseDTO> addTrack(
+                                                        @PathVariable Long id,
+                                                        @RequestBody Long trackId) {
+
+        PlaylistResponseDTO response = playlistService.addTrack(id, trackId);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
