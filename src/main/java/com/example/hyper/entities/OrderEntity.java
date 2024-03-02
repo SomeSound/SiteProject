@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "_ORDER")
+@Table(name = "ORDER")
 @EqualsAndHashCode(callSuper = false)
 public class OrderEntity extends BaseEntity implements Serializable {
 

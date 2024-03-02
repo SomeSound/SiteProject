@@ -3,10 +3,8 @@ package com.example.hyper.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Getter
@@ -26,8 +24,14 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @Column(name = "CUSTOMER_ID", nullable = false, unique = true)
     private String customerId;
 
+    @Column(name = "AVATAR")
+    private String avatar;
+
     @Column(name = "NAME", nullable = false)
     private String name;
+
+    @Column(name = "USERNAME", nullable = false, unique = true)
+    private String username;
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
@@ -41,11 +45,12 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @Column(name = "BIRTH_DATE", nullable = false)
     private String birthDate;
 
-    @Column(name = "AVATAR")
-    private String avatar;
-
-    @ManyToOne
-    @JoinColumn(name = "_OPTION")
+    @Column(name = "SUBSCRIPTION_ID", nullable = false)
     private SubscriptionEntity subscription;
 
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Column(name = "IS_ARTIST")
+    private boolean isArtist;
 }
