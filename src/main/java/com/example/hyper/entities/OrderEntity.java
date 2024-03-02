@@ -28,6 +28,7 @@ public class OrderEntity extends BaseEntity implements Serializable {
     @Column(name = "TOTAL_PRICE")
     private BigDecimal totalPrice;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private CustomerEntity customerId;
 
 }

@@ -1,5 +1,6 @@
 package com.example.hyper.controllers;
 
+import com.example.hyper.dtos.responses.AlbumResponseDTO;
 import com.example.hyper.dtos.responses.pages.TrackPageResponseDTO;
 import com.example.hyper.dtos.responses.TrackResponseDTO;
 import com.example.hyper.dtos.requests.TrackRequestDTO;
@@ -25,10 +26,9 @@ public class TrackController {
     private final TrackService trackService;
 
     @PostMapping(value = "/track")
-    public ResponseEntity<TrackResponseDTO> save(
-            @RequestBody @Valid TrackRequestDTO track) {
+    public ResponseEntity<AlbumResponseDTO> create(@RequestBody @Valid TrackRequestDTO track) {
 
-        TrackResponseDTO response = trackService.save(track);
+        AlbumResponseDTO response = trackService.save(track);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

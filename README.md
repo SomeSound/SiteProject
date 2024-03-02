@@ -1,12 +1,7 @@
 # JAVA VERSION: 21
 
-## Instalando Maven 
-- seguir conteúdo de vídeo aqui: 
-
-## Download MYSQL Workbench
-- Criar nova conexão na porta 3306
-- Nome SomeSound
-- Senha root
+## Download Postgresql
+- Criar nova conexão na porta 5432
 
 ## Building Docker image:
 - Baixar Docker Desktop

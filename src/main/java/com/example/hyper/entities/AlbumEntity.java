@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ALBUM")
+@Builder
 @EqualsAndHashCode(callSuper = false)
 public class AlbumEntity extends BaseEntity implements Serializable {
 
@@ -31,7 +32,12 @@ public class AlbumEntity extends BaseEntity implements Serializable {
     @Column(name = "RELEASE_DATE", nullable = false)
     private ZonedDateTime releaseDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private RecordEntity recordId;
 
-    private CustomerEntity customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ArtistEntity artist;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<TrackEntity> trackList;
 }

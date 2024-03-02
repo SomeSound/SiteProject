@@ -7,7 +7,6 @@ import lombok.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Getter
@@ -31,11 +30,23 @@ public class TrackEntity extends BaseEntity implements Serializable {
     private float duration;
 
     @Column(name = "GENRE", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Genre genre;
 
     @Column(name = "PRICE", nullable = false)
-    private BigDecimal price;
+    private int price;
 
-    private AlbumEntity albumId;
+    @Column(name = "IMAGE", nullable = false)
+    private String image;
+
+    @Column(name = "SPOTIFY_ID")
+    private Long spotifyId;
+
+    @Column(name = "ITUNES_ID")
+    private Long itunesId;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "TRACK_LIST")
+//    private AlbumEntity albumId;
 
 }
