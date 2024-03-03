@@ -44,12 +44,12 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public ReviewPageResponseDTO find(String name, Pageable pageable) {
+    public ReviewPageResponseDTO find(Long customerId, Pageable pageable) {
 
         Page<ReviewEntity> reviewEntities;
 
-        if(name != null){
-            reviewEntities = reviewRepository.findByName(name, pageable);
+        if(customerId != null){
+            reviewEntities = reviewRepository.findByCustomerId(customerId, pageable);
         } else {
             reviewEntities = reviewRepository.findAll(pageable);
         }

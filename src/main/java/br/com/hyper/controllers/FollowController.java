@@ -1,9 +1,9 @@
 package br.com.hyper.controllers;
 
+import br.com.hyper.services.FollowService;
 import br.com.hyper.dtos.requests.FollowRequestDTO;
 import br.com.hyper.dtos.responses.FollowResponseDTO;
 import br.com.hyper.dtos.responses.pages.FollowPageResponseDTO;
-import br.com.hyper.services.FollowService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +35,14 @@ public class FollowController {
 
     @GetMapping(value = "/follow")
     public ResponseEntity<FollowPageResponseDTO> find(
-            @RequestParam(value = "name", required = false) List<String> names,
+            @RequestParam(value = "customerId", required = false) List<String> customerId,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        FollowPageResponseDTO response = followService.find(names, pageable);
+        FollowPageResponseDTO response = followService.find(customerId, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

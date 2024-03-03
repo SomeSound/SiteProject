@@ -6,7 +6,6 @@ import br.com.hyper.dtos.responses.RecordResponseDTO;
 import br.com.hyper.dtos.responses.pages.RecordPageReponseDTO;
 import br.com.hyper.entities.RecordEntity;
 import br.com.hyper.exceptions.InvalidCustomerDataException;
-import br.com.hyper.exceptions.InvalidRecordDataException;
 import br.com.hyper.exceptions.RecordNotFoundException;
 import br.com.hyper.repositories.RecordRepository;
 import lombok.RequiredArgsConstructor;

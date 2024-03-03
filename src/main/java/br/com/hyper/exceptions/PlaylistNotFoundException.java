@@ -1,7 +1,6 @@
 package br.com.hyper.exceptions;
 
 import br.com.hyper.constants.ErrorCodes;
-import lombok.Data;
 import lombok.Getter;
 
 import java.io.Serial;

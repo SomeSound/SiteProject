@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReviewRepository extends BaseRepository<ReviewEntity> {
 
-    @Query("SELECT o FROM ReviewEntity o WHERE o.name = :name")
-    Page<ReviewEntity> findByName(@Param("name") String name,
-                                  Pageable pageable);
+    @Query("SELECT o FROM ReviewEntity o WHERE customerId = :customerId")
+    Page<ReviewEntity> findByCustomerId(@Param("customerId") Long customerId, Pageable pageable);
 }

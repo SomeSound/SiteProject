@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface FollowService {
 
-    public FollowResponseDTO save(FollowRequestDTO user);
+    FollowResponseDTO save(FollowRequestDTO user);
 
-    public FollowPageResponseDTO find(List<String> names, Pageable pageable);
+    FollowPageResponseDTO find(List<String> customerId, Pageable pageable);
 
-    public FollowResponseDTO update(Long id, FollowRequestDTO follower);
+    FollowResponseDTO update(Long id, FollowRequestDTO follower);
 
-    public void delete(Long id);
+    void delete(Long id);
 }

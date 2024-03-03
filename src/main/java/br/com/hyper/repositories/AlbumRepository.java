@@ -1,7 +1,6 @@
 package br.com.hyper.repositories;
 
 import br.com.hyper.entities.AlbumEntity;
-import br.com.hyper.entities.ArtistEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

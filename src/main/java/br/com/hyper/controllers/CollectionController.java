@@ -1,9 +1,9 @@
 package br.com.hyper.controllers;
 
+import br.com.hyper.services.CollectionService;
 import br.com.hyper.dtos.requests.CollectionRequestDTO;
 import br.com.hyper.dtos.responses.CollectionResponseDTO;
 import br.com.hyper.dtos.responses.pages.CollectionPageResponseDTO;
-import br.com.hyper.services.CollectionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package br.com.hyper.services.spotify;
 
-import br.com.hyper.dtos.responses.TrackResponseDTO;
 import com.neovisionaries.i18n.CountryCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

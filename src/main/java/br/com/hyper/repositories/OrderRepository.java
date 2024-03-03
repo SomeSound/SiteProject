@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends BaseRepository<OrderEntity>{
-    @Query("SELECT o FROM CartEntity o WHERE name in :names")
-    Page<OrderEntity> findByName(@Param("names") List<String> names,
-                                 Pageable pageable);
+    @Query("SELECT o FROM CartEntity o WHERE customerId = :customerId")
+    Page<OrderEntity> findByCustomerId(@Param("customerId") Long customerId, Pageable pageable);
 }

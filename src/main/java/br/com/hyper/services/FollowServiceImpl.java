@@ -48,12 +48,12 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public FollowPageResponseDTO find(List<String> Id, Pageable pageable) {
+    public FollowPageResponseDTO find(List<String> customerId, Pageable pageable) {
 
         Page<FollowEntity> followEntities;
 
-        if(Id != null){
-            followEntities = followRepository.findByName(Id, pageable);
+        if(customerId != null){
+            followEntities = followRepository.findByCustomerId(customerId, pageable);
         } else {
             followEntities = followRepository.findAll(pageable);
         }
@@ -76,7 +76,7 @@ public class FollowServiceImpl implements FollowService {
     public void delete(Long id) {
         FollowEntity followCurrent = findByIdOrThrowFollowDataNotFoundException(id);
 
-        FollowResponseDTO response = modelMapper.map(followCurrent, FollowResponseDTO.class);
+        modelMapper.map(followCurrent, FollowResponseDTO.class);
         followRepository.delete(followCurrent);
     }
     private FollowEntity findByIdOrThrowFollowDataNotFoundException(Long id) {

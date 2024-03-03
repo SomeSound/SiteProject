@@ -8,10 +8,11 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface OrderService {
-    public OrderResponseDTO save(OrderRequestDTO order);
+    OrderResponseDTO save(OrderRequestDTO order);
 
-    public OrderPageResponseDTO find(List<String> names, Pageable pageable);
+    OrderPageResponseDTO find(Long customerId, Pageable pageable);
 
-    public OrderResponseDTO update(Long id, OrderRequestDTO order);
-    public void delete(Long id);
+    OrderResponseDTO update(Long id, OrderRequestDTO order);
+
+    void delete(Long id);
 }

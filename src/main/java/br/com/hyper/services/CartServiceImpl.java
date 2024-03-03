@@ -48,12 +48,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartPageResponseDTO find(List<String> Id, Pageable pageable) {
+    public CartPageResponseDTO find(Long customerId, Pageable pageable) {
 
         Page<CartEntity> cartEntities;
 
-        if(Id != null){
-            cartEntities = cartRepository.findByName(Id, pageable);
+        if(customerId != null){
+            cartEntities = cartRepository.findByCustomerId(customerId, pageable);
         } else {
             cartEntities = cartRepository.findAll(pageable);
         }

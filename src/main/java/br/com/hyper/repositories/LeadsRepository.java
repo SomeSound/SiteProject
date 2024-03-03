@@ -12,8 +12,7 @@ import java.util.List;
 @Repository
 public interface LeadsRepository extends BaseRepository<LeadsEntity>{
 
-    @Query("SELECT o FROM FollowEntity o WHERE name in :names")
-    Page<LeadsEntity> findByName(@Param("names") List<String> names,
-                                  Pageable pageable);
+    @Query("SELECT o FROM LeadsEntity o WHERE email in :emails")
+    Page<LeadsEntity> findByEmail(@Param("emails") List<String> emails, Pageable pageable);
 
 }

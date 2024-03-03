@@ -7,7 +7,6 @@ import br.com.hyper.dtos.responses.pages.AlbumPageReponseDTO;
 import br.com.hyper.entities.AlbumEntity;
 import br.com.hyper.exceptions.AlbumNotFoundException;
 import br.com.hyper.exceptions.InvalidAlbumDataException;
-import br.com.hyper.exceptions.InvalidRecordDataException;
 import br.com.hyper.repositories.AlbumRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

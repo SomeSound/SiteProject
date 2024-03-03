@@ -15,7 +15,7 @@ public class CollectionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COLLECTION_SEQ")
-    @SequenceGenerator(name = "ARTIST_SEQ", sequenceName = "COLLECTION_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "COLLECTION_SEQ", sequenceName = "COLLECTION_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "Name", nullable = false)

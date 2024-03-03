@@ -1,9 +1,9 @@
 package br.com.hyper.controllers;
 
+import br.com.hyper.services.CartService;
 import br.com.hyper.dtos.requests.CartRequestDTO;
 import br.com.hyper.dtos.responses.CartResponseDTO;
 import br.com.hyper.dtos.responses.pages.CartPageResponseDTO;
-import br.com.hyper.services.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +35,14 @@ public class CartController {
 
     @GetMapping(value = "/cart")
     public ResponseEntity<CartPageResponseDTO> find(
-            @RequestParam(value = "name", required = false) List<String> names,
+            @RequestParam(value = "customerId", required = false) Long customerId,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        CartPageResponseDTO response = cartService.find(names, pageable);
+        CartPageResponseDTO response = cartService.find(customerId, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

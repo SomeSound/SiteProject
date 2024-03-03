@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ORDER")
+@Table(name = "_ORDER")
 @EqualsAndHashCode(callSuper = false)
 public class OrderEntity extends BaseEntity implements Serializable {
 

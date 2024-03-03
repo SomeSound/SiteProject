@@ -12,11 +12,8 @@ import java.util.List;
 @Repository
 public interface ArtistRepository extends BaseRepository<ArtistEntity> {
 
-    @Query("SELECT o FROM ArtistEntity o WHERE o.username in :usernames")
+    @Query("SELECT o FROM ArtistEntity o WHERE username in :usernames")
     Page<ArtistEntity> findByUsername(@Param("usernames") List<String> usernames,
                                       Pageable pageable);
-    @Query("SELECT o FROM ArtistEntity o WHERE name in :names")
-    Page<ArtistEntity> findByName(@Param("names") List<String> names,
-                                  Pageable pageable);
 
 }

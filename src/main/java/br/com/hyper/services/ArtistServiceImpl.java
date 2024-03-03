@@ -57,12 +57,12 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public ArtistPageResponseDTO find(List<String> names, Pageable pageable) {
+    public ArtistPageResponseDTO find(List<String> username, Pageable pageable) {
 
         Page<ArtistEntity> artistEntities;
 
-        if(names != null){
-            artistEntities = artistRepository.findByUsername(names, pageable);
+        if(username != null){
+            artistEntities = artistRepository.findByUsername(username, pageable);
         } else {
             artistEntities = artistRepository.findAll(pageable);
         }

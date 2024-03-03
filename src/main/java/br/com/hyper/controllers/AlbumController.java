@@ -1,9 +1,9 @@
 package br.com.hyper.controllers;
 
+import br.com.hyper.services.AlbumService;
 import br.com.hyper.dtos.responses.AlbumResponseDTO;
 import br.com.hyper.dtos.requests.AlbumRequestDTO;
 import br.com.hyper.dtos.responses.pages.AlbumPageReponseDTO;
-import br.com.hyper.services.AlbumService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

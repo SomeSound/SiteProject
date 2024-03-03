@@ -3,7 +3,6 @@ package br.com.hyper.dtos.responses;
 import br.com.hyper.entities.CustomerEntity;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import java.time.ZonedDateTime;
 
 @Data

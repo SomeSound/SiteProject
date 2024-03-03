@@ -7,12 +7,12 @@ import org.springframework.data.domain.Pageable;
 
 public interface ReviewService {
 
-    public ReviewResponseDTO save(ReviewRequestDTO review);
+    ReviewResponseDTO save(ReviewRequestDTO review);
 
-    public ReviewPageResponseDTO find(String review, Pageable pageable);
+    ReviewPageResponseDTO find(Long customerId, Pageable pageable);
 
-    public ReviewResponseDTO update(Long id, ReviewRequestDTO review);
+    ReviewResponseDTO update(Long id, ReviewRequestDTO review);
 
-    public void delete(Long id);
+    void delete(Long id);
 
 }

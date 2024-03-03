@@ -8,10 +8,11 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface CartService {
-    public CartResponseDTO save(CartRequestDTO cart);
+    CartResponseDTO save(CartRequestDTO cart);
 
-    public CartPageResponseDTO find(List<String> names, Pageable pageable);
+    CartPageResponseDTO find(Long customerId, Pageable pageable);
 
-    public CartResponseDTO update(Long id, CartRequestDTO artist);
-    public void delete(Long id);
+    CartResponseDTO update(Long id, CartRequestDTO artist);
+
+    void delete(Long id);
 }

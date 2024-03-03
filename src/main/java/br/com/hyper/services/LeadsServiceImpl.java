@@ -48,12 +48,12 @@ public class LeadsServiceImpl implements LeadsService {
     }
 
     @Override
-    public LeadsPageResponseDTO find(List<String> names, Pageable pageable) {
+    public LeadsPageResponseDTO find(List<String> emails, Pageable pageable) {
 
         Page<LeadsEntity> leadsEntities;
 
-        if(names != null){
-            leadsEntities = leadRepository.findByName(names, pageable);
+        if(emails != null){
+            leadsEntities = leadRepository.findByEmail(emails, pageable);
         } else {
             leadsEntities = leadRepository.findAll(pageable);
         }

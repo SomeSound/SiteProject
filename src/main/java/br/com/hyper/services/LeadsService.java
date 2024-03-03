@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface LeadsService {
 
-    public LeadsResponseDTO save(LeadsRequestDTO lead);
+    LeadsResponseDTO save(LeadsRequestDTO lead);
 
-    public LeadsPageResponseDTO find(List<String> names, Pageable pageable);
+    LeadsPageResponseDTO find(List<String> emails, Pageable pageable);
 
-    public LeadsResponseDTO update(Long id, LeadsRequestDTO lead);
+    LeadsResponseDTO update(Long id, LeadsRequestDTO lead);
 
-    public void delete(Long id);
+    void delete(Long id);
 }
