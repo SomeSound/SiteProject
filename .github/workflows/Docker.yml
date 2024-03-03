@@ -4,7 +4,6 @@ on:
   workflow_call:
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -21,10 +20,17 @@ jobs:
           username: ${{secrets.DOCKER_USERNAME}}
           password: ${{secrets.DOCKER_PASSWORD}}
 
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5.5.1
+        with:
+          images: tonin206996/hyper_application
+
       - name: Docker Build and Push
         uses: docker/build-push-action@v5.1.0
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: tonin206996/hyper_application:${{github.ref_name}}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

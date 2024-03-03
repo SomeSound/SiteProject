@@ -14,7 +14,7 @@ import java.util.List;
 public interface AlbumRepository extends BaseRepository<AlbumEntity> {
 
     @Query("SELECT o FROM AlbumEntity o WHERE name in :names")
-    Page<ArtistEntity> findByName(@Param("names") List<String> names,
+    Page<AlbumEntity> findByName(@Param("names") List<String> names,
                                   Pageable pageable);
 
 }

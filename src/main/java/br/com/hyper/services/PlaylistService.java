@@ -11,10 +11,11 @@ public interface PlaylistService {
 
     PlaylistPageReponseDTO find(String name, Pageable pageable);
 
-    PlaylistResponseDTO updateName(Long id, String name);
-
-    PlaylistResponseDTO addTrack(Long id, Long trackId);
+    PlaylistResponseDTO update(Long id, PlaylistRequestDTO playlist);
 
     void delete(Long id);
 
+    PlaylistResponseDTO updateName(Long id, String name);
+
+    PlaylistResponseDTO addTrack(Long id, Long trackId);
 }

@@ -6,7 +6,6 @@ import lombok.Getter;
 
 import java.io.Serial;
 
-@Data
 @Getter
 public class PlaylistNotFoundException extends RuntimeException {
 

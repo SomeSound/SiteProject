@@ -8,7 +8,7 @@ import br.com.hyper.dtos.requests.ArtistRequestDTO;
 import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.exceptions.CustomerNotFoundException;
 import br.com.hyper.dtos.responses.ArtistResponseDTO;
-//import com.example.hyper.repositories.ArtistRepository;
+//import br.com.hyper.repositories.ArtistRepository;
 import br.com.hyper.repositories.ArtistRepository;
 import br.com.hyper.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,8 +51,8 @@ public class ArtistServiceImpl implements ArtistService {
 
             return modelMapper.map(artistEntity, ArtistResponseDTO.class);
         }catch (DataIntegrityViolationException e){
-            throw new InvalidArtistDataException(ErrorCodes.INVALID_ARTIST_ERROR,
-                    ErrorCodes.INVALID_ARTIST_ERROR.getMessage());
+            throw new InvalidArtistDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 

@@ -37,8 +37,8 @@ public class CustomerServiceImpl implements CustomerService {
 
             return modelMapper.map(customerEntity, CustomerResponseDTO.class);
         }catch (DataIntegrityViolationException e){
-            throw new InvalidUserDataException(ErrorCodes.INVALID_USER_ERROR,
-                    ErrorCodes.INVALID_USER_ERROR.getMessage());
+            throw new InvalidUserDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 
