@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -55,7 +54,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping(value = "/cart/{id}")
+    @DeleteMapping(value = "/order/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
 
         orderService.delete(id);

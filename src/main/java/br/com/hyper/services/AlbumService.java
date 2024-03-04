@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface AlbumService {
 
-    public AlbumResponseDTO save(AlbumRequestDTO playlist);
+    AlbumResponseDTO save(AlbumRequestDTO playlist);
 
-    public AlbumPageReponseDTO find(List<String> name, Pageable pageable);
+    AlbumPageReponseDTO find(List<String> name, Pageable pageable);
 
-    public AlbumResponseDTO update(Long id, AlbumRequestDTO album);
+    AlbumResponseDTO update(Long id, AlbumRequestDTO album);
 
-    public void delete(Long id);
+    void delete(Long id);
 }

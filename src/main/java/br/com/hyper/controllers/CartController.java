@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -25,8 +24,7 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping(value = "/cart")
-    public ResponseEntity<CartResponseDTO> save(
-            @RequestBody @Valid CartRequestDTO cart) {
+    public ResponseEntity<CartResponseDTO> save(@RequestBody @Valid CartRequestDTO cart) {
 
         CartResponseDTO response = cartService.save(cart);
 

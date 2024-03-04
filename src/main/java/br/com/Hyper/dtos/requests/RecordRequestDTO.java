@@ -1,6 +1,5 @@
 package br.com.hyper.dtos.requests;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

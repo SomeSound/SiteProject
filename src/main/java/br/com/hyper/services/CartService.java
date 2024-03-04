@@ -5,10 +5,10 @@ import br.com.hyper.dtos.responses.CartResponseDTO;
 import br.com.hyper.dtos.responses.pages.CartPageResponseDTO;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import javax.validation.Valid;
 
 public interface CartService {
-    CartResponseDTO save(CartRequestDTO cart);
+    CartResponseDTO save(@Valid CartRequestDTO cart);
 
     CartPageResponseDTO find(Long customerId, Pageable pageable);
 

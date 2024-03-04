@@ -7,12 +7,12 @@ import org.springframework.data.domain.Pageable;
 
 public interface RecordService {
 
-    public RecordResponseDTO save(RecordRequestDTO record);
+    RecordResponseDTO save(RecordRequestDTO record);
 
-    public RecordPageReponseDTO find(String name, Pageable pageable);
+    RecordPageReponseDTO find(String name, Pageable pageable);
 
-    public RecordResponseDTO update(Long id, RecordRequestDTO record);
+    RecordResponseDTO update(Long id, RecordRequestDTO record);
 
-    public void delete(Long id);
+    void delete(Long id);
 
 }

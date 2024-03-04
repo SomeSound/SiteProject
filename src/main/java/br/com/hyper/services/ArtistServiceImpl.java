@@ -8,7 +8,6 @@ import br.com.hyper.dtos.requests.ArtistRequestDTO;
 import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.exceptions.CustomerNotFoundException;
 import br.com.hyper.dtos.responses.ArtistResponseDTO;
-//import br.com.hyper.repositories.ArtistRepository;
 import br.com.hyper.repositories.ArtistRepository;
 import br.com.hyper.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;

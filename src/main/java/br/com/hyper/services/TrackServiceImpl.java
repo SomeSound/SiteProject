@@ -14,6 +14,7 @@ import br.com.hyper.dtos.requests.TrackRequestDTO;
 import br.com.hyper.entities.TrackEntity;
 import br.com.hyper.repositories.AlbumRepository;
 import br.com.hyper.repositories.ArtistRepository;
+import br.com.hyper.utils.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -61,6 +62,8 @@ public class TrackServiceImpl implements TrackService {
                     .artist(artist)
                     .releaseDate(ZonedDateTime.now(ZoneId.of(Constants.SP_ZONE_ID)))
                     .build();
+
+            S3Uploader.saveTrackOnBucket(track.getName());
 
             trackRepository.save(trackEntity);
 

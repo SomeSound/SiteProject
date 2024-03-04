@@ -1,11 +1,9 @@
-package br.com.hyper.proxys;
+package br.com.hyper.proxies;
 
 import com.neovisionaries.i18n.CountryCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.core5.http.ParseException;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -23,11 +21,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class SpotifyProxy {
 
-    @Autowired
-    private final ModelMapper modelMapper;
+    private static final String CLIENT_ID = "";
+    private static final String CLIENT_SECRET = "";
 
-    private static final String CLIENT_ID = "6761012164494ab5a727c41fa9028bdb";
-    private static final String CLIENT_SECRET = "0331be938f7444d485b7003cbfee5c8d";
     private static final SpotifyApi spotifyAPI = new SpotifyApi.Builder()
             .setClientId(CLIENT_ID)
             .setClientSecret(CLIENT_SECRET)
@@ -35,6 +31,7 @@ public class SpotifyProxy {
 
     private static final ClientCredentialsRequest clientCredentialsRequest = spotifyAPI.clientCredentials()
             .build();
+
     public Paging<Track> findTrackByName(String title) {
 
         try {

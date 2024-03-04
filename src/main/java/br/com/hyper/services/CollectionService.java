@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 
 public interface CollectionService {
 
-    public CollectionResponseDTO save(CollectionRequestDTO collection);
+    CollectionResponseDTO save(CollectionRequestDTO collection);
 
-    public CollectionPageResponseDTO find(String collection, Pageable pageable);
+    CollectionPageResponseDTO find(String collection, Pageable pageable);
 
-    public CollectionResponseDTO update(Long id, CollectionRequestDTO collection);
-    public void delete(Long id);
+    CollectionResponseDTO update(Long id, CollectionRequestDTO collection);
+    void delete(Long id);
 
 }

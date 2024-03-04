@@ -1,8 +1,8 @@
 package br.com.hyper.services;
 
-import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
+import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import org.springframework.data.domain.Pageable;
 
 public interface CustomerService {

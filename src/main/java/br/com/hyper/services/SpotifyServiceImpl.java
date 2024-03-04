@@ -1,6 +1,6 @@
 package br.com.hyper.services;
 
-import br.com.hyper.proxys.SpotifyProxy;
+import br.com.hyper.proxies.SpotifyProxy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

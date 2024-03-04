@@ -29,8 +29,7 @@ public enum Genre {
     PSYTRANCE,
     FOREST,
     HITECH,
-    PROGRESSIVE_DARK;
-
+    PROGRESSIVE_DARK
 
 
 }

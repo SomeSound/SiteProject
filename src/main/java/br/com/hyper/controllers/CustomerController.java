@@ -24,8 +24,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping(value = "/customer")
-    public ResponseEntity<CustomerResponseDTO> save(
-            @RequestBody @Valid CustomerRequestDTO customer){
+    public ResponseEntity<CustomerResponseDTO> save(@RequestBody @Valid CustomerRequestDTO customer){
 
         CustomerResponseDTO response = customerService.save(customer);
 
