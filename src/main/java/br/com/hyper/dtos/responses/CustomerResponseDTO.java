@@ -10,7 +10,7 @@ public class CustomerResponseDTO {
     private String customerId;
     private String email;
     private String birthDate;
-    private int subscription;
+    private SubscriptionResponseDTO subscription;
     private String country;
     private String avatar;
 }

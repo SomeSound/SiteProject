@@ -25,7 +25,7 @@ public class CustomerRequestDTO {
     private String birthDate;
 
     @NotEmpty(message = "Invalid subscription, can not be empty")
-    private int subscription;
+    private Long subscription;
 
     @NotEmpty(message = "Invalid country, can not be empty")
     private String country;

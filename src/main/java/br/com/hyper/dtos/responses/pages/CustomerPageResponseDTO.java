@@ -1,6 +1,7 @@
 package br.com.hyper.dtos.responses.pages;
 
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
+import br.com.hyper.dtos.responses.CustomerResponseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -25,5 +26,5 @@ public class CustomerPageResponseDTO {
     private Integer number;
 
     @JsonProperty("userDataList")
-    private List<CustomerRequestDTO> content;
+    private List<CustomerResponseDTO> content;
 }

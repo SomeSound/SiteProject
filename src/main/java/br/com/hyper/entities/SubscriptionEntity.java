@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 public class SubscriptionEntity extends BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUBSCRIPTION_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SUBSCRIPTION_SEQ")
     @SequenceGenerator(name = "SUBSCRIPTION_SEQ", sequenceName = "SUBSCRIPTION_SEQ", allocationSize = 1)
     private Long id;
 

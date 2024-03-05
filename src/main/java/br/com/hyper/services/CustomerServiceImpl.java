@@ -1,6 +1,7 @@
 package br.com.hyper.services;
 
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
+import br.com.hyper.entities.SubscriptionEntity;
 import br.com.hyper.exceptions.InvalidUserDataException;
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
@@ -8,6 +9,8 @@ import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.exceptions.CustomerNotFoundException;
 import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
+import br.com.hyper.repositories.SubscriptionRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -26,19 +29,25 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
     @Autowired
+    private final SubscriptionRepository subscriptionRepository;
+
+    @Autowired
     private final ModelMapper modelMapper;
 
     @Override
     public CustomerResponseDTO save(CustomerRequestDTO customer) {
         CustomerEntity customerEntity;
         try {
+            SubscriptionEntity subscription = subscriptionRepository.findById(customer.getSubscription()).orElseThrow(() -> new EntityNotFoundException("Subscription not found"));
             customerEntity = modelMapper.map(customer, CustomerEntity.class);
+
+            customerEntity.setSubscription(subscription);
             customerEntity = customerRepository.save(customerEntity);
 
             return modelMapper.map(customerEntity, CustomerResponseDTO.class);
-        }catch (DataIntegrityViolationException e){
-            throw new InvalidUserDataException(ErrorCodes.DUPLICATED_DATA,
-                    ErrorCodes.DUPLICATED_DATA.getMessage());
+        }  catch (Exception e) {
+            log.error(String.valueOf(e));
+            throw new Error(e);
         }
     }
 
