@@ -9,12 +9,12 @@
 		<version>3.1.5</version>
 	</parent>
 
-	<groupId>com.hyper</groupId>
+	<groupId>br.com.hyper</groupId>
 	<artifactId>Hyper</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 	<name>Hyper</name>
-	<description>Hyper Description</description>
+	<description>Hyper Application</description>
 
 	<properties>
 		<java.version>21</java.version>
@@ -156,6 +156,12 @@
 			<groupId>se.michaelthelin.spotify</groupId>
 			<artifactId>spotify-web-api-java</artifactId>
 			<version>8.3.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>2.25.1</version>
 		</dependency>
 
 	</dependencies>
