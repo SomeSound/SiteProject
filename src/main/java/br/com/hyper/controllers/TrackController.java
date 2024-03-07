@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,10 +26,13 @@ public class TrackController {
     @Autowired
     private final TrackService trackService;
 
-    @PostMapping(value = "/track")
-    public ResponseEntity<AlbumResponseDTO> create(@RequestBody @Valid TrackRequestDTO track) {
+    @PostMapping(value = "/track", consumes = { "multipart/form-data" })
+    public ResponseEntity<TrackResponseDTO> create(
+            @RequestParam(value = "artistId") Long artistId,
+            @RequestPart(value = "file") MultipartFile file,
+            @ModelAttribute(value = "track") TrackRequestDTO track) {
 
-        AlbumResponseDTO response = trackService.save(track);
+        TrackResponseDTO response = trackService.save(track, file, artistId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

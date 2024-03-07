@@ -1,6 +1,7 @@
 package br.com.hyper.dtos.requests;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -11,9 +12,6 @@ public class TrackRequestDTO {
 
     @NotEmpty(message = "Invalid name, can not be empty")
     private String name;
-
-    @NotEmpty(message = "Invalid name, can not be empty")
-    private Long artistId;
 
     @NotEmpty(message = "Invalid duration, can not be empty")
     private float duration;

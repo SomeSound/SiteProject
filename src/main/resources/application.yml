@@ -16,6 +16,10 @@ spring:
     baseline-on-migrate: true
     out-of-order: true
     ignore-missing-migrations: false
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 #  mail:
 #    host: smtp.gmail.com
 #    port: 587

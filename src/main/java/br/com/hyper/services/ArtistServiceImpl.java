@@ -61,7 +61,7 @@ public class ArtistServiceImpl implements ArtistService {
         Page<ArtistEntity> artistEntities;
 
         if(username != null){
-            artistEntities = artistRepository.findByUsername(username, pageable);
+            artistEntities = artistRepository.findByUsernamePage(username, pageable);
         } else {
             artistEntities = artistRepository.findAll(pageable);
         }

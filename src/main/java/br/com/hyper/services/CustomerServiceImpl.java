@@ -76,6 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
 
         userCurrent.setName(user.getName());
+        userCurrent.setAvatar(user.getAvatar());
 
         customerRepository.save(userCurrent);
 
