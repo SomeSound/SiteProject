@@ -41,6 +41,9 @@ public class S3Uploader {
 
             getSecretValueResponse = client.getSecretValue(getSecretValueRequest);
             secretString = getSecretValueResponse.secretString();
+
+            secretsManager.close();
+
         } catch (Exception e) {
             throw new InvalidCollectionDataException(ErrorCodes.AWS_SECRETS_ERROR,
                     ErrorCodes.AWS_SECRETS_ERROR.getMessage());
