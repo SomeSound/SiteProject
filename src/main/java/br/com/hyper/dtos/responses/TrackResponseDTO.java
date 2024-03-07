@@ -10,5 +10,4 @@ public class TrackResponseDTO {
     private Double duration;
     private String genre;
     private int price;
-    private Long artistId;
 }

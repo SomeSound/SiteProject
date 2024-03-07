@@ -25,10 +25,10 @@ import java.util.List;
 public class AlbumServiceImpl implements AlbumService {
 
     @Autowired
-    private AlbumRepository albumRepository;
+    private final AlbumRepository albumRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public AlbumResponseDTO save(AlbumRequestDTO album) {

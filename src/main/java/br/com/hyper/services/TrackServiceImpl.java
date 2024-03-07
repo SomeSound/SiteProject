@@ -3,8 +3,12 @@ package br.com.hyper.services;
 import br.com.hyper.constants.Constants;
 import br.com.hyper.dtos.responses.pages.TrackPageResponseDTO;
 import br.com.hyper.entities.AlbumEntity;
+import br.com.hyper.enums.Genre;
 import br.com.hyper.exceptions.ArtistNotFoundException;
+import br.com.hyper.exceptions.InvalidAlbumDataException;
+import br.com.hyper.exceptions.InvalidArtistDataException;
 import br.com.hyper.exceptions.TrackNotFoundException;
+import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.repositories.TrackRepository;
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.AlbumResponseDTO;
@@ -18,15 +22,21 @@ import br.com.hyper.utils.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -40,41 +50,29 @@ public class TrackServiceImpl implements TrackService {
     private final ArtistRepository artistRepository;
 
     @Autowired
-    private final AlbumRepository albumRepository;
-
-    @Autowired
     private final ModelMapper modelMapper;
 
+    @Autowired
+    private final S3Uploader s3Uploader;
+
     @Override
-    public AlbumResponseDTO save(TrackRequestDTO track) {
+    public TrackResponseDTO save(TrackRequestDTO track, MultipartFile file, Long artistId) {
 
-        TrackEntity trackEntity;
-        try{
-            trackEntity = modelMapper.map(track, TrackEntity.class);
+        ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(artistId);
+        TrackEntity trackEntity = TrackEntity.builder()
+                .name(track.getName())
+                .duration(file.getSize())
+                .price(3)
+                .genre(Genre.valueOf(track.getGenre()))
+                .image(track.getImage())
+                .artist(artist)
+                .build();
 
-            trackEntity.setPrice(3);
+        s3Uploader.saveTrackOnBucket(artist.getUsername(), Genre.valueOf(track.getGenre()), file);
 
-            ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(track.getArtistId());
+        trackRepository.save(trackEntity);
 
-            AlbumEntity album = AlbumEntity.builder()
-                    .name(trackEntity.getName())
-                    .image(trackEntity.getImage())
-                    .artist(artist)
-                    .releaseDate(ZonedDateTime.now(ZoneId.of(Constants.SP_ZONE_ID)))
-                    .build();
-
-            S3Uploader.saveTrackOnBucket(track.getName());
-
-            trackRepository.save(trackEntity);
-
-            album.setTrackList(List.of(trackEntity));
-            AlbumEntity albumEntity = albumRepository.save(album);
-
-            return modelMapper.map(albumEntity, AlbumResponseDTO.class);
-
-        }catch (DataIntegrityViolationException e){
-            return null; // Implementar exception
-        }
+        return modelMapper.map(trackEntity, TrackResponseDTO.class);
 
     }
 
@@ -118,7 +116,7 @@ public class TrackServiceImpl implements TrackService {
 
     private ArtistEntity findByIdOrThrowArtistDataNotFoundException(Long id) {
         return artistRepository.findById(id).orElseThrow(
-                () -> new ArtistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.hyper.services;
 
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.entities.SubscriptionEntity;
+import br.com.hyper.exceptions.InvalidCollectionDataException;
 import br.com.hyper.exceptions.InvalidUserDataException;
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
@@ -45,9 +46,9 @@ public class CustomerServiceImpl implements CustomerService {
             customerEntity = customerRepository.save(customerEntity);
 
             return modelMapper.map(customerEntity, CustomerResponseDTO.class);
-        }  catch (Exception e) {
-            log.error(String.valueOf(e));
-            throw new Error(e);
+        }  catch (DataIntegrityViolationException e) {
+            throw new InvalidCollectionDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 
@@ -75,6 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerEntity userCurrent = findByIdOrThrowUserDataNotFoundException(id);
 
         userCurrent.setName(user.getName());
+        userCurrent.setAvatar(user.getAvatar());
 
         customerRepository.save(userCurrent);
 

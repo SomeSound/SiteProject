@@ -13,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "TRACK")
+@Builder
 @EqualsAndHashCode(callSuper = false)
 public class TrackEntity extends BaseEntity implements Serializable {
 
@@ -43,8 +44,7 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "ITUNES_ID")
     private Long itunesId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "TRACK_LIST")
-//    private AlbumEntity albumId;
+    @Column(name = "ARTIST_ID", nullable = false)
+    private ArtistEntity artist;
 
 }
