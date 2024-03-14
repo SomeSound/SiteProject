@@ -19,5 +19,7 @@ public interface TrackService {
 
     void delete(Long id);
 
+    byte[] downloadTrack(Long id);
+
 
 }

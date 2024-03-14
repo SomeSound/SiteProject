@@ -7,7 +7,7 @@ spring:
       ddl-auto: update
   datasource:
     plataform: postgres
-    url: jdbc:postgresql://localhost:5432/hyper
+    url: jdbc:postgresql://hyper-tst.cj8syw0omc8e.us-east-1.rds.amazonaws.com:5432/hyper
     username: hyperUser
     password: hyperPass
     driverClassName: org.postgresql.Driver
@@ -18,8 +18,8 @@ spring:
     ignore-missing-migrations: false
   servlet:
     multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
+      max-file-size: 120MB
+      max-request-size: 120MB
 #  mail:
 #    host: smtp.gmail.com
 #    port: 587
