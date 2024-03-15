@@ -1,7 +1,8 @@
 # JAVA VERSION: 21
 
-## Download Postgresql
-- Criar nova conexão na porta 5432
+## Download DBeaver
+- Criar nova conexão com PostgreSQL
+- Criar banco de dados com nome hyper
 
 ## Building Docker image:
 - Baixar Docker Desktop

@@ -66,4 +66,10 @@ public class TrackController {
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping(value = "/track/download/{id}")
+    public byte[] find(@PathVariable Long id) {
+
+        return trackService.downloadTrack(id);
+    }
 }

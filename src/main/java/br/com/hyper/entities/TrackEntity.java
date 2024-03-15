@@ -47,4 +47,7 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "ARTIST_ID", nullable = false)
     private ArtistEntity artist;
 
+    @Column(name = "PATH", nullable = false)
+    private String path;
+
 }
