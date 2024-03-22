@@ -27,12 +27,11 @@ public class TrackController {
     private final TrackService trackService;
 
     @PostMapping(value = "/track", consumes = { "multipart/form-data" })
-    public ResponseEntity<TrackResponseDTO> create(
+    public ResponseEntity<List<TrackResponseDTO>> create(
             @RequestParam(value = "artistId") Long artistId,
-            @RequestPart(value = "file") MultipartFile file,
-            @ModelAttribute(value = "track") TrackRequestDTO track) {
+            @ModelAttribute(value = "tracks") List<TrackRequestDTO> tracks) {
 
-        TrackResponseDTO response = trackService.save(track, file, artistId);
+        List<TrackResponseDTO> response = trackService.save(tracks, artistId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

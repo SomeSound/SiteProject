@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Data
 public class TrackRequestDTO {
@@ -21,5 +22,8 @@ public class TrackRequestDTO {
 
     @NotEmpty(message = "Invalid image, can not be empty")
     private String image;
+
+    @NotEmpty(message = "Invalid image, can not be empty")
+    private List<MultipartFile> files;
 
 }

@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -40,24 +41,31 @@ public class TrackServiceImpl implements TrackService {
     private final AmazonBucketS3 amazonBucketS3;
 
     @Override
-    public TrackResponseDTO save(TrackRequestDTO track, MultipartFile file, Long artistId) {
+    public List<TrackResponseDTO> save(List<TrackRequestDTO> tracks, Long artistId) {
 
         ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(artistId);
-        TrackEntity trackEntity = TrackEntity.builder()
-                .name(track.getName())
-                .duration(file.getSize())
-                .price(3)
-                .genre(Genre.valueOf(track.getGenre()))
-                .image(track.getImage())
-                .artist(artist)
-                .path(artist.getUsername() + "/" + Genre.valueOf(track.getGenre()) + "/" + track.getName())
-                .build();
 
-        amazonBucketS3.uploadArtistTrack(trackEntity.getPath(), file);
+        List<TrackResponseDTO> trackList = new ArrayList<>();
 
-        trackRepository.save(trackEntity);
+        tracks.forEach(track -> {
+            TrackEntity trackEntity = TrackEntity.builder()
+                    .name(track.getName())
+                    .duration(track.getFiles().getFirst().getSize())
+                    .price(3)
+                    .image(track.getImage())
+                    .genre(Genre.valueOf(track.getGenre()))
+                    .artist(artist)
+                    .path(artist.getUsername() + "/" + Genre.valueOf(track.getGenre()) + "/" + track.getName())
+                    .build();
 
-        return modelMapper.map(trackEntity, TrackResponseDTO.class);
+            amazonBucketS3.uploadArtistTrack(trackEntity.getPath(), track.getFiles().getFirst());
+
+            trackRepository.save(trackEntity);
+
+            trackList.add(modelMapper.map(trackEntity, TrackResponseDTO.class));
+        });
+
+        return trackList;
 
     }
 
