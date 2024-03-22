@@ -41,31 +41,25 @@ public class TrackServiceImpl implements TrackService {
     private final AmazonBucketS3 amazonBucketS3;
 
     @Override
-    public List<TrackResponseDTO> save(List<TrackRequestDTO> tracks, Long artistId) {
+    public TrackResponseDTO save(TrackRequestDTO track, Long artistId) {
 
         ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(artistId);
 
-        List<TrackResponseDTO> trackList = new ArrayList<>();
+        TrackEntity trackEntity = TrackEntity.builder()
+                .name(track.getName())
+                .duration(track.getFile().getSize())
+                .price(3)
+                .image(track.getImage())
+                .genre(Genre.valueOf(track.getGenre()))
+                .artist(artist)
+                .path(artist.getUsername() + "/" + Genre.valueOf(track.getGenre()) + "/" + track.getName())
+                .build();
 
-        tracks.forEach(track -> {
-            TrackEntity trackEntity = TrackEntity.builder()
-                    .name(track.getName())
-                    .duration(track.getFiles().getFirst().getSize())
-                    .price(3)
-                    .image(track.getImage())
-                    .genre(Genre.valueOf(track.getGenre()))
-                    .artist(artist)
-                    .path(artist.getUsername() + "/" + Genre.valueOf(track.getGenre()) + "/" + track.getName())
-                    .build();
+        amazonBucketS3.uploadArtistTrack(trackEntity.getPath(), track.getFile());
 
-            amazonBucketS3.uploadArtistTrack(trackEntity.getPath(), track.getFiles().getFirst());
+        trackRepository.save(trackEntity);
 
-            trackRepository.save(trackEntity);
-
-            trackList.add(modelMapper.map(trackEntity, TrackResponseDTO.class));
-        });
-
-        return trackList;
+        return modelMapper.map(trackEntity, TrackResponseDTO.class);
 
     }
 

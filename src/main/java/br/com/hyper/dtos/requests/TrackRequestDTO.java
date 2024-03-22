@@ -24,6 +24,6 @@ public class TrackRequestDTO {
     private String image;
 
     @NotEmpty(message = "Invalid image, can not be empty")
-    private List<MultipartFile> files;
+    private MultipartFile file;
 
 }

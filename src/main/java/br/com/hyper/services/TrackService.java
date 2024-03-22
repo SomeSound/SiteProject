@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface TrackService {
 
-    List<TrackResponseDTO> save(List<TrackRequestDTO> tracks, Long artistId);
+    TrackResponseDTO save(TrackRequestDTO track, Long artistId);
 
     TrackPageResponseDTO find(List<String> genres, Pageable pageable);
 
