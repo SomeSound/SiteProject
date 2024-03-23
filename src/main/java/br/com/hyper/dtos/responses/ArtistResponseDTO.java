@@ -9,7 +9,5 @@ public class ArtistResponseDTO {
 
     private String username;
 
-    private CustomerResponseDTO customer;
-
     private int credits;
 }

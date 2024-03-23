@@ -21,5 +21,6 @@ public interface TrackService {
 
     byte[] downloadTrack(Long id);
 
+    String getTrackUrl(Long id);
 
 }

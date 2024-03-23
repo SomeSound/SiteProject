@@ -50,6 +50,12 @@ public class TrackController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping(value = "/track/{id}/url")
+    public String getTrackUrl(@PathVariable Long id) {
+
+        return trackService.getTrackUrl(id);
+    }
+
     @PutMapping(value = "/track/{id}")
     public ResponseEntity<TrackResponseDTO> update(@PathVariable Long id, @RequestBody TrackRequestDTO music) {
 
@@ -67,7 +73,7 @@ public class TrackController {
     }
 
     @GetMapping(value = "/track/download/{id}")
-    public byte[] find(@PathVariable Long id) {
+    public byte[] downloadTrack(@PathVariable Long id) {
 
         return trackService.downloadTrack(id);
     }

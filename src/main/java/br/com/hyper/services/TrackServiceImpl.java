@@ -77,6 +77,7 @@ public class TrackServiceImpl implements TrackService {
         return modelMapper.map(trackEntities, TrackPageResponseDTO.class);
     }
 
+
     @Override
     public TrackResponseDTO update(Long id, TrackRequestDTO track) {
         TrackEntity trackCurrent = findByIdOrThrowTrackDataNotFoundException(id);
@@ -102,6 +103,14 @@ public class TrackServiceImpl implements TrackService {
         TrackEntity track = findByIdOrThrowTrackDataNotFoundException(id);
         return amazonBucketS3.downloadTrack(track.getPath());
     }
+
+    public String getTrackUrl(Long id) {
+
+        TrackEntity track = findByIdOrThrowTrackDataNotFoundException(id);
+
+        return amazonBucketS3.getTrackUrl(track.getPath());
+    }
+
     private TrackEntity findByIdOrThrowTrackDataNotFoundException(Long id) {
         return trackRepository.findById(id).orElseThrow(
                 () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
