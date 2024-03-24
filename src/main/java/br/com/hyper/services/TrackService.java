@@ -17,6 +17,8 @@ public interface TrackService {
 
     TrackResponseDTO update(Long id, TrackRequestDTO track);
 
+    TrackResponseDTO findById(Long id);
+
     void delete(Long id);
 
     byte[] downloadTrack(Long id);

@@ -77,6 +77,14 @@ public class TrackServiceImpl implements TrackService {
         return modelMapper.map(trackEntities, TrackPageResponseDTO.class);
     }
 
+    @Override
+    public TrackResponseDTO findById(Long id) {
+
+        TrackEntity track = findByIdOrThrowTrackDataNotFoundException(id);
+
+        return modelMapper.map(track, TrackResponseDTO.class);
+    }
+
 
     @Override
     public TrackResponseDTO update(Long id, TrackRequestDTO track) {

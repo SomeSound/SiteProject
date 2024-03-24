@@ -50,6 +50,14 @@ public class TrackController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping(value = "/track/{id}")
+    public ResponseEntity<TrackResponseDTO> findById(@PathVariable Long id) {
+
+        TrackResponseDTO response = trackService.findById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping(value = "/track/{id}/url")
     public String getTrackUrl(@PathVariable Long id) {
 
