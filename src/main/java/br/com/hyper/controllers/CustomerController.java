@@ -1,10 +1,13 @@
 package br.com.hyper.controllers;
 
 import br.com.hyper.dtos.requests.AuthenticationDTO;
+import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
+import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.services.CustomerService;
+import br.com.hyper.utils.CustomerTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.token.Token;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,9 +28,6 @@ import javax.validation.Valid;
 @Slf4j
 @RequiredArgsConstructor
 public class CustomerController {
-
-    @Autowired
-    private final AuthenticationManager authenticationManager;
 
     @Autowired
     private final CustomerService customerService;
@@ -39,11 +41,11 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/login")
-    public ResponseEntity<Void> login(@RequestBody @Valid AuthenticationDTO authentication) {
-        UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(authentication.getEmail(), authentication.getPassword());
-        Authentication auth = authenticationManager.authenticate(login);
+    public ResponseEntity<TokenResponseDTO> login(@RequestBody @Valid AuthenticationDTO authentication) {
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        TokenResponseDTO response = customerService.login(authentication);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping(value = "/customer/{customerId}")

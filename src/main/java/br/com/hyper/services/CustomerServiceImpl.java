@@ -1,5 +1,7 @@
 package br.com.hyper.services;
 
+import br.com.hyper.dtos.requests.AuthenticationDTO;
+import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.entities.SubscriptionEntity;
 import br.com.hyper.exceptions.InvalidCollectionDataException;
@@ -11,6 +13,7 @@ import br.com.hyper.exceptions.CustomerNotFoundException;
 import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.repositories.SubscriptionRepository;
+import br.com.hyper.utils.CustomerTokenUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +40,12 @@ public class CustomerServiceImpl implements CustomerService {
     private final SubscriptionRepository subscriptionRepository;
 
     @Autowired
+    private final AuthenticationManager authenticationManager;
+
+    @Autowired
+    private CustomerTokenUtil customerTokenUtil;
+
+    @Autowired
     private final ModelMapper modelMapper;
 
     @Override
@@ -41,6 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerEntity customerEntity;
         try {
             SubscriptionEntity subscription = subscriptionRepository.findById(customer.getSubscription()).orElseThrow(() -> new EntityNotFoundException("Subscription not found"));
+
             customerEntity = modelMapper.map(customer, CustomerEntity.class);
 
             customerEntity.setSubscription(subscription);
@@ -61,6 +74,19 @@ public class CustomerServiceImpl implements CustomerService {
 
         return modelMapper.map(customerEntity, CustomerResponseDTO.class);
 
+    }
+
+    public TokenResponseDTO login(AuthenticationDTO authentication) {
+        UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(authentication.getEmail(), authentication.getPassword());
+
+        Authentication auth = authenticationManager.authenticate(login);
+
+        String token = customerTokenUtil.generateToken((CustomerEntity) auth.getPrincipal());
+
+        TokenResponseDTO response = new TokenResponseDTO();
+        response.setToken(token);
+
+        return response;
     }
 
     @Override

@@ -32,5 +32,10 @@ spring:
 #          starttls:
 #            enable: true
 
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:lala}
+
 server:
   port: 8080

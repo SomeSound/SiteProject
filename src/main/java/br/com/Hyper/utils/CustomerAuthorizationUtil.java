@@ -1,4 +1,4 @@
-package br.com.hyper.services;
+package br.com.hyper.utils;
 
 import br.com.hyper.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthorizationService implements UserDetailsService {
+public class CustomerAuthorizationUtil implements UserDetailsService {
 
     @Autowired
     CustomerRepository customerRepository;
