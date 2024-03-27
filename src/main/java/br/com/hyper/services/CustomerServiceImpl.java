@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -43,6 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerEntity = modelMapper.map(customer, CustomerEntity.class);
 
             customerEntity.setSubscription(subscription);
+            customerEntity.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
             customerEntity = customerRepository.save(customerEntity);
 
             return modelMapper.map(customerEntity, CustomerResponseDTO.class);

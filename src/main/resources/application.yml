@@ -7,7 +7,7 @@ spring:
       ddl-auto: update
   datasource:
     plataform: postgres
-    url: jdbc:postgresql://hyper-tst.cj8syw0omc8e.us-east-1.rds.amazonaws.com:5432/hyper
+    url: jdbc:postgresql://localhost:5432/hyper
     username: hyperUser
     password: hyperPass
     driverClassName: org.postgresql.Driver

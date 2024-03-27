@@ -1,5 +1,6 @@
 package br.com.hyper.dtos.requests;
 
+import br.com.hyper.enums.UserRole;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -31,4 +32,6 @@ public class CustomerRequestDTO {
     private String country;
 
     private String avatar;
+
+    private UserRole role;
 }

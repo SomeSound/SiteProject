@@ -1,5 +1,6 @@
 package br.com.hyper.controllers;
 
+import br.com.hyper.dtos.requests.AuthenticationDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
@@ -11,6 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,15 +25,27 @@ import javax.validation.Valid;
 public class CustomerController {
 
     @Autowired
+    private final AuthenticationManager authenticationManager;
+
+    @Autowired
     private final CustomerService customerService;
 
-    @PostMapping(value = "/customer")
+    @PostMapping(value = "/customer/register")
     public ResponseEntity<CustomerResponseDTO> save(@RequestBody @Valid CustomerRequestDTO customer){
 
         CustomerResponseDTO response = customerService.save(customer);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @PostMapping("/customer/login")
+    public ResponseEntity<Void> login(@RequestBody @Valid AuthenticationDTO authentication) {
+        UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(authentication.getEmail(), authentication.getPassword());
+        Authentication auth = authenticationManager.authenticate(login);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     @GetMapping(value = "/customer/{customerId}")
     public ResponseEntity<CustomerResponseDTO> findByCustomerId(@PathVariable String customerId) {
 
@@ -38,7 +54,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping(value = "/customers")
+    @GetMapping(value = "/customer")
     public ResponseEntity<CustomerPageResponseDTO> findAll(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
