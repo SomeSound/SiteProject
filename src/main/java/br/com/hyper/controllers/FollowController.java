@@ -35,7 +35,7 @@ public class FollowController {
 
     @GetMapping(value = "/follow")
     public ResponseEntity<FollowPageResponseDTO> find(
-            @RequestParam(value = "email", required = false) List<String> email,
+            @RequestParam(value = "email", required = false) String email,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {

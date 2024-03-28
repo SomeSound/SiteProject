@@ -4,9 +4,12 @@ import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.requests.FollowRequestDTO;
 import br.com.hyper.dtos.responses.FollowResponseDTO;
 import br.com.hyper.dtos.responses.pages.FollowPageResponseDTO;
+import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.entities.FollowEntity;
+import br.com.hyper.exceptions.CustomerNotFoundException;
 import br.com.hyper.exceptions.FollowNotFoundException;
 import br.com.hyper.exceptions.InvalidFollowDataException;
+import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.repositories.FollowRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +28,13 @@ import java.util.List;
 public class FollowServiceImpl implements FollowService {
 
     @Autowired
-    private FollowRepository followRepository;
+    private final FollowRepository followRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    private final CustomerRepository customerRepository;
 
     @Override
     public FollowResponseDTO save(FollowRequestDTO follow) {
@@ -48,12 +54,14 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public FollowPageResponseDTO find(List<String> email, Pageable pageable) {
+    public FollowPageResponseDTO find(String email, Pageable pageable) {
 
         Page<FollowEntity> followEntities;
 
+        CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(email);
+
         if(email != null){
-            followEntities = followRepository.findByEmail(email, pageable);
+            followEntities = followRepository.findByCustomer(customer, pageable);
         } else {
             followEntities = followRepository.findAll(pageable);
         }
@@ -82,5 +90,10 @@ public class FollowServiceImpl implements FollowService {
     private FollowEntity findByIdOrThrowFollowDataNotFoundException(Long id) {
         return followRepository.findById(id).orElseThrow(
                 () -> new FollowNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
+        return customerRepository.findByEmail(email).orElseThrow(
+                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

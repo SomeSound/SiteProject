@@ -11,7 +11,7 @@ public interface FollowService {
 
     FollowResponseDTO save(FollowRequestDTO user);
 
-    FollowPageResponseDTO find(List<String> email, Pageable pageable);
+    FollowPageResponseDTO find(String email, Pageable pageable);
 
     FollowResponseDTO update(Long id, FollowRequestDTO follower);
 

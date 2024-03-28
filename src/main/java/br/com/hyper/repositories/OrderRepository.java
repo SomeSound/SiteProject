@@ -1,5 +1,6 @@
 package br.com.hyper.repositories;
 
+import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.entities.OrderEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRepository extends BaseRepository<OrderEntity>{
-    @Query("SELECT o FROM CartEntity o WHERE email = :email")
-    Page<OrderEntity> findByEmail(@Param("email") String email, Pageable pageable);
+    @Query("SELECT o FROM OrderEntity o WHERE customer = :customer")
+    Page<OrderEntity> findByCustomer(@Param("customer") CustomerEntity customer, Pageable pageable);
 }

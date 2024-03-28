@@ -4,9 +4,12 @@ import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.requests.ReviewRequestDTO;
 import br.com.hyper.dtos.responses.ReviewResponseDTO;
 import br.com.hyper.dtos.responses.pages.ReviewPageResponseDTO;
+import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.entities.ReviewEntity;
+import br.com.hyper.exceptions.CustomerNotFoundException;
 import br.com.hyper.exceptions.InvalidReviewDataException;
 import br.com.hyper.exceptions.ReviewNotFoundException;
+import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.repositories.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +25,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService{
 
-    private ReviewRepository reviewRepository;
+    private final ReviewRepository reviewRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    private final CustomerRepository customerRepository;
 
     @Override
     public ReviewResponseDTO save(ReviewRequestDTO review) {
@@ -48,8 +54,10 @@ public class ReviewServiceImpl implements ReviewService{
 
         Page<ReviewEntity> reviewEntities;
 
+        CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(email);
+
         if(email != null){
-            reviewEntities = reviewRepository.findByEmail(email, pageable);
+            reviewEntities = reviewRepository.findByCustomer(customer, pageable);
         } else {
             reviewEntities = reviewRepository.findAll(pageable);
         }
@@ -71,12 +79,18 @@ public class ReviewServiceImpl implements ReviewService{
     public void delete(Long id) {
         ReviewEntity reviewCurrent = findByIdOrThrowReviewDataNotFoundException(id);
 
-        ReviewResponseDTO response = modelMapper.map(reviewCurrent, ReviewResponseDTO.class);
+        modelMapper.map(reviewCurrent, ReviewResponseDTO.class);
+
         reviewRepository.delete(reviewCurrent);
     }
     private ReviewEntity findByIdOrThrowReviewDataNotFoundException(Long id) {
         return reviewRepository.findById(id).orElseThrow(
                 () -> new ReviewNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
+        return customerRepository.findByEmail(email).orElseThrow(
+                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }
 

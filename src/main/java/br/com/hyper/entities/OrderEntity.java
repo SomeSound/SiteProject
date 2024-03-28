@@ -21,6 +21,9 @@ public class OrderEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "ORDER_SEQ", sequenceName = "ORDER_SEQ", allocationSize = 1)
     private Long id;
 
+    @JoinColumn(name = "CUSTOMER", nullable = false)
+    private CustomerEntity customer;
+
     @Column(name = "TOTAL_ITEMS")
     private int totalItems;
 

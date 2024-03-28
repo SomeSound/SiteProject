@@ -8,4 +8,6 @@ import javax.validation.constraints.NotEmpty;
 public class CartRequestDTO {
 
     Long id;
+
+    String email;
 }
