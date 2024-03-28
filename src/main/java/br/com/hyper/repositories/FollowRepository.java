@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface FollowRepository extends BaseRepository<FollowEntity>{
 
-    @Query("SELECT o FROM FollowEntity o WHERE customerId in :customerIds")
-    Page<FollowEntity> findByCustomerId(@Param("customerIds") List<String> customerIds, Pageable pageable);
+    @Query("SELECT o FROM FollowEntity o WHERE email in :emails")
+    Page<FollowEntity> findByEmail(@Param("email") List<String> emails, Pageable pageable);
 }

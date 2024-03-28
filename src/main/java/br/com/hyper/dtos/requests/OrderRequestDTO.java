@@ -13,6 +13,4 @@ public class OrderRequestDTO {
     private int totalItems;
 
     private BigDecimal totalPrice;
-
-    private CustomerEntity customerId;
 }

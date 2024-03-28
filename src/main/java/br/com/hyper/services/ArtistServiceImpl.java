@@ -37,11 +37,11 @@ public class ArtistServiceImpl implements ArtistService {
     private final CustomerRepository customerRepository;
 
     @Override
-    public ArtistResponseDTO save(String customerId, ArtistRequestDTO artist) {
+    public ArtistResponseDTO save(String email, ArtistRequestDTO artist) {
 
         ArtistEntity artistEntity;
         try{
-            CustomerEntity customer = findByCustomerIdOrThrowUserDataNotFoundException(customerId);
+            CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(email);
 
             artistEntity = modelMapper.map(artist, ArtistEntity.class);
             artistEntity.setCustomer(customer);
@@ -81,8 +81,8 @@ public class ArtistServiceImpl implements ArtistService {
                 () -> new ArtistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
-    private CustomerEntity findByCustomerIdOrThrowUserDataNotFoundException(String customerId) {
-        return customerRepository.findByCustomerId(customerId).orElseThrow(
+    private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
+        return customerRepository.findByEmail(email).orElseThrow(
                 () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 

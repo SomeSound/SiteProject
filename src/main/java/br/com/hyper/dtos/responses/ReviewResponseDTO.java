@@ -10,7 +10,5 @@ public class ReviewResponseDTO {
 
     private float score;
 
-    private CustomerEntity customerId;
-
     private TrackEntity trackId;
 }

@@ -13,7 +13,7 @@ public interface CustomerService {
 
     TokenResponseDTO login(AuthenticationDTO authentication);
 
-    CustomerResponseDTO findByCustomerId(String customerId);
+    CustomerResponseDTO findByEmail(String email);
 
     CustomerPageResponseDTO findAll(Pageable pageable);
 

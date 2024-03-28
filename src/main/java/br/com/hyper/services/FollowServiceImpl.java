@@ -48,12 +48,12 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public FollowPageResponseDTO find(List<String> customerId, Pageable pageable) {
+    public FollowPageResponseDTO find(List<String> email, Pageable pageable) {
 
         Page<FollowEntity> followEntities;
 
-        if(customerId != null){
-            followEntities = followRepository.findByCustomerId(customerId, pageable);
+        if(email != null){
+            followEntities = followRepository.findByEmail(email, pageable);
         } else {
             followEntities = followRepository.findAll(pageable);
         }

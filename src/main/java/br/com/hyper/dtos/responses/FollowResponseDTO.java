@@ -9,7 +9,6 @@ import java.time.ZonedDateTime;
 
 public class FollowResponseDTO {
     private Long id;
-    private CustomerEntity customerId;
     private CustomerEntity followingId;
     private ZonedDateTime followDate;
 }

@@ -2,7 +2,6 @@ package br.com.hyper.services;
 
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.requests.CartRequestDTO;
-import br.com.hyper.dtos.requests.CartRequestDTO;
 import br.com.hyper.dtos.responses.CartResponseDTO;
 import br.com.hyper.dtos.responses.pages.CartPageResponseDTO;
 import br.com.hyper.entities.CartEntity;
@@ -49,12 +48,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartPageResponseDTO find(Long customerId, Pageable pageable) {
+    public CartPageResponseDTO find(String email, Pageable pageable) {
 
         Page<CartEntity> cartEntities;
 
-        if(customerId != null){
-            cartEntities = cartRepository.findByCustomerId(customerId, pageable);
+        if(email != null){
+            cartEntities = cartRepository.findByEmail(email, pageable);
         } else {
             cartEntities = cartRepository.findAll(pageable);
         }

@@ -23,10 +23,10 @@ public class ArtistController {
     @Autowired
     private final ArtistService artistService;
 
-    @PostMapping(value = "/artist/{customerId}")
-    public ResponseEntity<ArtistResponseDTO> save(@PathVariable String customerId, @RequestBody ArtistRequestDTO artist) {
+    @PostMapping(value = "/artist/{email}")
+    public ResponseEntity<ArtistResponseDTO> save(@PathVariable String email, @RequestBody ArtistRequestDTO artist) {
 
-        ArtistResponseDTO response = artistService.save(customerId, artist);
+        ArtistResponseDTO response = artistService.save(email, artist);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

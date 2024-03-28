@@ -7,7 +7,6 @@ public class CustomerResponseDTO {
 
     private Long id;
     private String name;
-    private String customerId;
     private String email;
     private String birthDate;
     private SubscriptionResponseDTO subscription;

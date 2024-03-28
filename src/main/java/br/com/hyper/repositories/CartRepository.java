@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartRepository extends BaseRepository<CartEntity> {
 
-    @Query("SELECT o FROM CartEntity o WHERE customerId in :customerId")
-    Page<CartEntity> findByCustomerId(@Param("customerId") Long customerId, Pageable pageable);
+    @Query("SELECT o FROM CartEntity o WHERE email in :email")
+    Page<CartEntity> findByEmail(@Param("email") String email, Pageable pageable);
 
 }

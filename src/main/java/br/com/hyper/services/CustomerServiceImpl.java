@@ -5,7 +5,6 @@ import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.entities.SubscriptionEntity;
 import br.com.hyper.exceptions.InvalidCollectionDataException;
-import br.com.hyper.exceptions.InvalidUserDataException;
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
 import br.com.hyper.entities.CustomerEntity;
@@ -68,9 +67,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponseDTO findByCustomerId(String customerId) {
+    public CustomerResponseDTO findByEmail(String email) {
 
-        CustomerEntity customerEntity = findByCustomerIdOrThrowUserDataNotFoundException(customerId);
+        CustomerEntity customerEntity = findByEmailOrThrowUserDataNotFoundException(email);
 
         return modelMapper.map(customerEntity, CustomerResponseDTO.class);
 
@@ -124,8 +123,8 @@ public class CustomerServiceImpl implements CustomerService {
                 () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
-    private CustomerEntity findByCustomerIdOrThrowUserDataNotFoundException(String customerId) {
-        return customerRepository.findByCustomerId(customerId).orElseThrow(
+    private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
+        return customerRepository.findByEmail(email).orElseThrow(
                 () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 

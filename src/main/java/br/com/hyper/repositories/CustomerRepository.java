@@ -14,10 +14,11 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends BaseRepository<CustomerEntity> {
 
-    UserDetails findByEmail(String email);
+    @Query("SELECT o FROM CustomerEntity o WHERE email = :email")
+    UserDetails findByEmailUserDetails(@Param("email") String email);
 
-    @Query("SELECT o FROM CustomerEntity o WHERE customerId = :customerId")
-    Optional<CustomerEntity> findByCustomerId(@Param("customerId")String customerId);
+    @Query("SELECT o FROM CustomerEntity o WHERE email = :email")
+    Optional<CustomerEntity> findByEmail(@Param("email")String email);
 
     @Query("SELECT o FROM CustomerEntity o WHERE name in: names")
     Page<CustomerEntity> findByName(@Param("names")List<String> names,

@@ -26,9 +26,6 @@ public class CustomerEntity extends BaseEntity implements Serializable, UserDeta
     @SequenceGenerator(name = "CUSTOMER_SEQ",sequenceName = "CUSTOMER_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "CUSTOMER_ID", nullable = false, unique = true)
-    private String customerId;
-
     @Column(name = "AVATAR")
     private String avatar;
 
@@ -62,7 +59,7 @@ public class CustomerEntity extends BaseEntity implements Serializable, UserDeta
         if(this.role == UserRole.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("CUSTOMER"), new SimpleGrantedAuthority("ARTIST"));
         } else if(this.role == UserRole.ARTIST) {
-            return List.of(new SimpleGrantedAuthority("ARTIST"));
+            return List.of(new SimpleGrantedAuthority("ARTIST"), new SimpleGrantedAuthority("CUSTOMER"));
         }
         return List.of(new SimpleGrantedAuthority("CUSTOMER"));
     }

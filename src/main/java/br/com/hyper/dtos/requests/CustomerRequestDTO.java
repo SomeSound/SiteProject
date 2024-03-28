@@ -13,9 +13,6 @@ public class CustomerRequestDTO {
     @NotEmpty(message = "Invalid name, can not be empty")
     private String name;
 
-    @NotEmpty(message = "Invalid customerId, can not be empty")
-    private String customerId;
-
     @NotEmpty(message = "Invalid password, can not be empty")
     private String password;
 

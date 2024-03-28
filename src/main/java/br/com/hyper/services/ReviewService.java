@@ -9,7 +9,7 @@ public interface ReviewService {
 
     ReviewResponseDTO save(ReviewRequestDTO review);
 
-    ReviewPageResponseDTO find(Long customerId, Pageable pageable);
+    ReviewPageResponseDTO find(String email, Pageable pageable);
 
     ReviewResponseDTO update(Long id, ReviewRequestDTO review);
 

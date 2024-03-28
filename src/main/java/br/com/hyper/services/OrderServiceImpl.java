@@ -47,11 +47,11 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderPageResponseDTO find(Long customerId, Pageable pageable) {
+    public OrderPageResponseDTO find(String email, Pageable pageable) {
         Page<OrderEntity> orderEntities;
 
-        if(customerId != null){
-            orderEntities = orderRepository.findByCustomerId(customerId, pageable);
+        if(email != null){
+            orderEntities = orderRepository.findByEmail(email, pageable);
         } else {
             orderEntities = orderRepository.findAll(pageable);
         }

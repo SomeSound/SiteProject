@@ -15,7 +15,7 @@ public class CustomerAuthorizationUtil implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return customerRepository.findByEmail(email);
+        return customerRepository.findByEmailUserDetails(email);
     }
 
 }
