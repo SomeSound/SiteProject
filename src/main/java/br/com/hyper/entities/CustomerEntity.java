@@ -57,11 +57,11 @@ public class CustomerEntity extends BaseEntity implements Serializable, UserDeta
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == UserRole.ADMIN) {
-            return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("CUSTOMER"), new SimpleGrantedAuthority("ARTIST"));
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_CUSTOMER"), new SimpleGrantedAuthority("ROLE_ARTIST"));
         } else if(this.role == UserRole.ARTIST) {
-            return List.of(new SimpleGrantedAuthority("ARTIST"), new SimpleGrantedAuthority("CUSTOMER"));
+            return List.of(new SimpleGrantedAuthority("ROLE_ARTIST"), new SimpleGrantedAuthority("ROLE_CUSTOMER"));
         }
-        return List.of(new SimpleGrantedAuthority("CUSTOMER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
     }
 
     @Override

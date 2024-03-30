@@ -1,6 +1,6 @@
 package br.com.hyper.services;
 
-import br.com.hyper.dtos.requests.AuthenticationDTO;
+import br.com.hyper.dtos.requests.LoginRequestDTO;
 import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.entities.SubscriptionEntity;
@@ -14,6 +14,8 @@ import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.repositories.SubscriptionRepository;
 import br.com.hyper.utils.CustomerTokenUtil;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -25,6 +27,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -42,7 +45,10 @@ public class CustomerServiceImpl implements CustomerService {
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    private CustomerTokenUtil customerTokenUtil;
+    private final CustomerTokenUtil customerTokenUtil;
+
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     private final ModelMapper modelMapper;
@@ -75,8 +81,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    public TokenResponseDTO login(AuthenticationDTO authentication) {
-        UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(authentication.getEmail(), authentication.getPassword());
+    public TokenResponseDTO login(LoginRequestDTO loginRequest, HttpServletResponse http) {
+
+        UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
 
         Authentication auth = authenticationManager.authenticate(login);
 

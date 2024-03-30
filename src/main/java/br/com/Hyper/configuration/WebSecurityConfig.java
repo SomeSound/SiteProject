@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,8 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.io.PrintWriter;
 
 @Configuration
 @EnableWebSecurity
@@ -28,12 +33,13 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/track").hasRole("ARTIST")
+                        .requestMatchers(HttpMethod.POST, "/track").hasAnyRole("ARTIST", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/track").permitAll()
                         .requestMatchers(HttpMethod.POST, "/customer/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/customer/login").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(customerSecurityFilterUtil, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(e -> e.authenticationEntryPoint(unauthorizedEntryPoint()))
                 .build();
 
 
@@ -47,5 +53,14 @@ public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationEntryPoint unauthorizedEntryPoint() {
+        return (request, response, authException) -> {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            PrintWriter writer = response.getWriter();
+            writer.println("Access not authorized - " + authException.getMessage());
+        };
     }
 }

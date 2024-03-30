@@ -1,11 +1,12 @@
 package br.com.hyper.controllers;
 
-import br.com.hyper.dtos.requests.AuthenticationDTO;
+import br.com.hyper.dtos.requests.LoginRequestDTO;
 import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
 import br.com.hyper.services.CustomerService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,9 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/login")
-    public ResponseEntity<TokenResponseDTO> login(@RequestBody @Valid AuthenticationDTO authentication) {
+    public ResponseEntity<TokenResponseDTO> login(@RequestBody @Valid LoginRequestDTO loginRequest, HttpServletResponse http) {
 
-        TokenResponseDTO response = customerService.login(authentication);
+        TokenResponseDTO response = customerService.login(loginRequest, http);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
