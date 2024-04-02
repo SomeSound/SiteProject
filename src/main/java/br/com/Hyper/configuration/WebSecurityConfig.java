@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.PrintWriter;
@@ -28,7 +28,8 @@ public class WebSecurityConfig {
     private CustomerSecurityFilterUtil customerSecurityFilterUtil;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception, RuntimeException {
+
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -39,9 +40,9 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/customer/login").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(customerSecurityFilterUtil, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(e -> e.authenticationEntryPoint(unauthorizedEntryPoint()))
+                .exceptionHandling(e -> e.authenticationEntryPoint(unauthorizedEntryPoint())
+                        .accessDeniedHandler(deniedEntryPoint()))
                 .build();
-
 
     }
 
@@ -63,4 +64,14 @@ public class WebSecurityConfig {
             writer.println("Access not authorized - " + authException.getMessage());
         };
     }
+
+    @Bean
+    public AccessDeniedHandler deniedEntryPoint() {
+        return (request, response, authException) -> {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            PrintWriter writer = response.getWriter();
+            writer.println("Access denied - " + authException.getMessage());
+        };
+    }
+
 }

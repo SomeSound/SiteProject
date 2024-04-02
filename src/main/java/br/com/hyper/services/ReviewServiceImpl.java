@@ -6,7 +6,7 @@ import br.com.hyper.dtos.responses.ReviewResponseDTO;
 import br.com.hyper.dtos.responses.pages.ReviewPageResponseDTO;
 import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.entities.ReviewEntity;
-import br.com.hyper.exceptions.CustomerNotFoundException;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.exceptions.InvalidReviewDataException;
 import br.com.hyper.exceptions.ReviewNotFoundException;
 import br.com.hyper.repositories.CustomerRepository;
@@ -90,7 +90,7 @@ public class ReviewServiceImpl implements ReviewService{
 
     private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
         return customerRepository.findByEmail(email).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }
 

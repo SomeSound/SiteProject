@@ -6,7 +6,7 @@ import br.com.hyper.exceptions.ArtistNotFoundException;
 import br.com.hyper.exceptions.InvalidArtistDataException;
 import br.com.hyper.dtos.requests.ArtistRequestDTO;
 import br.com.hyper.entities.CustomerEntity;
-import br.com.hyper.exceptions.CustomerNotFoundException;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.dtos.responses.ArtistResponseDTO;
 import br.com.hyper.repositories.ArtistRepository;
 import br.com.hyper.repositories.CustomerRepository;
@@ -83,7 +83,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
         return customerRepository.findByEmail(email).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }

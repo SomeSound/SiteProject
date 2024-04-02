@@ -7,7 +7,7 @@ import br.com.hyper.dtos.responses.pages.CartPageResponseDTO;
 import br.com.hyper.entities.CartEntity;
 import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.exceptions.CartNotFoundException;
-import br.com.hyper.exceptions.CustomerNotFoundException;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.exceptions.InvalidCartDataException;
 import br.com.hyper.repositories.CartRepository;
 import br.com.hyper.repositories.CustomerRepository;
@@ -95,6 +95,6 @@ public class CartServiceImpl implements CartService {
 
     private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
         return customerRepository.findByEmail(email).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

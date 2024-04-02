@@ -6,7 +6,7 @@ import br.com.hyper.dtos.responses.OrderResponseDTO;
 import br.com.hyper.dtos.responses.pages.OrderPageResponseDTO;
 import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.entities.OrderEntity;
-import br.com.hyper.exceptions.CustomerNotFoundException;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.exceptions.InvalidOrderDataException;
 import br.com.hyper.exceptions.OrderNotFoundException;
 import br.com.hyper.repositories.CustomerRepository;
@@ -90,6 +90,6 @@ public class OrderServiceImpl implements OrderService{
 
     private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
         return customerRepository.findByEmail(email).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

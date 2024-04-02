@@ -4,17 +4,15 @@ import br.com.hyper.dtos.requests.LoginRequestDTO;
 import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.entities.SubscriptionEntity;
-import br.com.hyper.exceptions.InvalidCollectionDataException;
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
 import br.com.hyper.entities.CustomerEntity;
-import br.com.hyper.exceptions.CustomerNotFoundException;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.repositories.SubscriptionRepository;
 import br.com.hyper.utils.CustomerTokenUtil;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +22,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -59,6 +59,10 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             SubscriptionEntity subscription = subscriptionRepository.findById(customer.getSubscription()).orElseThrow(() -> new EntityNotFoundException("Subscription not found"));
 
+            if (customerRepository.findByEmail(customer.getEmail()).isPresent()){
+                throw new CustomerException(ErrorCodes.DUPLICATED_DATA, ErrorCodes.DUPLICATED_DATA.getMessage());
+            }
+
             customerEntity = modelMapper.map(customer, CustomerEntity.class);
 
             customerEntity.setSubscription(subscription);
@@ -67,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
 
             return modelMapper.map(customerEntity, CustomerResponseDTO.class);
         }  catch (DataIntegrityViolationException e) {
-            throw new InvalidCollectionDataException(ErrorCodes.DUPLICATED_DATA,
+            throw new CustomerException(ErrorCodes.DUPLICATED_DATA,
                     ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
@@ -127,12 +131,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerEntity findByIdOrThrowUserDataNotFoundException(Long id) {
         return customerRepository.findById(id).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
     private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
         return customerRepository.findByEmail(email).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }

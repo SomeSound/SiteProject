@@ -6,7 +6,7 @@ import br.com.hyper.dtos.responses.FollowResponseDTO;
 import br.com.hyper.dtos.responses.pages.FollowPageResponseDTO;
 import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.entities.FollowEntity;
-import br.com.hyper.exceptions.CustomerNotFoundException;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.exceptions.FollowNotFoundException;
 import br.com.hyper.exceptions.InvalidFollowDataException;
 import br.com.hyper.repositories.CustomerRepository;
@@ -19,8 +19,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -94,6 +92,6 @@ public class FollowServiceImpl implements FollowService {
 
     private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
         return customerRepository.findByEmail(email).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }
