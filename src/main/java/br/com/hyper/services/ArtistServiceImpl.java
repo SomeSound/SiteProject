@@ -45,11 +45,15 @@ public class ArtistServiceImpl implements ArtistService {
             CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(artist.getEmail());
 
             artistEntity = modelMapper.map(artist, ArtistEntity.class);
-            artistEntity.setCustomer(customer);
+//            artistEntity.setCustomer(customer);
 
             artistEntity = artistRepository.save(artistEntity);
 
+            List<ArtistEntity> artists = customer.getArtistProfiles();
+            artists.add(artistEntity);
+
             customer.setRole(UserRole.ARTIST);
+            customer.setArtistProfiles(artists);
             customerRepository.save(customer);
 
             return modelMapper.map(artistEntity, ArtistResponseDTO.class);

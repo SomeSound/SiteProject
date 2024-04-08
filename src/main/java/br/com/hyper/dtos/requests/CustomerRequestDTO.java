@@ -29,6 +29,4 @@ public class CustomerRequestDTO {
     private String country;
 
     private String avatar;
-
-    private UserRole role;
 }

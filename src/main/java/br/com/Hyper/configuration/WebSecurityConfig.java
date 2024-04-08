@@ -36,7 +36,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/track").hasAnyRole("ARTIST", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/track").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/customer/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/customer").permitAll()
                         .requestMatchers(HttpMethod.POST, "/customer/login").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(customerSecurityFilterUtil, UsernamePasswordAuthenticationFilter.class)

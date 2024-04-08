@@ -51,8 +51,8 @@ public class CustomerEntity extends BaseEntity implements Serializable, UserDeta
     @Column(name = "ROLE")
     private UserRole role;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ArtistEntity> artists;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<ArtistEntity> artistProfiles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

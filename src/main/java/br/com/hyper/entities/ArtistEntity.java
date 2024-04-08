@@ -27,8 +27,7 @@ public class ArtistEntity implements Serializable {
     @Column(name = "USERNAME", nullable = false, unique = true)
     private String username;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ARTIST_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
     private CustomerEntity customer;
 
     @OneToMany(fetch = FetchType.LAZY)

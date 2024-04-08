@@ -2,6 +2,8 @@ package br.com.hyper.dtos.responses;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CustomerResponseDTO {
 
@@ -12,4 +14,5 @@ public class CustomerResponseDTO {
     private SubscriptionResponseDTO subscription;
     private String country;
     private String avatar;
+    private List<ArtistResponseDTO> artistProfiles;
 }
