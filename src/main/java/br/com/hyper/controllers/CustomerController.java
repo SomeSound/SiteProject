@@ -1,6 +1,7 @@
 package br.com.hyper.controllers;
 
 import br.com.hyper.dtos.requests.LoginRequestDTO;
+import br.com.hyper.dtos.responses.LoginResponseDTO;
 import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
@@ -26,7 +27,7 @@ public class CustomerController {
     @Autowired
     private final CustomerService customerService;
 
-    @PostMapping(value = "/customer/register")
+    @PostMapping(value = "/customer")
     public ResponseEntity<CustomerResponseDTO> save(@RequestBody @Valid CustomerRequestDTO customer){
 
         CustomerResponseDTO response = customerService.save(customer);
@@ -35,9 +36,9 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/login")
-    public ResponseEntity<TokenResponseDTO> login(@RequestBody @Valid LoginRequestDTO loginRequest, HttpServletResponse http) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO loginRequest, HttpServletResponse http) {
 
-        TokenResponseDTO response = customerService.login(loginRequest, http);
+        LoginResponseDTO response = customerService.login(loginRequest, http);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -64,7 +65,7 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/customer/{id}")
-    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerRequestDTO user) {
+    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody @Valid CustomerRequestDTO user) {
 
         CustomerResponseDTO response = customerService.update(id, user);
 

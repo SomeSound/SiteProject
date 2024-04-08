@@ -47,7 +47,7 @@ public class AlbumController {
     }
 
     @PutMapping(value = "/album/{id}")
-    public ResponseEntity<AlbumResponseDTO> update(@PathVariable Long id, @RequestBody AlbumRequestDTO artist) {
+    public ResponseEntity<AlbumResponseDTO> update(@PathVariable Long id, @RequestBody @Valid AlbumRequestDTO artist) {
 
         AlbumResponseDTO response = albumService.update(id, artist);
 

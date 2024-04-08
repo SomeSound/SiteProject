@@ -8,7 +8,7 @@ public enum UserRole {
     ARTIST("ARTIST"),
     CUSTOMER("CUSTOMER");
 
-    private String role;
+    private final String role;
 
     UserRole(String role){
         this.role = role;

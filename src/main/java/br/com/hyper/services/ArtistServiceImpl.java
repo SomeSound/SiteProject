@@ -2,6 +2,7 @@ package br.com.hyper.services;
 
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.pages.ArtistPageResponseDTO;
+import br.com.hyper.enums.UserRole;
 import br.com.hyper.exceptions.ArtistNotFoundException;
 import br.com.hyper.exceptions.InvalidArtistDataException;
 import br.com.hyper.dtos.requests.ArtistRequestDTO;
@@ -37,16 +38,19 @@ public class ArtistServiceImpl implements ArtistService {
     private final CustomerRepository customerRepository;
 
     @Override
-    public ArtistResponseDTO save(String email, ArtistRequestDTO artist) {
+    public ArtistResponseDTO save(ArtistRequestDTO artist) {
 
         ArtistEntity artistEntity;
         try{
-            CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(email);
+            CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(artist.getEmail());
 
             artistEntity = modelMapper.map(artist, ArtistEntity.class);
             artistEntity.setCustomer(customer);
 
             artistEntity = artistRepository.save(artistEntity);
+
+            customer.setRole(UserRole.ARTIST);
+            customerRepository.save(customer);
 
             return modelMapper.map(artistEntity, ArtistResponseDTO.class);
         }catch (DataIntegrityViolationException e){

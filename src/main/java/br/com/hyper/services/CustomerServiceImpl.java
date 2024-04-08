@@ -1,12 +1,14 @@
 package br.com.hyper.services;
 
 import br.com.hyper.dtos.requests.LoginRequestDTO;
+import br.com.hyper.dtos.responses.LoginResponseDTO;
 import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.entities.SubscriptionEntity;
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
 import br.com.hyper.entities.CustomerEntity;
+import br.com.hyper.enums.UserRole;
 import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
@@ -22,13 +24,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -48,9 +49,6 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerTokenUtil customerTokenUtil;
 
     @Autowired
-    private final PasswordEncoder passwordEncoder;
-
-    @Autowired
     private final ModelMapper modelMapper;
 
     @Override
@@ -65,6 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
 
             customerEntity = modelMapper.map(customer, CustomerEntity.class);
 
+            customerEntity.setRole(UserRole.CUSTOMER);
             customerEntity.setSubscription(subscription);
             customerEntity.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
             customerEntity = customerRepository.save(customerEntity);
@@ -85,7 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    public TokenResponseDTO login(LoginRequestDTO loginRequest, HttpServletResponse http) {
+    public LoginResponseDTO login(LoginRequestDTO loginRequest, HttpServletResponse http) {
 
         UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
 
@@ -93,8 +92,15 @@ public class CustomerServiceImpl implements CustomerService {
 
         String token = customerTokenUtil.generateToken((CustomerEntity) auth.getPrincipal());
 
-        TokenResponseDTO response = new TokenResponseDTO();
-        response.setToken(token);
+        TokenResponseDTO tokenResponse = new TokenResponseDTO();
+        tokenResponse.setToken(token);
+
+        CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(loginRequest.getEmail());
+
+        LoginResponseDTO response = new LoginResponseDTO();
+        response.setToken(tokenResponse);
+
+        modelMapper.map(customer, response);
 
         return response;
     }

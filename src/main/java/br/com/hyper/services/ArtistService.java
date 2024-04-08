@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ArtistService {
 
-    ArtistResponseDTO save(String email, ArtistRequestDTO artist);
+    ArtistResponseDTO save(ArtistRequestDTO artist);
 
     ArtistPageResponseDTO find(List<String> names, Pageable pageable);
 
