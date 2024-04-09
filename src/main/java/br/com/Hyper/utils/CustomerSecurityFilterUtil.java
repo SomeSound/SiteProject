@@ -3,6 +3,7 @@ package br.com.hyper.utils;
 import br.com.hyper.repositories.CustomerRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -43,9 +44,20 @@ public class CustomerSecurityFilterUtil extends OncePerRequestFilter {
     }
 
     private String recoverToken(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
         String authHeader = request.getHeader("Authorization");
-        if(authHeader == null) return null;
-        return authHeader.replace("Bearer ", "");
-    }
+        logger.info(cookies);
+        logger.info(authHeader);
 
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                logger.info(cookie);
+                if (cookie.getName().equals("token")) return cookie.getValue();
+            }
+        } else if(authHeader != null) {
+            return authHeader.replace("Bearer ", "");
+        }
+        return null;
+
+    }
 }
