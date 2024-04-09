@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: prd
   jpa:
     database: POSTGRESQL
     show-sql: false

@@ -46,8 +46,6 @@ public class CustomerSecurityFilterUtil extends OncePerRequestFilter {
     private String recoverToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String authHeader = request.getHeader("Authorization");
-        logger.info(cookies);
-        logger.info(authHeader);
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
