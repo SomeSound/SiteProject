@@ -34,14 +34,14 @@ public class OrderController {
 
     @GetMapping(value = "/order")
     public ResponseEntity<OrderPageResponseDTO> find(
-            @RequestParam(value = "name", required = false) Long customerId,
+            @RequestParam(value = "name", required = false) String email,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        OrderPageResponseDTO response = orderService.find(customerId, pageable);
+        OrderPageResponseDTO response = orderService.find(email, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

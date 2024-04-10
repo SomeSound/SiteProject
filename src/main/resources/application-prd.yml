@@ -1,18 +1,18 @@
 spring:
   jpa:
     database: POSTGRESQL
-    show-sql: true
+    show-sql: false
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: update # none
   datasource:
     plataform: postgres
-    url: jdbc:postgresql://localhost:5432/hyper
-    username: hyperUser
-    password: hyperPass
+    url: jdbc:postgresql://hyper-tst.cj8syw0omc8e.us-east-1.rds.amazonaws.com:5432/hyper
+    username: hyperUser # Alterar
+    password: hyperPass # Alterar
     driverClassName: org.postgresql.Driver
   flyway:
-    enabled: false
+    enabled: false # true
     baseline-on-migrate: true
     out-of-order: true
     ignore-missing-migrations: false
@@ -38,4 +38,4 @@ api:
       secret: ${JWT_SECRET:lala}
 
 server:
-  port: 8080
+  port: 8080 # 443

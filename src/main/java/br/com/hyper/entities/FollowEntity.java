@@ -21,7 +21,8 @@ public class FollowEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "FOLLOW_SEQ", sequenceName = "FOLLOW_SEQ", allocationSize = 1)
     private Long id;
 
-    private CustomerEntity customerId;
+    @JoinColumn(name = "CUSTOMER", nullable = false)
+    private CustomerEntity customer;
 
     @Column(name = "FOLLOWING_ID")
     private CustomerEntity followingId;

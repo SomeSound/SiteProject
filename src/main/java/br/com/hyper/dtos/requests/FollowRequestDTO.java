@@ -10,11 +10,12 @@ import java.time.ZonedDateTime;
 public class FollowRequestDTO {
 
     private Long id;
-    @NotEmpty(message = "Invalid customer, can not be empty")
-    private CustomerEntity customerId;
 
-    @NotEmpty(message = "Invalid customer, can not be empty")
-    private CustomerEntity followingId;
+    @NotEmpty(message = "Invalid email, can not be empty")
+    private String email;
+
+    @NotEmpty(message = "Invalid followingId, can not be empty")
+    private Long followingId;
 
     private ZonedDateTime followDate;
 }

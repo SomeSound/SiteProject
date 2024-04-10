@@ -1,8 +1,6 @@
 package br.com.hyper.utils;
 
 import br.com.hyper.constants.ErrorCodes;
-import br.com.hyper.entities.ArtistEntity;
-import br.com.hyper.enums.Genre;
 import br.com.hyper.exceptions.AwsConnectionException;
 import br.com.hyper.exceptions.InvalidCollectionDataException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -22,7 +20,9 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
@@ -79,6 +79,26 @@ public class AmazonBucketS3 {
         } catch (Exception e) {
             return handleException(e, ErrorCodes.AWS_CONNECTION_ERROR);
         }
+    }
+
+    public String getTrackUrl(String path) {
+
+        Date expiration = new Date();
+        long expTimeMillis = expiration.getTime();
+        expTimeMillis += 1000 * 60 * 60; // 1 hora
+        expiration.setTime(expTimeMillis);
+
+        AwsBasicCredentials awsCredentials = getAwsCredentials();
+        S3Client s3Client = createS3Client(awsCredentials);
+
+        GetUrlRequest getUrlRequest = GetUrlRequest.builder()
+                .bucket(BUCKET_NAME)
+                .key(path)
+                .build();
+
+        URL url = s3Client.utilities().getUrl(getUrlRequest);
+
+        return url.toString();
     }
 
     private AwsBasicCredentials getAwsCredentials() {

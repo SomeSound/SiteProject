@@ -34,14 +34,14 @@ public class ReviewController {
 
     @GetMapping(value = "/review")
     public ResponseEntity<ReviewPageResponseDTO> find(
-            @RequestParam(value = "customerId", required = false) Long customerId,
+            @RequestParam(value = "email", required = false) String email,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        ReviewPageResponseDTO response = reviewService.find(customerId, pageable);
+        ReviewPageResponseDTO response = reviewService.find(email, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

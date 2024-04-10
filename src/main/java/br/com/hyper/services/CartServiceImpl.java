@@ -2,13 +2,15 @@ package br.com.hyper.services;
 
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.requests.CartRequestDTO;
-import br.com.hyper.dtos.requests.CartRequestDTO;
 import br.com.hyper.dtos.responses.CartResponseDTO;
 import br.com.hyper.dtos.responses.pages.CartPageResponseDTO;
 import br.com.hyper.entities.CartEntity;
+import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.exceptions.CartNotFoundException;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.exceptions.InvalidCartDataException;
 import br.com.hyper.repositories.CartRepository;
+import br.com.hyper.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -26,10 +28,13 @@ import javax.validation.Valid;
 public class CartServiceImpl implements CartService {
 
     @Autowired
-    private CartRepository cartRepository;
+    private final CartRepository cartRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    private final CustomerRepository customerRepository;
 
     @Override
     public CartResponseDTO save(@Valid CartRequestDTO cart) {
@@ -49,12 +54,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartPageResponseDTO find(Long customerId, Pageable pageable) {
+    public CartPageResponseDTO find(String email, Pageable pageable) {
 
         Page<CartEntity> cartEntities;
 
-        if(customerId != null){
-            cartEntities = cartRepository.findByCustomerId(customerId, pageable);
+        CustomerEntity customer =  findByEmailOrThrowUserDataNotFoundException(email);
+
+        if(email != null){
+            cartEntities = cartRepository.findByCustomer(customer, pageable);
         } else {
             cartEntities = cartRepository.findAll(pageable);
         }
@@ -77,11 +84,17 @@ public class CartServiceImpl implements CartService {
     public void delete(Long id) {
         CartEntity cartCurrent = findByIdOrThrowCartDataNotFoundException(id);
 
-        CartResponseDTO response = modelMapper.map(cartCurrent, CartResponseDTO.class);
+        modelMapper.map(cartCurrent, CartResponseDTO.class);
+
         cartRepository.delete(cartCurrent);
     }
     private CartEntity findByIdOrThrowCartDataNotFoundException(Long id) {
         return cartRepository.findById(id).orElseThrow(
                 () -> new CartNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
+        return customerRepository.findByEmail(email).orElseThrow(
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

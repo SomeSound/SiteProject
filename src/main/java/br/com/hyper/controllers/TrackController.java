@@ -29,10 +29,9 @@ public class TrackController {
     @PostMapping(value = "/track", consumes = { "multipart/form-data" })
     public ResponseEntity<TrackResponseDTO> create(
             @RequestParam(value = "artistId") Long artistId,
-            @RequestPart(value = "file") MultipartFile file,
             @ModelAttribute(value = "track") TrackRequestDTO track) {
 
-        TrackResponseDTO response = trackService.save(track, file, artistId);
+        TrackResponseDTO response = trackService.save(track, artistId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -49,6 +48,20 @@ public class TrackController {
         TrackPageResponseDTO response = trackService.find(genres, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "/track/{id}")
+    public ResponseEntity<TrackResponseDTO> findById(@PathVariable Long id) {
+
+        TrackResponseDTO response = trackService.findById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "/track/{id}/url")
+    public String getTrackUrl(@PathVariable Long id) {
+
+        return trackService.getTrackUrl(id);
     }
 
     @PutMapping(value = "/track/{id}")
@@ -68,7 +81,7 @@ public class TrackController {
     }
 
     @GetMapping(value = "/track/download/{id}")
-    public byte[] find(@PathVariable Long id) {
+    public byte[] downloadTrack(@PathVariable Long id) {
 
         return trackService.downloadTrack(id);
     }

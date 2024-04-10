@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -40,20 +41,21 @@ public class TrackServiceImpl implements TrackService {
     private final AmazonBucketS3 amazonBucketS3;
 
     @Override
-    public TrackResponseDTO save(TrackRequestDTO track, MultipartFile file, Long artistId) {
+    public TrackResponseDTO save(TrackRequestDTO track, Long artistId) {
 
         ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(artistId);
+
         TrackEntity trackEntity = TrackEntity.builder()
                 .name(track.getName())
-                .duration(file.getSize())
+                .duration(track.getFile().getSize())
                 .price(3)
-                .genre(Genre.valueOf(track.getGenre()))
                 .image(track.getImage())
+                .genre(Genre.valueOf(track.getGenre()))
                 .artist(artist)
                 .path(artist.getUsername() + "/" + Genre.valueOf(track.getGenre()) + "/" + track.getName())
                 .build();
 
-        amazonBucketS3.uploadArtistTrack(trackEntity.getPath(), file);
+        amazonBucketS3.uploadArtistTrack(trackEntity.getPath(), track.getFile());
 
         trackRepository.save(trackEntity);
 
@@ -74,6 +76,15 @@ public class TrackServiceImpl implements TrackService {
 
         return modelMapper.map(trackEntities, TrackPageResponseDTO.class);
     }
+
+    @Override
+    public TrackResponseDTO findById(Long id) {
+
+        TrackEntity track = findByIdOrThrowTrackDataNotFoundException(id);
+
+        return modelMapper.map(track, TrackResponseDTO.class);
+    }
+
 
     @Override
     public TrackResponseDTO update(Long id, TrackRequestDTO track) {
@@ -100,6 +111,14 @@ public class TrackServiceImpl implements TrackService {
         TrackEntity track = findByIdOrThrowTrackDataNotFoundException(id);
         return amazonBucketS3.downloadTrack(track.getPath());
     }
+
+    public String getTrackUrl(Long id) {
+
+        TrackEntity track = findByIdOrThrowTrackDataNotFoundException(id);
+
+        return amazonBucketS3.getTrackUrl(track.getPath());
+    }
+
     private TrackEntity findByIdOrThrowTrackDataNotFoundException(Long id) {
         return trackRepository.findById(id).orElseThrow(
                 () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));

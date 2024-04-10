@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,10 +24,10 @@ public class ArtistController {
     @Autowired
     private final ArtistService artistService;
 
-    @PostMapping(value = "/artist/{customerId}")
-    public ResponseEntity<ArtistResponseDTO> save(@PathVariable String customerId, @RequestBody ArtistRequestDTO artist) {
+    @PostMapping(value = "/artist")
+    public ResponseEntity<ArtistResponseDTO> save(@RequestBody @Valid ArtistRequestDTO artist) {
 
-        ArtistResponseDTO response = artistService.save(customerId, artist);
+        ArtistResponseDTO response = artistService.save(artist);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -46,7 +47,7 @@ public class ArtistController {
     }
 
     @PutMapping(value = "/artist/{id}")
-    public ResponseEntity<ArtistResponseDTO> update(@PathVariable Long id, @RequestBody ArtistRequestDTO artist) {
+    public ResponseEntity<ArtistResponseDTO> update(@PathVariable Long id, @RequestBody @Valid ArtistRequestDTO artist) {
 
 //        ArtistResponseDTO response = artistService.update(id, artist);
 

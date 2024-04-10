@@ -1,9 +1,13 @@
 package br.com.hyper.controllers;
 
+import br.com.hyper.dtos.requests.LoginRequestDTO;
+import br.com.hyper.dtos.responses.LoginResponseDTO;
+import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
 import br.com.hyper.services.CustomerService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +34,24 @@ public class CustomerController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    @GetMapping(value = "/customer/{customerId}")
-    public ResponseEntity<CustomerResponseDTO> findByCustomerId(@PathVariable String customerId) {
 
-        CustomerResponseDTO response = customerService.findByCustomerId(customerId);
+    @PostMapping("/customer/login")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO loginRequest, HttpServletResponse http) {
+
+        LoginResponseDTO response = customerService.login(loginRequest, http);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping(value = "/customers")
+    @GetMapping(value = "/customer/{email}")
+    public ResponseEntity<CustomerResponseDTO> findByEmail(@PathVariable String email) {
+
+        CustomerResponseDTO response = customerService.findByEmail(email);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "/customer")
     public ResponseEntity<CustomerPageResponseDTO> findAll(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
@@ -52,7 +65,7 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/customer/{id}")
-    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerRequestDTO user) {
+    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody @Valid CustomerRequestDTO user) {
 
         CustomerResponseDTO response = customerService.update(id, user);
 

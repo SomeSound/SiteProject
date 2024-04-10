@@ -4,9 +4,12 @@ import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.requests.OrderRequestDTO;
 import br.com.hyper.dtos.responses.OrderResponseDTO;
 import br.com.hyper.dtos.responses.pages.OrderPageResponseDTO;
+import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.entities.OrderEntity;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.exceptions.InvalidOrderDataException;
 import br.com.hyper.exceptions.OrderNotFoundException;
+import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +31,9 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private final ModelMapper modelMapper;
 
+    @Autowired
+    private final CustomerRepository customerRepository;
+
     @Override
     public OrderResponseDTO save(OrderRequestDTO order) {
 
@@ -47,11 +53,13 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderPageResponseDTO find(Long customerId, Pageable pageable) {
+    public OrderPageResponseDTO find(String email, Pageable pageable) {
         Page<OrderEntity> orderEntities;
 
-        if(customerId != null){
-            orderEntities = orderRepository.findByCustomerId(customerId, pageable);
+        CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(email);
+
+        if(email != null){
+            orderEntities = orderRepository.findByCustomer(customer, pageable);
         } else {
             orderEntities = orderRepository.findAll(pageable);
         }
@@ -78,5 +86,10 @@ public class OrderServiceImpl implements OrderService{
     private OrderEntity findByIdOrThrowOrderDataNotFoundException(Long id) {
         return orderRepository.findById(id).orElseThrow(
                 () -> new OrderNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
+        return customerRepository.findByEmail(email).orElseThrow(
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

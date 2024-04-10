@@ -2,11 +2,12 @@ package br.com.hyper.services;
 
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.pages.ArtistPageResponseDTO;
+import br.com.hyper.enums.UserRole;
 import br.com.hyper.exceptions.ArtistNotFoundException;
 import br.com.hyper.exceptions.InvalidArtistDataException;
 import br.com.hyper.dtos.requests.ArtistRequestDTO;
 import br.com.hyper.entities.CustomerEntity;
-import br.com.hyper.exceptions.CustomerNotFoundException;
+import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.dtos.responses.ArtistResponseDTO;
 import br.com.hyper.repositories.ArtistRepository;
 import br.com.hyper.repositories.CustomerRepository;
@@ -37,16 +38,23 @@ public class ArtistServiceImpl implements ArtistService {
     private final CustomerRepository customerRepository;
 
     @Override
-    public ArtistResponseDTO save(String customerId, ArtistRequestDTO artist) {
+    public ArtistResponseDTO save(ArtistRequestDTO artist) {
 
         ArtistEntity artistEntity;
         try{
-            CustomerEntity customer = findByCustomerIdOrThrowUserDataNotFoundException(customerId);
+            CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(artist.getEmail());
 
             artistEntity = modelMapper.map(artist, ArtistEntity.class);
-            artistEntity.setCustomer(customer);
+//            artistEntity.setCustomer(customer);
 
             artistEntity = artistRepository.save(artistEntity);
+
+            List<ArtistEntity> artists = customer.getArtistProfiles();
+            artists.add(artistEntity);
+
+            customer.setRole(UserRole.ARTIST);
+            customer.setArtistProfiles(artists);
+            customerRepository.save(customer);
 
             return modelMapper.map(artistEntity, ArtistResponseDTO.class);
         }catch (DataIntegrityViolationException e){
@@ -81,9 +89,9 @@ public class ArtistServiceImpl implements ArtistService {
                 () -> new ArtistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
-    private CustomerEntity findByCustomerIdOrThrowUserDataNotFoundException(String customerId) {
-        return customerRepository.findByCustomerId(customerId).orElseThrow(
-                () -> new CustomerNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
+        return customerRepository.findByEmail(email).orElseThrow(
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }

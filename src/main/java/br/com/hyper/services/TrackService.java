@@ -11,15 +11,18 @@ import java.util.List;
 
 public interface TrackService {
 
-    TrackResponseDTO save(TrackRequestDTO track, MultipartFile file, Long artistId);
+    TrackResponseDTO save(TrackRequestDTO track, Long artistId);
 
     TrackPageResponseDTO find(List<String> genres, Pageable pageable);
 
     TrackResponseDTO update(Long id, TrackRequestDTO track);
 
+    TrackResponseDTO findById(Long id);
+
     void delete(Long id);
 
     byte[] downloadTrack(Long id);
 
+    String getTrackUrl(Long id);
 
 }

@@ -1,9 +1,11 @@
 package br.com.hyper.dtos.responses;
 
 import br.com.hyper.entities.CustomerEntity;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
+@Data
 public class OrderResponseDTO {
 
     private Long id;
@@ -12,5 +14,4 @@ public class OrderResponseDTO {
 
     private BigDecimal totalPrice;
 
-    private CustomerEntity customerId;
 }

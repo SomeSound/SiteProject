@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface OrderService {
     OrderResponseDTO save(OrderRequestDTO order);
 
-    OrderPageResponseDTO find(Long customerId, Pageable pageable);
+    OrderPageResponseDTO find(String email, Pageable pageable);
 
     OrderResponseDTO update(Long id, OrderRequestDTO order);
 

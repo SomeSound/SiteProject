@@ -9,6 +9,5 @@ public class CartRequestDTO {
 
     Long id;
 
-    @NotEmpty
-    Long customerId;
+    String email;
 }
