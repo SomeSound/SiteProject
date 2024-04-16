@@ -25,6 +25,6 @@ public class ArtistPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("artistDataList")
+    @JsonProperty("artists")
     private List<ArtistResponseDTO> content;
 }

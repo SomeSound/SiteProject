@@ -1,11 +1,16 @@
 package br.com.hyper.dtos.responses;
 
-import javax.validation.constraints.NotEmpty;
+import lombok.Data;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+@Data
 public class CartResponseDTO {
 
-    private Long totalPrice;
+    private int totalItems;
 
-    @NotEmpty(message = "Invalid name, can not be empty" )
-    private Long totalItems;
+    private BigDecimal totalPrice;
+
+    private List<TrackCartResponseDTO> tracks;
 }

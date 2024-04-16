@@ -21,6 +21,6 @@ public class OrderPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("playlistDataList")
+    @JsonProperty("orders")
     private List<OrderResponseDTO> content;
 }

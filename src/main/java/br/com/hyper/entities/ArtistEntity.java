@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "ARTIST")
 @EqualsAndHashCode(callSuper = false)
-public class ArtistEntity implements Serializable {
+public class ArtistEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARTIST_SEQ")
@@ -28,15 +28,15 @@ public class ArtistEntity implements Serializable {
     private String username;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CUSTOMER", nullable = false)
     private CustomerEntity customer;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AlbumEntity> albums;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)
     private List<CartEntity> carts;
 
     @Column(name = "DESCRIPTION")
     private String description;
-
 }

@@ -21,6 +21,6 @@ public class CartPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("CollectionDataList")
+    @JsonProperty("carts")
     private List<CartResponseDTO> content;
 }

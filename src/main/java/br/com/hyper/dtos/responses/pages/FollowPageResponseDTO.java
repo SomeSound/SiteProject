@@ -24,6 +24,6 @@ public class FollowPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("userDataList")
+    @JsonProperty("follows")
     private List<FollowRequestDTO> content;
 }

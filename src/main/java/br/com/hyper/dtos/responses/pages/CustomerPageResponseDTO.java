@@ -25,6 +25,6 @@ public class CustomerPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("userDataList")
+    @JsonProperty("customers")
     private List<CustomerResponseDTO> content;
 }

@@ -23,6 +23,6 @@ public class ReviewPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("reviewDataList")
+    @JsonProperty("reviews")
     private List<ReviewResponseDTO> content;
 }

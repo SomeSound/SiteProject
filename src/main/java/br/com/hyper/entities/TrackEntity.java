@@ -28,8 +28,8 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "DURATION", nullable = false)
     private float duration;
 
-    @Column(name = "GENRE", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(name = "GENRE", nullable = false)
     private Genre genre;
 
     @Column(name = "PRICE", nullable = false)
@@ -44,10 +44,10 @@ public class TrackEntity extends BaseEntity implements Serializable {
     @Column(name = "ITUNES_ID")
     private Long itunesId;
 
-    @Column(name = "ARTIST_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ARTIST", nullable = false)
     private ArtistEntity artist;
 
     @Column(name = "PATH", nullable = false)
     private String path;
-
 }

@@ -10,7 +10,7 @@ import javax.validation.Valid;
 public interface CartService {
     CartResponseDTO save(@Valid CartRequestDTO cart);
 
-    CartPageResponseDTO find(String email, Pageable pageable);
+    CartPageResponseDTO find(Pageable pageable);
 
     CartResponseDTO update(Long id, CartRequestDTO artist);
 

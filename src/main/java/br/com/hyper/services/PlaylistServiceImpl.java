@@ -85,7 +85,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     public PlaylistResponseDTO addTrack(Long id, Long trackId) {
         PlaylistEntity playlist = findByIdOrThrowPlaylistDataNotFoundException(id);
         TrackEntity track = findByIdOrThrowTrackDataNotFoundException(id);
-        playlist.getTrackList().add(track);
+        playlist.getTracks().add(track);
         return modelMapper.map(playlist, PlaylistResponseDTO.class);
     }
 

@@ -23,6 +23,6 @@ public class PlaylistPageReponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("playlistDataList")
+    @JsonProperty("playlists")
     private List<PlaylistResponseDTO> content;
 }

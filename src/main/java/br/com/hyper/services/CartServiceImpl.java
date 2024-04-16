@@ -4,11 +4,13 @@ import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.requests.CartRequestDTO;
 import br.com.hyper.dtos.responses.CartResponseDTO;
 import br.com.hyper.dtos.responses.pages.CartPageResponseDTO;
+import br.com.hyper.entities.ArtistEntity;
 import br.com.hyper.entities.CartEntity;
 import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.exceptions.CartNotFoundException;
 import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.exceptions.InvalidCartDataException;
+import br.com.hyper.repositories.ArtistRepository;
 import br.com.hyper.repositories.CartRepository;
 import br.com.hyper.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -35,6 +38,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private final CustomerRepository customerRepository;
+
+    @Autowired
+    private final ArtistRepository artistRepository;
 
     @Override
     public CartResponseDTO save(@Valid CartRequestDTO cart) {
@@ -54,17 +60,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartPageResponseDTO find(String email, Pageable pageable) {
+    public CartPageResponseDTO find(Pageable pageable) {
 
         Page<CartEntity> cartEntities;
 
-        CustomerEntity customer =  findByEmailOrThrowUserDataNotFoundException(email);
+        cartEntities = cartRepository.findAll(pageable);
 
-        if(email != null){
-            cartEntities = cartRepository.findByCustomer(customer, pageable);
-        } else {
-            cartEntities = cartRepository.findAll(pageable);
-        }
         return modelMapper.map(cartEntities, CartPageResponseDTO.class);
     }
 
@@ -95,6 +96,11 @@ public class CartServiceImpl implements CartService {
 
     private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
         return customerRepository.findByEmail(email).orElseThrow(
+                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
+
+    private ArtistEntity findByArtistUsernameOrThrowUserDataNotFoundException(String username) {
+        return artistRepository.findByUsername(username).orElseThrow(
                 () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

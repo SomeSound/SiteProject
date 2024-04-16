@@ -24,6 +24,6 @@ public class TrackPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("content")
+    @JsonProperty("tracks")
     private List<TrackResponseDTO> content;
 }

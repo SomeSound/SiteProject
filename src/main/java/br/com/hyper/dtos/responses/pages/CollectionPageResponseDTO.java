@@ -23,6 +23,6 @@ public class CollectionPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("CollectionDataList")
+    @JsonProperty("collections")
     private List<CollectionResponseDTO> content;
 }
