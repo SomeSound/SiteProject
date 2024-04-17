@@ -52,7 +52,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/customer")
-    public ResponseEntity<CustomerPageResponseDTO> findAll(
+    public ResponseEntity<CustomerPageResponseDTO> find(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {

@@ -39,7 +39,7 @@ public class CartController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        CartPageResponseDTO response = cartService.find(pageable);
+        CartPageResponseDTO response = cartService.findAll(pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

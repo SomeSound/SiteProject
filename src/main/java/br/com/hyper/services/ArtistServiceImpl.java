@@ -49,23 +49,22 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     @Transactional
     public ArtistResponseDTO save(ArtistRequestDTO artistDTO) {
-
         try {
             CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(artistDTO.getEmail());
 
             ArtistEntity artist = modelMapper.map(artistDTO, ArtistEntity.class);
             artist.setCustomer(customer);
+            artist.setCredits(0);
+            artistRepository.save(artist);
 
             CartEntity cart = new CartEntity();
             cart.setTotalItems(0);
             cart.setTotalPrice(BigDecimal.ZERO);
             cart.setArtist(artist);
 
+            cartRepository.save(cart);
+
             artist.setCarts(List.of(cart));
-            artist = artistRepository.save(artist);
-
-//            cartRepository.save(cart);
-
             List<ArtistEntity> artists = customer.getArtistProfiles();
             artists.add(artist);
             customer.setRole(UserRole.ARTIST);
@@ -73,7 +72,7 @@ public class ArtistServiceImpl implements ArtistService {
             customerRepository.save(customer);
 
             return modelMapper.map(artist, ArtistResponseDTO.class);
-        } catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new InvalidArtistDataException(ErrorCodes.DUPLICATED_DATA,
                     ErrorCodes.DUPLICATED_DATA.getMessage());
         }

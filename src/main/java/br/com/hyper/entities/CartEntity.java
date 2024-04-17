@@ -29,7 +29,7 @@ public class CartEntity extends BaseEntity implements Serializable {
     private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "artist_id", nullable = false)
+    @JoinColumn(name = "ARTIST", nullable = false)
     private ArtistEntity artist;
 
     @ManyToMany(fetch = FetchType.EAGER)

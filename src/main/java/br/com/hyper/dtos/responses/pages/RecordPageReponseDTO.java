@@ -2,9 +2,11 @@ package br.com.hyper.dtos.responses.pages;
 
 import br.com.hyper.dtos.responses.RecordResponseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class RecordPageReponseDTO {
     private boolean last;
 

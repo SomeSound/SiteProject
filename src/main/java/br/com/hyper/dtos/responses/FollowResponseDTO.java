@@ -6,7 +6,6 @@ import lombok.Data;
 import java.time.ZonedDateTime;
 
 @Data
-
 public class FollowResponseDTO {
     private Long id;
     private CustomerEntity followingId;

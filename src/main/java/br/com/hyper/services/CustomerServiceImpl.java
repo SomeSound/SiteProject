@@ -108,9 +108,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerPageResponseDTO findAll(Pageable pageable) {
 
-        Page<CustomerEntity> customerEntities;
-
-        customerEntities = customerRepository.findAll(pageable);
+        Page<CustomerEntity> customerEntities = customerRepository.findAll(pageable);
 
         return modelMapper.map(customerEntities, CustomerPageResponseDTO.class);
     }

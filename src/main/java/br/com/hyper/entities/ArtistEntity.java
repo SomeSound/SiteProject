@@ -21,7 +21,7 @@ public class ArtistEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "ARTIST_SEQ", sequenceName = "ARTIST_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "CREDITS")
+    @Column(name = "CREDITS", nullable = false)
     private int credits;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
@@ -34,7 +34,7 @@ public class ArtistEntity extends BaseEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AlbumEntity> albums;
 
-    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartEntity> carts;
 
     @Column(name = "DESCRIPTION")

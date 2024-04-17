@@ -60,11 +60,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartPageResponseDTO find(Pageable pageable) {
+    public CartPageResponseDTO findAll(Pageable pageable) {
 
-        Page<CartEntity> cartEntities;
-
-        cartEntities = cartRepository.findAll(pageable);
+        Page<CartEntity> cartEntities = cartRepository.findAll(pageable);
 
         return modelMapper.map(cartEntities, CartPageResponseDTO.class);
     }
