@@ -5,8 +5,6 @@ import br.com.hyper.dtos.responses.FollowResponseDTO;
 import br.com.hyper.dtos.responses.pages.FollowPageResponseDTO;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface FollowService {
 
     FollowResponseDTO save(FollowRequestDTO user);

@@ -4,7 +4,7 @@ spring:
     show-sql: false
     generate-ddl: true
     hibernate:
-      ddl-auto: update # none
+      ddl-auto: none
   datasource:
     plataform: postgres
     url: jdbc:postgresql://hyper-tst.cj8syw0omc8e.us-east-1.rds.amazonaws.com:5432/hyper
@@ -12,7 +12,7 @@ spring:
     password: hyperPass # Alterar
     driverClassName: org.postgresql.Driver
   flyway:
-    enabled: false # true
+    enabled: true
     baseline-on-migrate: true
     out-of-order: true
     ignore-missing-migrations: false

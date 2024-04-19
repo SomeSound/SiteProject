@@ -1,5 +1,6 @@
 package br.com.hyper.controllers;
 
+import br.com.hyper.dtos.requests.CartRequestDTO;
 import br.com.hyper.dtos.responses.pages.ArtistPageResponseDTO;
 import br.com.hyper.services.ArtistService;
 import br.com.hyper.dtos.requests.ArtistRequestDTO;
@@ -28,6 +29,14 @@ public class ArtistController {
     public ResponseEntity<ArtistResponseDTO> save(@RequestBody @Valid ArtistRequestDTO artist) {
 
         ArtistResponseDTO response = artistService.save(artist);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping(value = "/artist/{id}/cart")
+    public ResponseEntity<ArtistResponseDTO> addCart(@PathVariable @Valid Long id, @RequestBody @Valid CartRequestDTO cart) {
+
+        ArtistResponseDTO response = artistService.addCart(id, cart);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

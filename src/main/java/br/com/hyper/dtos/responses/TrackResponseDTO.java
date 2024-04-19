@@ -11,5 +11,4 @@ public class TrackResponseDTO {
     private String genre;
     private String image;
     private int price;
-    private ArtistResponseDTO artist;
 }

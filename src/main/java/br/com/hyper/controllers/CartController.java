@@ -31,6 +31,14 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping(value = "/cart/{cartId}/track/{trackId}")
+    public ResponseEntity<CartResponseDTO> addTrack(@PathVariable Long cartId, @PathVariable Long trackId) {
+
+        CartResponseDTO response = cartService.addTrack(cartId, trackId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
     @GetMapping(value = "/cart")
     public ResponseEntity<CartPageResponseDTO> find(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class CartRequestDTO {
 
-    Long id;
+    private Long id;
 
-    String email;
+    private String name;
 }

@@ -4,15 +4,13 @@ import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.requests.CartRequestDTO;
 import br.com.hyper.dtos.responses.CartResponseDTO;
 import br.com.hyper.dtos.responses.pages.CartPageResponseDTO;
-import br.com.hyper.entities.ArtistEntity;
 import br.com.hyper.entities.CartEntity;
-import br.com.hyper.entities.CustomerEntity;
+import br.com.hyper.entities.TrackEntity;
 import br.com.hyper.exceptions.CartNotFoundException;
-import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.exceptions.InvalidCartDataException;
-import br.com.hyper.repositories.ArtistRepository;
+import br.com.hyper.exceptions.TrackException;
 import br.com.hyper.repositories.CartRepository;
-import br.com.hyper.repositories.CustomerRepository;
+import br.com.hyper.repositories.TrackRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -21,9 +19,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -34,16 +29,13 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
 
     @Autowired
+    private final TrackRepository trackRepository;
+
+    @Autowired
     private final ModelMapper modelMapper;
 
-    @Autowired
-    private final CustomerRepository customerRepository;
-
-    @Autowired
-    private final ArtistRepository artistRepository;
-
     @Override
-    public CartResponseDTO save(@Valid CartRequestDTO cart) {
+    public CartResponseDTO save(CartRequestDTO cart) {
 
         CartEntity cartEntity;
         try {
@@ -52,6 +44,31 @@ public class CartServiceImpl implements CartService {
             cartEntity = cartRepository.save(cartEntity);
 
             return modelMapper.map(cartEntity, CartResponseDTO.class);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new InvalidCartDataException(ErrorCodes.DUPLICATED_DATA,
+                    ErrorCodes.DUPLICATED_DATA.getMessage());
+        }
+    }
+
+    @Override
+    public CartResponseDTO addTrack(Long cartId, Long trackId) {
+
+        try {
+
+            CartEntity cart = findByIdOrThrowCartDataNotFoundException(cartId);
+            TrackEntity track = findByIdOrThrowTrackNotFoundException(trackId);
+
+            if(cart.getTracks().contains(track)) {
+                throw new TrackException(ErrorCodes.DUPLICATED_DATA,
+                        ErrorCodes.DUPLICATED_DATA.getMessage());
+            }
+
+            cart.getTracks().add(track);
+
+            cartRepository.save(cart);
+
+            return modelMapper.map(cart, CartResponseDTO.class);
 
         } catch (DataIntegrityViolationException e) {
             throw new InvalidCartDataException(ErrorCodes.DUPLICATED_DATA,
@@ -92,13 +109,8 @@ public class CartServiceImpl implements CartService {
                 () -> new CartNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
-    private CustomerEntity findByEmailOrThrowUserDataNotFoundException(String email) {
-        return customerRepository.findByEmail(email).orElseThrow(
-                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
-    }
-
-    private ArtistEntity findByArtistUsernameOrThrowUserDataNotFoundException(String username) {
-        return artistRepository.findByUsername(username).orElseThrow(
-                () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    private TrackEntity findByIdOrThrowTrackNotFoundException(Long id) {
+        return trackRepository.findById(id).orElseThrow(
+                () -> new TrackException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

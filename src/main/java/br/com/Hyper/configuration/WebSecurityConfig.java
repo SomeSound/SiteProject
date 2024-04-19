@@ -35,9 +35,11 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/track").hasAnyRole("ARTIST", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/track").permitAll()
                         .requestMatchers(HttpMethod.POST, "/customer").permitAll()
                         .requestMatchers(HttpMethod.POST, "/customer/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/track").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/album").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/artist").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(customerSecurityFilterUtil, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(e -> e.authenticationEntryPoint(unauthorizedEntryPoint())

@@ -22,6 +22,9 @@ public class CartEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "CART_SEQ", sequenceName = "CART_SEQ", allocationSize = 1)
     private Long id;
 
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
     @Column(name = "TOTAL_ITEMS", nullable = false)
     private int totalItems;
 

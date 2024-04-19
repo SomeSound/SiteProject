@@ -3,7 +3,6 @@ package br.com.hyper.controllers;
 import br.com.hyper.dtos.requests.TrackRequestDTO;
 import br.com.hyper.dtos.responses.pages.TrackPageResponseDTO;
 import br.com.hyper.services.TrackService;
-import br.com.hyper.dtos.responses.AlbumResponseDTO;
 import br.com.hyper.dtos.responses.TrackResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

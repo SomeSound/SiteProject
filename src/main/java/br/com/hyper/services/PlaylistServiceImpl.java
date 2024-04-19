@@ -7,7 +7,7 @@ import br.com.hyper.dtos.responses.pages.PlaylistPageReponseDTO;
 import br.com.hyper.entities.PlaylistEntity;
 import br.com.hyper.entities.TrackEntity;
 import br.com.hyper.exceptions.PlaylistNotFoundException;
-import br.com.hyper.exceptions.TrackNotFoundException;
+import br.com.hyper.exceptions.TrackException;
 import br.com.hyper.repositories.TrackRepository;
 import br.com.hyper.repositories.PlaylistRepository;
 import lombok.RequiredArgsConstructor;
@@ -106,6 +106,6 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
     private TrackEntity findByIdOrThrowTrackDataNotFoundException(Long id) {
         return trackRepository.findById(id).orElseThrow(
-                () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new TrackException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 }

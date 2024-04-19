@@ -15,4 +15,6 @@ public interface CartService {
     CartResponseDTO update(Long id, CartRequestDTO artist);
 
     void delete(Long id);
+
+    CartResponseDTO addTrack(Long cartId, Long trackId);
 }
