@@ -2,8 +2,8 @@ version: 0.0
 os: linux
 
 files:
-  - source: 'target/*.jar'
-    destination: '/home/Hyper/Hyper.jar'
+  - source: '/target/*.jar'
+    destination: '/home/Hyper/Hyper-0.0.1.jar'
 
 permissions:
   - object: '/home/Hyper/Hyper.jar'
