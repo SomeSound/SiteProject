@@ -6,7 +6,7 @@ phases:
       java: 'corretto21'
   build:
     commands:
-      - 'mvn package'
+      - 'mvn install'
 
 artifacts:
   files:
