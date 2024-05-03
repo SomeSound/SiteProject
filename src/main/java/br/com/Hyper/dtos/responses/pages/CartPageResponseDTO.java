@@ -2,9 +2,11 @@ package br.com.hyper.dtos.responses.pages;
 
 import br.com.hyper.dtos.responses.CartResponseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class CartPageResponseDTO {
     private boolean last;
 
@@ -21,6 +23,6 @@ public class CartPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("CollectionDataList")
+    @JsonProperty("carts")
     private List<CartResponseDTO> content;
 }

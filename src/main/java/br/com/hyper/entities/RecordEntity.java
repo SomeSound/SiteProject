@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "RECORD")
 @EqualsAndHashCode(callSuper = false)
 public class RecordEntity extends BaseEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECORD_SEQ")
     @SequenceGenerator(name = "RECORD_SEQ", sequenceName = "RECORD_SEQ", allocationSize = 1)
@@ -23,12 +24,12 @@ public class RecordEntity extends BaseEntity implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "COUNTRY")
+    @Column(name = "COUNTRY", nullable = false)
     private String country;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recordId")
-    private List<AlbumEntity> albumList;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AlbumEntity> albums;
 }

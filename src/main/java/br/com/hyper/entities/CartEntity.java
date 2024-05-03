@@ -22,15 +22,24 @@ public class CartEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "CART_SEQ", sequenceName = "CART_SEQ", allocationSize = 1)
     private Long id;
 
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
     @Column(name = "TOTAL_ITEMS", nullable = false)
     private int totalItems;
 
     @Column(name = "TOTAL_PRICE", nullable = false)
     private BigDecimal totalPrice;
 
-    @JoinColumn(name = "customer", nullable = false)
-    private CustomerEntity customer;
+    @ManyToOne
+    @JoinColumn(name = "ARTIST", nullable = false)
+    private ArtistEntity artist;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<TrackEntity> trackList;
+    @JoinTable(
+            name = "CART_TRACK",
+            joinColumns = @JoinColumn(name = "CART_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TRACK_ID")
+    )
+    private List<TrackEntity> tracks;
 }

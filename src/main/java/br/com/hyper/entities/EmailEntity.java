@@ -22,32 +22,25 @@ public class EmailEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "EMAIL_SEQ", sequenceName = "EMAIL_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "OWNER")
+    @Column(name = "OWNER", nullable = false)
     private String owner;
 
-    @Column(name = "EMAIL_FROM")
+    @Column(name = "EMAIL_FROM", nullable = false)
     private String emailFrom;
 
-    @Column(name = "SUBJECT")
+    @Column(name = "SUBJECT", nullable = false)
     private String subject;
 
-    @Column(name = "EMAIL_TO")
+    @Column(name = "EMAIL_TO", nullable = false)
     private String emailTo;
 
-    @Column(name = "TEXT")
+    @Column(name = "TEXT", nullable = false)
     private String text;
 
-    @Column(name = "SEND_DATE")
+    @Column(name = "SEND_DATE", nullable = false)
     private ZonedDateTime sendDate;
 
-    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "STATUS", nullable = false)
     private StatusEmail status;
-
-
 }
-
-
-
-
-

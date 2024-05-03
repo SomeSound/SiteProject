@@ -29,8 +29,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -108,9 +106,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerPageResponseDTO findAll(Pageable pageable) {
 
-        Page<CustomerEntity> customerEntities;
-
-        customerEntities = customerRepository.findAll(pageable);
+        Page<CustomerEntity> customerEntities = customerRepository.findAll(pageable);
 
         return modelMapper.map(customerEntities, CustomerPageResponseDTO.class);
     }

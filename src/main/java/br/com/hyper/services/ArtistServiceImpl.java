@@ -1,7 +1,9 @@
 package br.com.hyper.services;
 
 import br.com.hyper.constants.ErrorCodes;
+import br.com.hyper.dtos.requests.CartRequestDTO;
 import br.com.hyper.dtos.responses.pages.ArtistPageResponseDTO;
+import br.com.hyper.entities.CartEntity;
 import br.com.hyper.enums.UserRole;
 import br.com.hyper.exceptions.ArtistNotFoundException;
 import br.com.hyper.exceptions.InvalidArtistDataException;
@@ -10,6 +12,7 @@ import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.dtos.responses.ArtistResponseDTO;
 import br.com.hyper.repositories.ArtistRepository;
+import br.com.hyper.repositories.CartRepository;
 import br.com.hyper.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import br.com.hyper.entities.ArtistEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Slf4j
@@ -37,29 +41,38 @@ public class ArtistServiceImpl implements ArtistService {
     @Autowired
     private final CustomerRepository customerRepository;
 
+    @Autowired
+    private final CartRepository cartRepository;
+
     @Override
-    public ArtistResponseDTO save(ArtistRequestDTO artist) {
+    public ArtistResponseDTO save(ArtistRequestDTO artistDTO) {
+        try {
+            CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(artistDTO.getEmail());
 
-        ArtistEntity artistEntity;
-        try{
-            CustomerEntity customer = findByEmailOrThrowUserDataNotFoundException(artist.getEmail());
+            ArtistEntity artist = modelMapper.map(artistDTO, ArtistEntity.class);
+            artist.setCustomer(customer);
+            artist.setCredits(0);
+            artistRepository.save(artist);
 
-            artistEntity = modelMapper.map(artist, ArtistEntity.class);
-//            artistEntity.setCustomer(customer);
+            CartEntity cart = new CartEntity();
+            cart.setName("Principal");
+            cart.setTotalItems(0);
+            cart.setTotalPrice(BigDecimal.ZERO);
+            cart.setArtist(artist);
 
-            artistEntity = artistRepository.save(artistEntity);
+            artist.setCarts(List.of(cart));
+
+            cartRepository.save(cart);
 
             List<ArtistEntity> artists = customer.getArtistProfiles();
-            artists.add(artistEntity);
-
+            artists.add(artist);
             customer.setRole(UserRole.ARTIST);
             customer.setArtistProfiles(artists);
             customerRepository.save(customer);
 
-            return modelMapper.map(artistEntity, ArtistResponseDTO.class);
-        }catch (DataIntegrityViolationException e){
-            throw new InvalidArtistDataException(ErrorCodes.DUPLICATED_DATA,
-                    ErrorCodes.DUPLICATED_DATA.getMessage());
+            return modelMapper.map(artist, ArtistResponseDTO.class);
+        } catch (DataIntegrityViolationException e) {
+            throw new InvalidArtistDataException(ErrorCodes.DUPLICATED_DATA, ErrorCodes.DUPLICATED_DATA.getMessage());
         }
     }
 
@@ -82,6 +95,22 @@ public class ArtistServiceImpl implements ArtistService {
         ArtistEntity artistCurrent = findByIdOrThrowArtistDataNotFoundException(id);
 
         artistRepository.delete(artistCurrent);
+    }
+
+    @Override
+    public ArtistResponseDTO addCart(Long id, CartRequestDTO cartRequestDTO) {
+        ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(id);
+
+        CartEntity cart = modelMapper.map(cartRequestDTO, CartEntity.class);
+        cart.setTotalItems(0);
+        cart.setTotalPrice(BigDecimal.ZERO);
+        cart.setArtist(artist);
+
+        artist.getCarts().add(cart);
+
+        cartRepository.save(cart);
+
+        return modelMapper.map(artist, ArtistResponseDTO.class);
     }
 
     private ArtistEntity findByIdOrThrowArtistDataNotFoundException(Long id) {

@@ -23,7 +23,7 @@ public class CustomerEntity extends BaseEntity implements Serializable, UserDeta
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_SEQ")
-    @SequenceGenerator(name = "CUSTOMER_SEQ",sequenceName = "CUSTOMER_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "CUSTOMER_SEQ", sequenceName = "CUSTOMER_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "AVATAR")
@@ -45,10 +45,10 @@ public class CustomerEntity extends BaseEntity implements Serializable, UserDeta
     private String birthDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "SUBSCRIPTION_ID", nullable = false)
+    @JoinColumn(name = "SUBSCRIPTION", nullable = false)
     private SubscriptionEntity subscription;
 
-    @Column(name = "ROLE")
+    @JoinColumn(name = "ROLE", nullable = false)
     private UserRole role;
 
     @OneToMany(fetch = FetchType.EAGER)

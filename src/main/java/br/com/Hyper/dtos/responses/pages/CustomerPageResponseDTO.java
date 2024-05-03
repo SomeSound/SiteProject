@@ -1,13 +1,15 @@
 package br.com.hyper.dtos.responses.pages;
 
-import br.com.hyper.dtos.responses.ReviewResponseDTO;
+import br.com.hyper.dtos.requests.CustomerRequestDTO;
+import br.com.hyper.dtos.responses.CustomerResponseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class ReviewPageResponseDTO {
+public class CustomerPageResponseDTO {
+
     private boolean last;
 
     private boolean first;
@@ -23,6 +25,6 @@ public class ReviewPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("reviewDataList")
-    private List<ReviewResponseDTO> content;
+    @JsonProperty("customers")
+    private List<CustomerResponseDTO> content;
 }

@@ -23,9 +23,9 @@ public class SubscriptionEntity extends BaseEntity implements Serializable {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "_OPTION")
+    @Column(name = "_OPTION", nullable = false)
     private SubscriptionOption option;
 
-    @Column(name = "PRICE")
+    @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 }

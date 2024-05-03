@@ -3,7 +3,7 @@ package br.com.hyper.dtos.responses;
 import lombok.Data;
 
 @Data
-public class TrackResponseDTO {
+public class TrackCartResponseDTO {
 
     private Long id;
     private String name;

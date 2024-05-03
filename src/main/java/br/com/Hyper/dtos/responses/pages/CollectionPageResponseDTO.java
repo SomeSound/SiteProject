@@ -1,14 +1,13 @@
 package br.com.hyper.dtos.responses.pages;
 
-import br.com.hyper.dtos.requests.FollowRequestDTO;
+import br.com.hyper.dtos.responses.CollectionResponseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class FollowPageResponseDTO {
-
+public class CollectionPageResponseDTO {
     private boolean last;
 
     private boolean first;
@@ -24,6 +23,6 @@ public class FollowPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("userDataList")
-    private List<FollowRequestDTO> content;
+    @JsonProperty("collections")
+    private List<CollectionResponseDTO> content;
 }

@@ -1,13 +1,13 @@
 package br.com.hyper.dtos.responses.pages;
 
-import br.com.hyper.dtos.responses.CollectionResponseDTO;
+import br.com.hyper.dtos.responses.OrderResponseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class CollectionPageResponseDTO {
+public class OrderPageResponseDTO {
     private boolean last;
 
     private boolean first;
@@ -23,6 +23,6 @@ public class CollectionPageResponseDTO {
     @JsonProperty("page")
     private Integer number;
 
-    @JsonProperty("CollectionDataList")
-    private List<CollectionResponseDTO> content;
+    @JsonProperty("orders")
+    private List<OrderResponseDTO> content;
 }

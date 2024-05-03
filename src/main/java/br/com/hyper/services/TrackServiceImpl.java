@@ -2,7 +2,7 @@ package br.com.hyper.services;
 
 import br.com.hyper.dtos.responses.pages.TrackPageResponseDTO;
 import br.com.hyper.enums.Genre;
-import br.com.hyper.exceptions.TrackNotFoundException;
+import br.com.hyper.exceptions.TrackException;
 import br.com.hyper.repositories.TrackRepository;
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.responses.TrackResponseDTO;
@@ -18,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -121,12 +119,12 @@ public class TrackServiceImpl implements TrackService {
 
     private TrackEntity findByIdOrThrowTrackDataNotFoundException(Long id) {
         return trackRepository.findById(id).orElseThrow(
-                () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new TrackException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
     private ArtistEntity findByIdOrThrowArtistDataNotFoundException(Long id) {
         return artistRepository.findById(id).orElseThrow(
-                () -> new TrackNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+                () -> new TrackException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
 }

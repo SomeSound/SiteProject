@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "_ORDER")
+@Table(name = "ORDER_TABLE")
 @EqualsAndHashCode(callSuper = false)
 public class OrderEntity extends BaseEntity implements Serializable {
 
@@ -21,13 +21,13 @@ public class OrderEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "ORDER_SEQ", sequenceName = "ORDER_SEQ", allocationSize = 1)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER", nullable = false)
     private CustomerEntity customer;
 
-    @Column(name = "TOTAL_ITEMS")
+    @Column(name = "TOTAL_ITEMS", nullable = false)
     private int totalItems;
 
-    @Column(name = "TOTAL_PRICE")
+    @Column(name = "TOTAL_PRICE", nullable = false)
     private BigDecimal totalPrice;
-
 }

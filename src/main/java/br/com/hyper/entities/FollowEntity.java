@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "FOLLOWERS")
+@Table(name = "FOLLOW")
 @EqualsAndHashCode(callSuper = false)
 public class FollowEntity extends BaseEntity implements Serializable {
 
@@ -21,12 +21,11 @@ public class FollowEntity extends BaseEntity implements Serializable {
     @SequenceGenerator(name = "FOLLOW_SEQ", sequenceName = "FOLLOW_SEQ", allocationSize = 1)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER", nullable = false)
     private CustomerEntity customer;
 
-    @Column(name = "FOLLOWING_ID")
-    private CustomerEntity followingId;
-
-    @Column(name = "FOLLOW_DATE")
-    private ZonedDateTime followDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FOLLOWING", nullable = false)
+    private CustomerEntity following;
 }

@@ -31,16 +31,23 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping(value = "/cart/{cartId}/track/{trackId}")
+    public ResponseEntity<CartResponseDTO> addTrack(@PathVariable Long cartId, @PathVariable Long trackId) {
+
+        CartResponseDTO response = cartService.addTrack(cartId, trackId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
     @GetMapping(value = "/cart")
     public ResponseEntity<CartPageResponseDTO> find(
-            @RequestParam(value = "email", required = false) String email,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        CartPageResponseDTO response = cartService.find(email, pageable);
+        CartPageResponseDTO response = cartService.findAll(pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
