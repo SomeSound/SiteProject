@@ -58,9 +58,9 @@ public class ArtistController {
     @PutMapping(value = "/artist/{id}")
     public ResponseEntity<ArtistResponseDTO> update(@PathVariable Long id, @RequestBody @Valid ArtistRequestDTO artist) {
 
-//        ArtistResponseDTO response = artistService.update(id, artist);
+        ArtistResponseDTO response = artistService.update(id, artist);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ArtistResponseDTO());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping(value = "/artist/{id}")

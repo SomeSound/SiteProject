@@ -14,6 +14,8 @@ public interface ArtistService {
 
     ArtistPageResponseDTO find(List<String> names, Pageable pageable);
 
+    ArtistResponseDTO update(Long id,ArtistRequestDTO artist);
+
     void delete(Long id);
 
     ArtistResponseDTO addCart(Long id, CartRequestDTO cart);

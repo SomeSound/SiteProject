@@ -91,6 +91,17 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
+    public ArtistResponseDTO update(Long id, ArtistRequestDTO artist) {
+        ArtistEntity artistCurrent = findByIdOrThrowArtistDataNotFoundException(id);
+
+        artistCurrent.setUsername(artist.getUsername());
+
+        artistRepository.save(artistCurrent);
+
+        return modelMapper.map(artistCurrent, ArtistResponseDTO.class);
+    }
+
+    @Override
     public void delete(Long id) {
         ArtistEntity artistCurrent = findByIdOrThrowArtistDataNotFoundException(id);
 
