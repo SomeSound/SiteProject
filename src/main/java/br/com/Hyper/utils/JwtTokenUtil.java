@@ -36,6 +36,7 @@ public class JwtTokenUtil {
     public String refreshToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
+            System.out.println(token);
             String email = JWT.require(algorithm)
                     .withIssuer("Hyper")
                     .build()

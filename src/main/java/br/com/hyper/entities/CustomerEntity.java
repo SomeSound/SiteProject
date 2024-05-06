@@ -48,11 +48,14 @@ public class CustomerEntity extends BaseEntity implements Serializable, UserDeta
     @JoinColumn(name = "SUBSCRIPTION", nullable = false)
     private SubscriptionEntity subscription;
 
-    @JoinColumn(name = "ROLE", nullable = false)
-    private UserRole role;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<PlaylistEntity> playlists;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<ArtistEntity> artistProfiles;
+
+    @JoinColumn(name = "ROLE", nullable = false)
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

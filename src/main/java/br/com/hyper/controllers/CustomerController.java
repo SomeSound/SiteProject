@@ -7,6 +7,7 @@ import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
 import br.com.hyper.services.CustomerService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,11 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/refresh")
-    public ResponseEntity<TokenResponseDTO> refreshToken(@RequestBody @Valid String token) {
+    public ResponseEntity<TokenResponseDTO> refreshToken(HttpServletRequest http) {
+
+        String authHeader = http.getHeader("Authorization");
+
+        String token = authHeader.replace("Bearer ", "");
 
         TokenResponseDTO response = customerService.refreshToken(token);
 
