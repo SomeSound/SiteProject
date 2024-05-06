@@ -13,7 +13,7 @@ import br.com.hyper.exceptions.CustomerException;
 import br.com.hyper.repositories.CustomerRepository;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.repositories.SubscriptionRepository;
-import br.com.hyper.utils.CustomerTokenUtil;
+import br.com.hyper.utils.JwtTokenUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    private final CustomerTokenUtil customerTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     private final ModelMapper modelMapper;
@@ -88,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Authentication auth = authenticationManager.authenticate(login);
 
-        String token = customerTokenUtil.generateToken((CustomerEntity) auth.getPrincipal());
+        String token = jwtTokenUtil.generateToken((CustomerEntity) auth.getPrincipal());
 
         TokenResponseDTO tokenResponse = new TokenResponseDTO();
         tokenResponse.setToken(token);
@@ -99,6 +99,18 @@ public class CustomerServiceImpl implements CustomerService {
         response.setToken(tokenResponse);
 
         modelMapper.map(customer, response);
+
+        return response;
+    }
+
+    @Override
+    public TokenResponseDTO refreshToken(String token) {
+
+        String newToken = jwtTokenUtil.refreshToken(token);
+
+        TokenResponseDTO response = new TokenResponseDTO();
+
+        response.setToken(newToken);
 
         return response;
     }

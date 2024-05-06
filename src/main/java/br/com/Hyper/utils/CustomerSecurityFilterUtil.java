@@ -19,7 +19,7 @@ import java.io.IOException;
 public class CustomerSecurityFilterUtil extends OncePerRequestFilter {
 
     @Autowired
-    private CustomerTokenUtil customerTokenUtil;
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -29,7 +29,7 @@ public class CustomerSecurityFilterUtil extends OncePerRequestFilter {
         String token = recoverToken(request);
 
         if(token != null) {
-            String email = customerTokenUtil.validateToken(token);
+            String email = jwtTokenUtil.validateToken(token);
             UserDetails user = customerRepository.findByEmailUserDetails(email);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
@@ -45,13 +45,12 @@ public class CustomerSecurityFilterUtil extends OncePerRequestFilter {
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                logger.info(cookie);
                 if (cookie.getName().equals("token")) return cookie.getValue();
             }
         } else if(authHeader != null) {
             return authHeader.replace("Bearer ", "");
         }
-        return null;
 
+        return null;
     }
 }

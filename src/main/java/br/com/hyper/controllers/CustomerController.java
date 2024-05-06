@@ -2,6 +2,7 @@ package br.com.hyper.controllers;
 
 import br.com.hyper.dtos.requests.LoginRequestDTO;
 import br.com.hyper.dtos.responses.LoginResponseDTO;
+import br.com.hyper.dtos.responses.TokenResponseDTO;
 import br.com.hyper.dtos.responses.pages.CustomerPageResponseDTO;
 import br.com.hyper.dtos.requests.CustomerRequestDTO;
 import br.com.hyper.dtos.responses.CustomerResponseDTO;
@@ -38,6 +39,14 @@ public class CustomerController {
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO loginRequest, HttpServletResponse http) {
 
         LoginResponseDTO response = customerService.login(loginRequest, http);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/customer/refresh")
+    public ResponseEntity<TokenResponseDTO> refreshToken(@RequestBody @Valid String token) {
+
+        TokenResponseDTO response = customerService.refreshToken(token);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
