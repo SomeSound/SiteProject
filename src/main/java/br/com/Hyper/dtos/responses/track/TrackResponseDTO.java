@@ -1,4 +1,4 @@
-package br.com.hyper.dtos.responses;
+package br.com.hyper.dtos.responses.track;
 
 import lombok.Data;
 
@@ -11,4 +11,5 @@ public class TrackResponseDTO {
     private String genre;
     private String image;
     private int price;
+    private TrackArtistResponseDTO artist;
 }

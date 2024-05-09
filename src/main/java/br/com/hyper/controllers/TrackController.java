@@ -3,7 +3,7 @@ package br.com.hyper.controllers;
 import br.com.hyper.dtos.requests.TrackRequestDTO;
 import br.com.hyper.dtos.responses.pages.TrackPageResponseDTO;
 import br.com.hyper.services.TrackService;
-import br.com.hyper.dtos.responses.TrackResponseDTO;
+import br.com.hyper.dtos.responses.track.TrackResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

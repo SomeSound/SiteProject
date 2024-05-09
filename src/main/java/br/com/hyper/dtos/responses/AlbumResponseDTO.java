@@ -1,5 +1,6 @@
 package br.com.hyper.dtos.responses;
 
+import br.com.hyper.dtos.responses.track.TrackResponseDTO;
 import lombok.Data;
 
 import java.time.ZonedDateTime;

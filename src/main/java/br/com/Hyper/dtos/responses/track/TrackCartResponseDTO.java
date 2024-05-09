@@ -1,4 +1,4 @@
-package br.com.hyper.dtos.responses;
+package br.com.hyper.dtos.responses.track;
 
 import lombok.Data;
 

@@ -2,7 +2,7 @@ package br.com.hyper.services;
 
 import br.com.hyper.dtos.requests.TrackRequestDTO;
 import br.com.hyper.dtos.responses.pages.TrackPageResponseDTO;
-import br.com.hyper.dtos.responses.TrackResponseDTO;
+import br.com.hyper.dtos.responses.track.TrackResponseDTO;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

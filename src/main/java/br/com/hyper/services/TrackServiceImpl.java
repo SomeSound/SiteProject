@@ -5,7 +5,7 @@ import br.com.hyper.enums.Genre;
 import br.com.hyper.exceptions.TrackException;
 import br.com.hyper.repositories.TrackRepository;
 import br.com.hyper.constants.ErrorCodes;
-import br.com.hyper.dtos.responses.TrackResponseDTO;
+import br.com.hyper.dtos.responses.track.TrackResponseDTO;
 import br.com.hyper.entities.ArtistEntity;
 import br.com.hyper.dtos.requests.TrackRequestDTO;
 import br.com.hyper.entities.TrackEntity;

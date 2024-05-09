@@ -1,5 +1,6 @@
 package br.com.hyper.dtos.responses;
 
+import br.com.hyper.dtos.responses.track.TrackCartResponseDTO;
 import lombok.Data;
 
 import java.math.BigDecimal;
