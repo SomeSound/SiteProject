@@ -25,11 +25,9 @@ public class TrackController {
     private final TrackService trackService;
 
     @PostMapping(value = "/track", consumes = { "multipart/form-data" })
-    public ResponseEntity<TrackResponseDTO> create(
-            @RequestParam(value = "artistId") Long artistId,
-            @ModelAttribute(value = "track") @Valid TrackRequestDTO track) {
+    public ResponseEntity<TrackResponseDTO> create(@ModelAttribute @Valid TrackRequestDTO track) {
 
-        TrackResponseDTO response = trackService.save(track, artistId);
+        TrackResponseDTO response = trackService.save(track);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -38,7 +36,7 @@ public class TrackController {
     public ResponseEntity<TrackPageResponseDTO> find(
             @RequestParam(value = "genres", required = false) List<String> genres,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
+            @RequestParam(value = "sort", defaultValue = "sort", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);

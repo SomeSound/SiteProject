@@ -39,9 +39,9 @@ public class TrackServiceImpl implements TrackService {
     private final AmazonBucketS3 amazonBucketS3;
 
     @Override
-    public TrackResponseDTO save(TrackRequestDTO track, Long artistId) {
+    public TrackResponseDTO save(TrackRequestDTO track) {
 
-        ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(artistId);
+        ArtistEntity artist = findByIdOrThrowArtistDataNotFoundException(track.getArtistId());
 
         TrackEntity trackEntity = TrackEntity.builder()
                 .name(track.getName())

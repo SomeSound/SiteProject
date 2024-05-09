@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TrackService {
 
-    TrackResponseDTO save(TrackRequestDTO track, Long artistId);
+    TrackResponseDTO save(TrackRequestDTO track);
 
     TrackPageResponseDTO find(List<String> genres, Pageable pageable);
 

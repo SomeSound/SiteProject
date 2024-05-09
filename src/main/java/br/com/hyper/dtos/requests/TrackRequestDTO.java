@@ -20,7 +20,10 @@ public class TrackRequestDTO {
     @NotEmpty(message = "Invalid image, can not be empty")
     private String image;
 
-    @NotEmpty(message = "Invalid image, can not be empty")
+    @NotEmpty(message = "Invalid file, can not be empty")
     private MultipartFile file;
+
+    @NotEmpty(message = "Invalid artistId, can not be empty")
+    private Long artistId;
 
 }
