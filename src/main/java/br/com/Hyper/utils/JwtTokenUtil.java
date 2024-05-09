@@ -8,9 +8,9 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Date;
 
 @Service
 public class JwtTokenUtil {
@@ -21,11 +21,10 @@ public class JwtTokenUtil {
     public String generateToken(CustomerEntity customer) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            Date expirationDate = generateExpirationDate();
             return JWT.create()
                     .withIssuer("Hyper")
                     .withSubject(customer.getEmail())
-                    .withExpiresAt(expirationDate)
+                    .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
 
         } catch(JWTCreationException exception) {
@@ -36,17 +35,11 @@ public class JwtTokenUtil {
     public String refreshToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            System.out.println(token);
-            String email = JWT.require(algorithm)
-                    .withIssuer("Hyper")
-                    .build()
-                    .verify(token)
-                    .getSubject();
-            Date expirationDate = generateExpirationDate();
+            String email = validateToken(token);
             return JWT.create()
                     .withIssuer("Hyper")
                     .withSubject(email)
-                    .withExpiresAt(expirationDate)
+                    .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
 
         } catch (JWTVerificationException exception) {
@@ -68,8 +61,7 @@ public class JwtTokenUtil {
         }
     }
 
-    private Date generateExpirationDate() {
-        LocalDateTime localDateTime = LocalDateTime.now().plusHours(2); // 2 horas de expiração
-        return Date.from(localDateTime.toInstant(ZoneOffset.UTC));
+    private Instant generateExpirationDate() {
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
     }
 }

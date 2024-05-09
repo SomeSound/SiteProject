@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class TrackController {
     @PostMapping(value = "/track", consumes = { "multipart/form-data" })
     public ResponseEntity<TrackResponseDTO> create(
             @RequestParam(value = "artistId") Long artistId,
-            @ModelAttribute(value = "track") TrackRequestDTO track) {
+            @ModelAttribute(value = "track") @Valid TrackRequestDTO track) {
 
         TrackResponseDTO response = trackService.save(track, artistId);
 

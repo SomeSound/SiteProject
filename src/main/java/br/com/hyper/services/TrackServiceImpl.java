@@ -89,7 +89,6 @@ public class TrackServiceImpl implements TrackService {
         TrackEntity trackCurrent = findByIdOrThrowTrackDataNotFoundException(id);
 
         trackCurrent.setName(track.getName());
-        trackCurrent.setDuration(track.getDuration());
 
         trackRepository.save(trackCurrent);
 
