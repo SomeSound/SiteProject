@@ -38,10 +38,5 @@ api:
       secret: ${JWT_SECRET:lala}
 
 server:
-  port: 443
-  ssl:
-    enabled: true
-    key-store: /home/Hyper/SSL.p12
-    key-store-password: hyperPass
-    key-store-type: PKCS12
-    key-alias: hyperAlias
+  port: 8080
+
