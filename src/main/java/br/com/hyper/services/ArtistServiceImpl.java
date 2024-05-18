@@ -2,6 +2,7 @@ package br.com.hyper.services;
 
 import br.com.hyper.constants.ErrorCodes;
 import br.com.hyper.dtos.requests.CartRequestDTO;
+import br.com.hyper.dtos.responses.artist.ArtistTrackResponseDTO;
 import br.com.hyper.dtos.responses.pages.ArtistPageResponseDTO;
 import br.com.hyper.entities.CartEntity;
 import br.com.hyper.enums.UserRole;
@@ -10,7 +11,7 @@ import br.com.hyper.exceptions.InvalidArtistDataException;
 import br.com.hyper.dtos.requests.ArtistRequestDTO;
 import br.com.hyper.entities.CustomerEntity;
 import br.com.hyper.exceptions.CustomerException;
-import br.com.hyper.dtos.responses.ArtistResponseDTO;
+import br.com.hyper.dtos.responses.artist.ArtistResponseDTO;
 import br.com.hyper.repositories.ArtistRepository;
 import br.com.hyper.repositories.CartRepository;
 import br.com.hyper.repositories.CustomerRepository;
@@ -77,17 +78,19 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public ArtistPageResponseDTO find(List<String> username, Pageable pageable) {
+    public ArtistPageResponseDTO find(Pageable pageable) {
 
         Page<ArtistEntity> artistEntities;
 
-        if(username != null){
-            artistEntities = artistRepository.findByUsernamePage(username, pageable);
-        } else {
-            artistEntities = artistRepository.findAll(pageable);
-        }
+        artistEntities = artistRepository.findAll(pageable);
 
         return modelMapper.map(artistEntities, ArtistPageResponseDTO.class);
+    }
+
+    @Override
+    public ArtistTrackResponseDTO findByUsername(String username) {
+        ArtistEntity artist = findByUsernameOrThrowArtistDataNotFoundException(username);
+        return modelMapper.map(artist, ArtistTrackResponseDTO.class);
     }
 
     @Override
@@ -123,4 +126,8 @@ public class ArtistServiceImpl implements ArtistService {
                 () -> new CustomerException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
     }
 
+    private ArtistEntity findByUsernameOrThrowArtistDataNotFoundException(String username) {
+        return artistRepository.findByUsername(username).orElseThrow(
+                () -> new ArtistNotFoundException(ErrorCodes.DATA_NOT_FOUND, ErrorCodes.DATA_NOT_FOUND.getMessage()));
+    }
 }

@@ -1,7 +1,6 @@
 package br.com.hyper.dtos.responses.pages;
 
-import br.com.hyper.dtos.requests.ArtistRequestDTO;
-import br.com.hyper.dtos.responses.ArtistResponseDTO;
+import br.com.hyper.dtos.responses.artist.ArtistResponseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 

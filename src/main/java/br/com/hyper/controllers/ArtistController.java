@@ -1,10 +1,11 @@
 package br.com.hyper.controllers;
 
 import br.com.hyper.dtos.requests.CartRequestDTO;
+import br.com.hyper.dtos.responses.artist.ArtistTrackResponseDTO;
 import br.com.hyper.dtos.responses.pages.ArtistPageResponseDTO;
 import br.com.hyper.services.ArtistService;
 import br.com.hyper.dtos.requests.ArtistRequestDTO;
-import br.com.hyper.dtos.responses.ArtistResponseDTO;
+import br.com.hyper.dtos.responses.artist.ArtistResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -43,16 +43,23 @@ public class ArtistController {
 
     @GetMapping(value = "/artist")
     public ResponseEntity<ArtistPageResponseDTO> find(
-            @RequestParam(value = "names", required = false) List<String> names,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "sort", defaultValue = "UNSORT", required = false) String sort,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        ArtistPageResponseDTO response = artistService.find(names, pageable);
+        ArtistPageResponseDTO response = artistService.find(pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "/artist/:username")
+    public ResponseEntity<ArtistTrackResponseDTO> findByUsername(@RequestParam String username) {
+
+        ArtistTrackResponseDTO response = artistService.findByUsername(username);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping(value = "/artist/{id}")

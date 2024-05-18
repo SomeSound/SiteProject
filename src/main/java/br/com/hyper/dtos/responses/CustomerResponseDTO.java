@@ -1,5 +1,6 @@
 package br.com.hyper.dtos.responses;
 
+import br.com.hyper.dtos.responses.artist.ArtistResponseDTO;
 import lombok.Data;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package br.com.hyper.dtos.responses;
 
-import br.com.hyper.dtos.responses.track.TrackCartResponseDTO;
+import br.com.hyper.dtos.responses.track.TrackResponseDTO;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,5 +13,5 @@ public class CartResponseDTO {
     private String name;
     private int totalItems;
     private BigDecimal totalPrice;
-    private List<TrackCartResponseDTO> tracks;
+    private List<TrackResponseDTO> tracks;
 }
