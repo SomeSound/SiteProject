@@ -38,7 +38,7 @@ api:
       secret: ${JWT_SECRET:lala}
 
 server:
-  port: 8443
+  port: 8080
   ssl:
     enabled: true
     key-store: /home/Hyper/SSL.p12
